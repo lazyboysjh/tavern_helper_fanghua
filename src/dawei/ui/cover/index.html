@@ -8,7 +8,7 @@
 
   <meta name="viewport" content="width=device-width,initial-scale=1">
 
-  <title>天可汗</title>
+  <title>大魏芳华</title>
 
   <style>
 
@@ -3746,13 +3746,13 @@
 
       <div class="mnx-topbar">
 
-        <div class="mnx-chip">东晋 · 会稽</div>
+        <div class="mnx-chip">景初三年 · 平原郡</div>
 
         <button class="mnx-theme" id="mnxThemeBtn" type="button">切换风格</button>
 
       </div>
 
-      <div class="mnx-title">天可汗<span>卫国公</span></div>
+      <div class="mnx-title">大魏芳华<span>秦氏守孝</span></div>
 </div>
 
 
@@ -3793,7 +3793,7 @@
 
         <span class="mnx-colophon-lines left"></span>
 
-        <span class="mnx-foot-main">天可汗 · 景云二年长安</span>
+        <span class="mnx-foot-main">大魏芳华 · 景初三年冀州</span>
 
         <span class="mnx-colophon-lines right"></span>
 
@@ -3811,67 +3811,21 @@
     // 角色数据，新增 images 数组用于双图展示
 
     const PERSONAS = [
-  { mark: "宇", name: "宇文姬", role: "长安女神医 · 冯元俊未婚妻", copy: "女扮男装时黛眉朱唇，娇媚非常；佛前祈祷时肃静，被揶揄会微红。", images: [] },
-  { mark: "三", name: "三娘", role: "宇文家收养之孤儿 · 女无常", copy: "蒙面黑衣，皮肤白得毫无血色；声音低沉沙哑，遇险时仍不肯轻易示弱。", images: [] },
-  { mark: "裴", name: "裴娘", role: "薛府厨娘之女 · 近侍", copy: "瓜子脸带稚气，黑眼睛水灵，纤直脖颈稚嫩洁白。", images: [] },
-  { mark: "蒙", name: "蒙小雨", role: "水云间歌妓", copy: "清秀脸略施脂粉，身段婀娜，雨中遇伞会抬眼一笑。", images: [] },
-  { mark: "白", name: "白无常", role: "宇文家暗线 · 白无常", copy: "一头银丝，脸光滑无纹，纯美安静，像从画里走出来的人。", images: [] },
-  { mark: "金", name: "金城公主", role: "章怀太子孙女 · 宗室公主", copy: "美丽脸庞难以形容，秀发如丝，美目顾盼，肌肤光洁似玉。", images: [] },
-  { mark: "程", name: "程婷", role: "太平公主府侍女", copy: "鹅蛋脸，气质温柔含蓄，浅色襦裙遮得严严实实。", images: [] },
-  { mark: "平", name: "太平公主", role: "镇国公主 · {{user}}生母", copy: "体态丰满，高鬓盛装，艳丽非常，朝局角力中手腕极硬。", images: [] }
+  { mark: "张", name: "张氏", role: "嫂嫂 · 秦家庄持家", copy: "脸饱满圆润，素衣白布巾；兄困清河时护小叔、劝仕心切。", images: [] },
+  { mark: "董", name: "董氏", role: "庄邻 · 王康之妻", copy: "旧布粗衣，脖颈白净；麦田里添了几分鲜活气息。", images: [] },
+  { mark: "令", name: "王令君", role: "淮南王氏 · 婚约有议", copy: "瓜子脸明艳如玉，礼法一丝不苟；扇子遮面时也难掩仪态。", images: [] },
+  { mark: "玄", name: "王玄姬", role: "王家幼女", copy: "王家二姐，性情与令君迥异；淮南风声里常闻其名。", images: [] },
+  { mark: "卢", name: "卢氏", role: "太学故人 · 驿城", copy: "声清脆语气好，清河案中或为兄长一线生机。", images: [] },
+  { mark: "朝", name: "朝云", role: "平康坊 · 剑舞", copy: "婀娜柔韧似柳，剑舞时鼓急人目不敢离。", images: [] }
 ];
-
-
 
 const OPENINGS = [
   {
     "no": "01",
     "swipe": 1,
-    "title": "千福寺 · 佛前偶遇",
-    "meta": ["日西", "千福寺", "宇文姬"],
-    "summary": "景云二年日西斜，赴公主府问安尚早，入千福寺偶遇正在祈祷的宇文姬。"
-  },
-  {
-    "no": "02",
-    "swipe": 2,
-    "title": "古寺巷 · 夜救蒙面女",
-    "meta": ["夜", "古寺巷", "三娘"],
-    "summary": "问安后家宴未成，夜归安邑坊，于古寺巷救下被追杀的蒙面女子。"
-  },
-  {
-    "no": "03",
-    "swipe": 3,
-    "title": "大秦寺 · 雨中赠伞",
-    "meta": ["雨", "大秦寺", "蒙小雨"],
-    "summary": "春雨中的大秦寺，问安途中躲雨，赠伞予一名素不相识的秀丽女子。"
-  },
-  {
-    "no": "04",
-    "swipe": 4,
-    "title": "公主府 · 雨中进言",
-    "meta": ["雨", "镇国太平公主府", "太平公主"],
-    "summary": "细雨中，于公主府回廊向太平公主进言：想尽一切办法，杀掉太子。"
-  },
-  {
-    "no": "05",
-    "swipe": 5,
-    "title": "麟德殿 · 初见金城",
-    "meta": ["端午", "大明宫", "金城公主"],
-    "summary": "端午麟德殿宴前，初见金城公主，惊艳之余不慎踩住其裙摆。"
-  },
-  {
-    "no": "06",
-    "swipe": 6,
-    "title": "卫国公府 · 裴娘暖阁",
-    "meta": ["夜", "卫国公府", "裴娘"],
-    "summary": "自氤氲斋归来后，于暖阁夜读；厨娘之女裴娘依庞二先前所传，夜来叩门。"
-  },
-  {
-    "no": "07",
-    "swipe": 7,
-    "title": "氤氲斋 · 沐蒸审问",
-    "meta": ["夜", "氤氲斋", "三娘"],
-    "summary": "古寺巷救人之后，将蒙面女子带入氤氲斋，于烧石沐蒸的小木屋中审问其来历。"
+    "title": "平原郡 · 守孝暮膳",
+    "meta": ["暮", "秦家庄", "张氏"],
+    "summary": "景初三年五月暮，守孝于秦家庄；嫂氏端膳，话及兄困清河与田间麦收。"
   }
 ];
 
@@ -3956,7 +3910,7 @@ const OPENINGS = [
         }
         return true;
       } catch (err) {
-        console.warn("[天可汗封面] MVU 同步失败:", err);
+        console.warn("[大魏芳华封面] MVU 同步失败:", err);
         return false;
       }
     }

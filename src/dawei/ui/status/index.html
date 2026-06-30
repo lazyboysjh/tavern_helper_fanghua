@@ -5149,7 +5149,10 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       '</span></div>' +
       '<div class="dwf-kv-row"><span class="dwf-kv-k">状态</span><span class="dwf-kv-v">' +
       esc(hero['当前状态'] || '—') +
-      '</span></div></div></div>' +
+      '</span></div>' +
+      (hero['官爵'] ? '<div class="dwf-kv-row"><span class="dwf-kv-k">官爵</span><span class="dwf-kv-v">' + esc(hero['官爵']) + '</span></div>' : '') +
+      (hero['底盘'] ? '<div class="dwf-kv-row"><span class="dwf-kv-k">底盘</span><span class="dwf-kv-v">' + esc(hero['底盘']) + '</span></div>' : '') +
+      '</div></div>' +
       '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-key"></i>关键线索</span></div>' +
       clueHtml +
       '</div>' +
