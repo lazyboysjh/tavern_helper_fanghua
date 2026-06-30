@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>大魏芳华 · 状态栏预览</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      background: #121214;
+      color: #ececed;
+      display: flex;
+      flex-direction: column;
+    }
+    .preview-bar {
+      flex-shrink: 0;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      background: rgba(22,22,26,.95);
+      z-index: 10;
+    }
+    .preview-bar h1 {
+      margin: 0 12px 0 0;
+      font-size: 14px;
+      font-weight: 700;
+      color: #b89465;
+    }
+    .preview-bar p {
+      margin: 0;
+      font-size: 12px;
+      color: #a1a1aa;
+      flex: 1 1 220px;
+    }
+    .preview-bar button {
+      border: 1px solid rgba(184,148,101,.35);
+      background: rgba(184,148,101,.12);
+      color: #f0e6d8;
+      border-radius: 8px;
+      padding: 6px 11px;
+      font-size: 12px;
+      cursor: pointer;
+    }
+    .preview-bar button.on {
+      background: #b89465;
+      color: #1a1410;
+      border-color: #b89465;
+    }
+    .preview-bar button.tab-btn {
+      border-color: rgba(106,140,175,.4);
+      background: rgba(106,140,175,.12);
+    }
+    .preview-bar button.tab-btn.on {
+      background: #6a8caf;
+      color: #0f1418;
+    }
+    #frame {
+      flex: 1;
+      width: 100%;
+      border: 0;
+      min-height: 0;
+      background: #0f0f11;
+    }
+  </style>
+</head>
+<body>
+  <div class="preview-bar">
+    <h1>状态栏预览</h1>
+    <p>下方状态栏内 <b>粉黛/天机/风闻/历事</b> 可点。默认打开风闻看机宜。</p>
+    <button type="button" class="scene on" data-scene="luoyang">洛阳·剑舞 24</button>
+    <button type="button" class="scene" data-scene="huainan">淮南·施水 40</button>
+    <button type="button" class="scene" data-scene="pingyuan">平原·守孝 1</button>
+    <button type="button" class="tab-btn" data-tab="tianji">天机</button>
+    <button type="button" class="tab-btn on" data-tab="fengxin">风闻</button>
+    <button type="button" class="tab-btn" data-tab="lishi">历事</button>
+    <button type="button" class="tab-btn" data-tab="fende">粉黛</button>
+  </div>
+  <iframe id="frame" title="大魏芳华状态栏" src="index.html?dwf_preview=1"></iframe>
+  <script>
+    var PREVIEW_KEY = '__dwf_preview_stat__';
+    var TAB_KEY = '__dwf_preview_tab__';
+
+    var BASE = {
+      朝局: {
+        皇帝: '曹芳',
+        法统: '魏室',
+        权柄: '曹爽',
+        纪年: { 年号: '景初', 年数: '三', 干支: '戊午' },
+      },
+      命途: { 标签: ['仕进'], 已锁: [], 主导: null },
+      命途印记: { 清河: '救人' },
+      鼎革纪: {
+        洛阳权柄: '司马懿控朝',
+        大将军: '曹爽',
+        曹芳: '在位',
+        郭太后: '永宁宫',
+        蜀汉: '未亡',
+        孙吴: '尚存',
+        禅代: '未发生',
+        伐吴: '未举',
+        东兴: '未战',
+      },
+      风闻录: {
+        机宜: { 津渡: {}, 支汊: {} },
+          邸报: {
+            大将军府: '曹爽开府置僚，洛阳士子多往投幕。',
+            淮南: '王凌镇扬州，江淮间军情日紧。',
+        },
+        里巷: {
+          平康坊: '坊间传闻，有剑舞名伎今夜毛遂自荐，为某新入府掾属献舞。',
+        },
+      },
+      房名次: {},
+      子嗣: {},
+    };
+
+    var SCENES = {
+      luoyang: {
+        世界与剧情: {
+          行程: 24,
+          当前地点: '洛阳·大将军府',
+          当前互动角色: '朝云',
+          当前场景角色: '朝云、曹爽幕僚',
+          已终局: false,
+          天时: { 月: '九', 旬: '中旬', 时辰: '夜', 显示: '景初三年九月中旬·夜' },
+        },
+        主角: {
+          当前位置: '洛阳·大将军府·堂会',
+          当前状态: '应辟入洛，随府宴饮观剑舞',
+        },
+        主角势力: {
+          官爵: '大将军府掾',
+          阵营: '曹爽',
+          部曲: 0,
+          根基: '洛阳寓所',
+        },
+        履历: {
+          '001': '景初三年·平原郡·应召入仕',
+          '002': '景初三年·清河郡·兄困清河',
+          '003': '景初三年·洛阳·入大将军府',
+        },
+        群芳录: {
+          朝云: {
+            是否登场: true,
+            当前位置: '洛阳·大将军府',
+            好感度: 12,
+            好感度上限: 100,
+            服饰: '月白色窄衣裙，腰系紧带',
+            外貌: '婀娜多姿，柔韧似柳',
+            当前状态: '剑舞既毕，候人开口',
+            心里想法: '这位新入府的掾属，可愿赐句？',
+            心情: '期待',
+            与user关系: '陌路',
+            有孕: false,
+            子嗣数: 0,
+          },
+        },
+        风闻录: {
+          机宜: {
+            津渡: {},
+            支汊: {
+              朝云舞剑: {
+                因由: '支汊·朝云舞剑：朝云舞剑惊艳，名伶与秦府缘分初起',
+                火急: 4,
+                相关人物: '朝云',
+                建议地点: '洛阳·曹府',
+                开启行程: 20,
+                截止行程: 28,
+                目标: {
+                  目标1: '前往洛阳·曹府',
+                  目标2: '与朝云推进此事',
+                  目标3: '收束朝云舞剑惊艳',
+                },
+                演完写入: {
+                  命途印记: { 朝云: '相识' },
+                },
+              },
+            },
+          },
+          邸报: {
+            大将军府: '曹爽开府置僚，洛阳士子多往投幕。',
+            淮南: '王凌镇扬州，江淮间军情日紧。',
+          },
+          里巷: {
+            平康坊: '坊间传闻，有剑舞名伎今夜毛遂自荐，为某新入府掾属献舞。',
+          },
+        },
+      },
+      huainan: {
+        世界与剧情: {
+          行程: 40,
+          当前地点: '淮南·施水废城',
+          当前互动角色: '孙礼',
+          当前场景角色: '孙礼、随行将佐',
+          已终局: false,
+          天时: { 月: '正', 旬: '上旬', 时辰: '昼', 显示: '正始元年正月上旬·昼' },
+        },
+        主角: {
+          当前位置: '施水畔·合肥旧城丘台',
+          当前状态: '先行南下探察江淮，候扬州刺史孙礼至',
+        },
+        主角势力: {
+          官爵: '讨虏将军司马',
+          阵营: '王凌',
+          部曲: 80,
+          根基: '淮南军寨',
+        },
+        履历: {
+          '001': '景初三年·平原郡·应召入仕',
+          '002': '景初三年·洛阳·入大将军府',
+        },
+        群芳录: {},
+      },
+      pingyuan: {
+        世界与剧情: {
+          行程: 1,
+          当前地点: '平原郡·秦家庄',
+          当前互动角色: '张氏',
+          当前场景角色: '张氏',
+          已终局: false,
+          天时: { 月: '五', 旬: '上旬', 时辰: '暮', 显示: '景初三年五月上旬·暮' },
+        },
+        主角: {
+          当前位置: '秦家庄·内院',
+          当前状态: '守孝中，晚膳后与嫂子说话',
+        },
+        主角势力: { 官爵: '', 阵营: '无', 部曲: 0, 根基: '平原秦氏庄园' },
+        履历: {},
+        群芳录: {
+          张氏: {
+            是否登场: true,
+            当前位置: '平原郡·秦家庄',
+            好感度: 50,
+            好感度上限: 100,
+            服饰: '素衣，头发上系着一块白布巾',
+            外貌: '脸饱满圆润，身材颇为丰腴',
+            当前状态: '端膳劝小叔',
+            心里想法: '这孩子，总得有人推他一把。',
+            心情: '焦急',
+            与user关系: '嫂嫂',
+            有孕: false,
+            子嗣数: 0,
+          },
+        },
+        风闻录: {
+          机宜: {
+            津渡: {},
+            支汊: {
+              嫂子劝仕: {
+                因由: '支汊·嫂子劝仕：嫂子张氏劝小叔出仕，守孝与前途之争',
+                火急: 2,
+                相关人物: '张氏',
+                建议地点: '秦家庄',
+                开启行程: 3,
+                截止行程: 8,
+                目标: {
+                  目标1: '前往秦家庄',
+                  目标2: '与张氏谈明此事',
+                  目标3: '收束嫂子张氏劝小叔出仕',
+                },
+                演完写入: {},
+              },
+            },
+          },
+          邸报: {},
+          里巷: { 秦家庄: '何尚书礼聘风声又起，庄外时有青衣人观望。' },
+        },
+      },
+    };
+
+    var currentScene = 'luoyang';
+    var currentTab = 'fengxin';
+    var frame = document.getElementById('frame');
+
+    function buildStat(sceneKey) {
+      var scene = SCENES[sceneKey] || SCENES.luoyang;
+      var stat = JSON.parse(JSON.stringify(BASE));
+      Object.keys(scene).forEach(function (k) {
+        if (k === '风闻录' && scene[k]) {
+          stat[k] = Object.assign({}, stat[k] || {}, scene[k]);
+        } else {
+          stat[k] = scene[k];
+        }
+      });
+      return stat;
+    }
+
+    function persistAndReload() {
+      sessionStorage.setItem(PREVIEW_KEY, JSON.stringify(buildStat(currentScene)));
+      sessionStorage.setItem(TAB_KEY, currentTab);
+      sessionStorage.setItem('__dwf_preview_user_name__', '仲明');
+      frame.src = 'index.html?dwf_preview=1&_=' + Date.now();
+    }
+
+    sessionStorage.setItem(PREVIEW_KEY, JSON.stringify(buildStat(currentScene)));
+    sessionStorage.setItem(TAB_KEY, currentTab);
+    sessionStorage.setItem('__dwf_preview_user_name__', '仲明');
+
+    document.querySelectorAll('.scene').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.scene').forEach(function (b) { b.classList.remove('on'); });
+        btn.classList.add('on');
+        currentScene = btn.getAttribute('data-scene');
+        persistAndReload();
+      });
+    });
+
+    document.querySelectorAll('.tab-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.tab-btn').forEach(function (b) { b.classList.remove('on'); });
+        btn.classList.add('on');
+        currentTab = btn.getAttribute('data-tab');
+        persistAndReload();
+      });
+    });
+  </script>
+</body>
+</html>

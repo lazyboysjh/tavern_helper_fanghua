@@ -7,6 +7,7 @@ const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const copies = [
   ['src/dawei/ui/options/styles.css', 'dist/dawei/ui/options/styles.css'],
   ['src/dawei/ui/options/controller.js', 'dist/dawei/ui/options/controller.js'],
+  ['src/dawei/ui/status/preview.html', 'dist/dawei/ui/status/preview.html'],
 ];
 
 for (const [fromRel, toRel] of copies) {
