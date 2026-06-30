@@ -5,7 +5,7 @@
     tianji: '天机',
     fengxin: '风闻',
     lishi: '历事',
-    fende: '群芳录',
+    fende: '粉黛',
     fangming: '房名次',
     zisi: '子嗣',
   };
@@ -28,6 +28,7 @@
   };
   var JIYI_SOFT_CAP = 10;
   var TAB_META = {
+    fende: { icon: 'fa-venus', title: '粉黛', sub: '群芳录 · 好感 · 立绘', accent: '#e85d6a' },
     tianji: { icon: 'fa-sun', title: '天机', sub: '行程 · 朝局 · 命途', accent: '#c9a227' },
     fengxin: { icon: 'fa-wind', title: '风闻', sub: '机宜 · 邸报 · 里巷', accent: '#6a8caf' },
     lishi: { icon: 'fa-book-open', title: '历事', sub: '津渡支汊已演之纪', accent: '#b89465' },
@@ -380,14 +381,23 @@
     var troops = faction['部曲'] != null && faction['部曲'] !== '' ? String(faction['部曲']) : '0';
     var base = faction['根基'] || '—';
     return (
-      renderPanelIntro('tianji', stat, '<i class="fa-solid fa-compass-drafting"></i> 行程 ' + esc(String(yueke != null ? yueke : '—'))) +
+      renderPanelIntro(
+        'tianji',
+        stat,
+        '<i class="fa-solid fa-location-dot"></i> ' + esc(world['当前地点'] || '平原郡·秦家庄'),
+      ) +
       renderRouteBanner(stat) +
       '<div class="dwf-tianji-hero">' +
-      renderMoonRing(yueke) +
-      '<div class="dwf-tianji-meta">' +
+      '<div class="dwf-tianji-timeband">' +
       '<div class="dwf-tianji-time">' +
       esc(formatDisplayTime(stat)) +
       '</div>' +
+      '<div class="dwf-tianji-trip"><i class="fa-solid fa-shoe-prints"></i> 行程 <b>' +
+      esc(String(yueke != null ? yueke : '—')) +
+      '</b><span>/288</span></div></div>' +
+      '<div class="dwf-tianji-core">' +
+      renderMoonRing(yueke) +
+      '<div class="dwf-tianji-meta">' +
       '<div class="dwf-tianji-loc"><i class="fa-solid fa-location-dot"></i>' +
       esc(world['当前地点'] || '平原郡·秦家庄') +
       '</div>' +
@@ -398,7 +408,7 @@
       '<span class="dwf-chip"><i class="fa-solid fa-users"></i> 场景 ' +
       esc(scene) +
       '</span>' +
-      '</div></div></div>' +
+      '</div></div></div></div>' +
       '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-crown"></i>主角</span></div>' +
       '<div class="dwf-kv">' +
       '<div class="dwf-kv-row"><span class="dwf-kv-k">位置</span><span class="dwf-kv-v dwf-clamp-3">' +
@@ -499,7 +509,9 @@
       remain +
       '</span><span class="dwf-cd-unit">格</span></div></div>' +
       '<div class="dwf-jiyi-countdown-info">' +
-      '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> 行程倒计时</div>' +
+      '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> 余 ' +
+      remain +
+      ' 格</div>' +
       '<div class="dwf-jiyi-countdown-sub">第 <b>' +
       deadline +
       '</b> 格截止 · 窗宽 ' +
@@ -609,7 +621,6 @@
       accent +
       '">' +
       countdownHtml +
-      (tagsHtml ? tagsHtml : '') +
       '<div class="dwf-jiyi-glow" aria-hidden="true"></div>' +
       '<div class="dwf-jiyi-main">' +
       '<header class="dwf-jiyi-head">' +
@@ -620,6 +631,7 @@
       '<h4 class="dwf-jiyi-name">' +
       esc(key) +
       '</h4></div></header>' +
+      (tagsHtml ? tagsHtml : '') +
       (parsed.lead ? '<div class="dwf-jiyi-lead">' + esc(parsed.lead) + '</div>' : '') +
       renderParas(parsed.paras, 'dwf-jiyi-body') +
       (meta.length ? '<footer class="dwf-jiyi-foot">' + meta.join('') + '</footer>' : '') +
@@ -870,6 +882,26 @@
     return listJiyiEntries(stat).length;
   }
 
+  function updateToolbarHeader(stat, panelId) {
+    stat = stat || (global.getStatData ? global.getStatData() : {});
+    panelId = panelId || 'fende';
+    if (!$('#tit-main').length) return;
+    $('#tit-main').text('大魏芳华');
+    $('#tit-sub').text(DWF_PANEL_TITLES[panelId] || '粉黛');
+    var world = (stat && stat['世界与剧情']) || {};
+    var trip = world['行程'];
+    var tripHtml =
+      trip != null && trip !== ''
+        ? '<span class="tit-trip"><i class="fa-solid fa-shoe-prints"></i> 第 ' + esc(String(trip)) + ' 格</span>'
+        : '';
+    if (isEnded(stat)) {
+      var endName = ((getEnding(stat) || {})['名']) || '故事已收束';
+      $('#tit-time').html('<i class="fa-solid fa-scroll"></i> ' + esc(endName) + tripHtml);
+    } else {
+      $('#tit-time').html(esc(formatDisplayTime(stat)) + tripHtml);
+    }
+  }
+
   function switchMainPanel(id, stat) {
     id = id || 'fende';
     if (!DWF_PANEL_TITLES[id]) id = 'fende';
@@ -890,7 +922,7 @@
     $('.dwf-panel').removeClass('on').attr('hidden', true);
     var $panel = $('#dwf-panel-' + id);
     $panel.addClass('on').removeAttr('hidden');
-    $('#tit-main').text(DWF_PANEL_TITLES[id]);
+    updateToolbarHeader(stat, id);
     $('#lk').toggle(id === 'fende');
     if (stat) renderDwfSubPanels(stat);
   }
@@ -927,6 +959,8 @@
     } else {
       $b.remove();
     }
+    var active = $('#dwf-main-nav .dwf-main-tab.on').attr('data-dwf-panel') || 'fende';
+    updateToolbarHeader(stat, active);
   }
 
   function initDwfMainNav() {
@@ -941,7 +975,7 @@
     });
     $('#dwf-main-nav').on('click', '.dwf-main-tab', function () {
       var id = $(this).attr('data-dwf-panel');
-      switchMainPanel(id);
+      switchMainPanel(id, global.getStatData ? global.getStatData() : null);
     });
     switchMainPanel(saved);
   }

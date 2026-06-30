@@ -3,7 +3,7 @@
 <head><script src="https://code.jquery.com/jquery-3.7.1.min.js"></script><script>window.errorCatched=function(fn){return fn;};</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>群芳录</title>
+    <title>大魏芳华</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         ::-webkit-scrollbar{width:4px;height:4px}
@@ -103,7 +103,28 @@
         .tg.on{color:#fff;background:var(--btn-on-bg);border-color:var(--btn-on-border);box-shadow:0 6px 18px rgba(var(--c),0.4)}
         .tg:active{transform:scale(0.92)}
 
-        .tit-main{flex:1;text-align:center;font:800 1.3rem "Microsoft YaHei","PingFang SC","Hiragino Sans GB","SimSun",serif;color:var(--c);text-shadow:var(--txt-shadow);letter-spacing:0.1em;padding:0 8px; line-height:1.2; display:flex; align-items:center; justify-content:center;}
+        .tit-wrap{
+            flex:1;min-width:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+            gap:1px;padding:0 6px;text-align:center;
+        }
+        .tit-time{
+            font-size:.58rem;font-weight:700;color:var(--dim);letter-spacing:.05em;line-height:1.25;
+            white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;
+        }
+        .tit-time i{margin-right:4px;font-size:.54rem;opacity:.75}
+        .tit-time .tit-trip{margin-left:8px;color:var(--c);opacity:.92}
+        .tit-time .tit-trip i{margin-right:3px;font-size:.52rem}
+        .tit-main{
+            font:800 1.05rem "Microsoft YaHei","PingFang SC","Hiragino Sans GB","SimSun",serif;
+            color:var(--c);text-shadow:var(--txt-shadow);letter-spacing:.14em;line-height:1.15;
+            white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%;
+        }
+        .tit-sub{
+            font-size:.6rem;font-weight:700;color:var(--txt2);letter-spacing:.18em;line-height:1.2;
+            opacity:.88;
+        }
+
+        .tit-main-legacy{flex:1;text-align:center;font:800 1.3rem "Microsoft YaHei","PingFang SC","Hiragino Sans GB","SimSun",serif;color:var(--c);text-shadow:var(--txt-shadow);letter-spacing:0.1em;padding:0 8px; line-height:1.2; display:flex; align-items:center; justify-content:center;}
 
         .menu-panel{position:absolute;top:calc(100% + 12px);left:0;width:300px;max-width:calc(100vw - 40px);display:none;z-index:20}.menu-panel.show{display:block;animation:up 0.25s cubic-bezier(0.19,1,0.22,1) forwards}
         .menu-sec{display:flex;flex-direction:column;gap:12px;padding:12px 0}.menu-sec+.menu-sec{border-top:1px dashed var(--toolbar-border)}
@@ -1252,7 +1273,10 @@
 @media (max-width: 760px) {
   .w{width:100%;max-width:100%;margin:0 auto;padding:8px 6px 10px;border-radius:15px;box-sizing:border-box;}
   .tb{display:grid;grid-template-columns:34px minmax(0,1fr) 34px;gap:6px;margin-bottom:7px;}
-  .tit-main{font-size:.86rem;letter-spacing:.06em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .tit-wrap{min-width:0!important;gap:0!important}
+  .tit-time{font-size:.52rem!important;letter-spacing:.04em!important}
+  .tit-main{font-size:.82rem!important;letter-spacing:.1em!important}
+  .tit-sub{font-size:.54rem!important;letter-spacing:.14em!important}
   .tg{width:32px;height:32px;border-radius:10px;}
   .menu-panel{right:-2px;width:min(92vw,312px);}
   .scene-shell{gap:7px;padding-bottom:4px;}
@@ -1501,6 +1525,7 @@
 :root[data-theme="light"]{--txt:#26313a;--txt2:#3f4c56;--dim:#65727c;--panel-border:rgba(50,42,34,.14);--card-border:rgba(50,42,34,.14);--toolbar-border:rgba(50,42,34,.16);}
 :root[data-theme="light"] .w{color:#26313a!important;text-shadow:none!important;}
 :root[data-theme="light"] .tit-main,
+:root[data-theme="light"] .tit-sub,
 :root[data-theme="light"] .st-title,
 :root[data-theme="light"] .nm-d,
 :root[data-theme="light"] .bx-bd,
@@ -4651,12 +4676,30 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 
 /* 天机 */
 .dwf-tianji-hero{
+  display:grid;gap:10px;
+  margin-bottom:12px;
+}
+.dwf-tianji-timeband{
+  display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 14px;
+  padding:10px 14px;border-radius:14px;
+  background:linear-gradient(135deg,rgba(201,162,39,.12),rgba(0,0,0,.22));
+  border:1px solid rgba(201,162,39,.22);
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05);
+}
+.dwf-tianji-trip{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:.68rem;font-weight:700;color:var(--dim);letter-spacing:.06em;white-space:nowrap;
+}
+.dwf-tianji-trip i{font-size:.62rem;color:var(--c);opacity:.85}
+.dwf-tianji-trip b{color:var(--c);font-size:.88rem;font-weight:800;font-variant-numeric:tabular-nums}
+.dwf-tianji-trip span{opacity:.5;font-size:.62rem;font-weight:600}
+.dwf-tianji-core{
   display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;
   padding:16px;border-radius:18px;
   background:var(--card-bg);border:1px solid var(--card-border);box-shadow:var(--card-shadow);
-  margin-bottom:12px;position:relative;overflow:hidden;
+  position:relative;overflow:hidden;
 }
-.dwf-tianji-hero::before{
+.dwf-tianji-core::before{
   content:"";position:absolute;top:0;left:0;width:4px;height:100%;
   background:linear-gradient(180deg,var(--c),transparent);
 }
@@ -4946,9 +4989,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 /* RPG 标签带 */
 .dwf-jiyi-tags{
   display:flex;flex-wrap:wrap;gap:6px;align-items:center;
-  padding:8px 14px 4px;
-  border-bottom:1px solid rgba(255,255,255,.04);
-  background:rgba(0,0,0,.12);
+  padding:0 0 10px;margin-top:-2px;
 }
 .dwf-jiyi-tag{
   display:inline-flex;align-items:center;gap:3px;
@@ -5041,7 +5082,9 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   .dwf-main-tab i{font-size:1.05rem}
   .dwf-panels-stage{min-height:clamp(220px,34vh,320px)}
   .dwf-panel-body{max-height:min(50vh,440px)}
-  .dwf-tianji-hero{grid-template-columns:1fr;justify-items:center;text-align:center}
+  .dwf-tianji-hero{gap:8px}
+  .dwf-tianji-timeband{flex-direction:column;align-items:flex-start;gap:6px}
+  .dwf-tianji-core{grid-template-columns:1fr;justify-items:center;text-align:center}
   .dwf-tianji-meta{width:100%}
   .dwf-tianji-loc{justify-content:center}
   .dwf-chip-row{justify-content:center}
@@ -5121,7 +5164,11 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
                 </div>
             </div>
 
-            <div class="tit-main" id="tit-main">群芳录</div>
+            <div class="tit-wrap" id="tit-wrap">
+                <div class="tit-time" id="tit-time">景初三年五月上旬·暮</div>
+                <div class="tit-main" id="tit-main">大魏芳华</div>
+                <div class="tit-sub" id="tit-sub">粉黛</div>
+            </div>
 
             <div class="tb-btn-wrap">
                 <button type="button" class="tg" id="lk" aria-label="立绘管理"><i class="fa-solid fa-images"></i></button>
@@ -5253,7 +5300,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     tianji: '天机',
     fengxin: '风闻',
     lishi: '历事',
-    fende: '群芳录',
+    fende: '粉黛',
     fangming: '房名次',
     zisi: '子嗣',
   };
@@ -5276,6 +5323,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   };
   var JIYI_SOFT_CAP = 10;
   var TAB_META = {
+    fende: { icon: 'fa-venus', title: '粉黛', sub: '群芳录 · 好感 · 立绘', accent: '#e85d6a' },
     tianji: { icon: 'fa-sun', title: '天机', sub: '行程 · 朝局 · 命途', accent: '#c9a227' },
     fengxin: { icon: 'fa-wind', title: '风闻', sub: '机宜 · 邸报 · 里巷', accent: '#6a8caf' },
     lishi: { icon: 'fa-book-open', title: '历事', sub: '津渡支汊已演之纪', accent: '#b89465' },
@@ -5628,14 +5676,23 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     var troops = faction['部曲'] != null && faction['部曲'] !== '' ? String(faction['部曲']) : '0';
     var base = faction['根基'] || '—';
     return (
-      renderPanelIntro('tianji', stat, '<i class="fa-solid fa-compass-drafting"></i> 行程 ' + esc(String(yueke != null ? yueke : '—'))) +
+      renderPanelIntro(
+        'tianji',
+        stat,
+        '<i class="fa-solid fa-location-dot"></i> ' + esc(world['当前地点'] || '平原郡·秦家庄'),
+      ) +
       renderRouteBanner(stat) +
       '<div class="dwf-tianji-hero">' +
-      renderMoonRing(yueke) +
-      '<div class="dwf-tianji-meta">' +
+      '<div class="dwf-tianji-timeband">' +
       '<div class="dwf-tianji-time">' +
       esc(formatDisplayTime(stat)) +
       '</div>' +
+      '<div class="dwf-tianji-trip"><i class="fa-solid fa-shoe-prints"></i> 行程 <b>' +
+      esc(String(yueke != null ? yueke : '—')) +
+      '</b><span>/288</span></div></div>' +
+      '<div class="dwf-tianji-core">' +
+      renderMoonRing(yueke) +
+      '<div class="dwf-tianji-meta">' +
       '<div class="dwf-tianji-loc"><i class="fa-solid fa-location-dot"></i>' +
       esc(world['当前地点'] || '平原郡·秦家庄') +
       '</div>' +
@@ -5646,7 +5703,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       '<span class="dwf-chip"><i class="fa-solid fa-users"></i> 场景 ' +
       esc(scene) +
       '</span>' +
-      '</div></div></div>' +
+      '</div></div></div></div>' +
       '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-crown"></i>主角</span></div>' +
       '<div class="dwf-kv">' +
       '<div class="dwf-kv-row"><span class="dwf-kv-k">位置</span><span class="dwf-kv-v dwf-clamp-3">' +
@@ -5747,7 +5804,9 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       remain +
       '</span><span class="dwf-cd-unit">格</span></div></div>' +
       '<div class="dwf-jiyi-countdown-info">' +
-      '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> 行程倒计时</div>' +
+      '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> 余 ' +
+      remain +
+      ' 格</div>' +
       '<div class="dwf-jiyi-countdown-sub">第 <b>' +
       deadline +
       '</b> 格截止 · 窗宽 ' +
@@ -5857,7 +5916,6 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       accent +
       '">' +
       countdownHtml +
-      (tagsHtml ? tagsHtml : '') +
       '<div class="dwf-jiyi-glow" aria-hidden="true"></div>' +
       '<div class="dwf-jiyi-main">' +
       '<header class="dwf-jiyi-head">' +
@@ -5868,6 +5926,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       '<h4 class="dwf-jiyi-name">' +
       esc(key) +
       '</h4></div></header>' +
+      (tagsHtml ? tagsHtml : '') +
       (parsed.lead ? '<div class="dwf-jiyi-lead">' + esc(parsed.lead) + '</div>' : '') +
       renderParas(parsed.paras, 'dwf-jiyi-body') +
       (meta.length ? '<footer class="dwf-jiyi-foot">' + meta.join('') + '</footer>' : '') +
@@ -6118,6 +6177,26 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     return listJiyiEntries(stat).length;
   }
 
+  function updateToolbarHeader(stat, panelId) {
+    stat = stat || (global.getStatData ? global.getStatData() : {});
+    panelId = panelId || 'fende';
+    if (!$('#tit-main').length) return;
+    $('#tit-main').text('大魏芳华');
+    $('#tit-sub').text(DWF_PANEL_TITLES[panelId] || '粉黛');
+    var world = (stat && stat['世界与剧情']) || {};
+    var trip = world['行程'];
+    var tripHtml =
+      trip != null && trip !== ''
+        ? '<span class="tit-trip"><i class="fa-solid fa-shoe-prints"></i> 第 ' + esc(String(trip)) + ' 格</span>'
+        : '';
+    if (isEnded(stat)) {
+      var endName = ((getEnding(stat) || {})['名']) || '故事已收束';
+      $('#tit-time').html('<i class="fa-solid fa-scroll"></i> ' + esc(endName) + tripHtml);
+    } else {
+      $('#tit-time').html(esc(formatDisplayTime(stat)) + tripHtml);
+    }
+  }
+
   function switchMainPanel(id, stat) {
     id = id || 'fende';
     if (!DWF_PANEL_TITLES[id]) id = 'fende';
@@ -6138,7 +6217,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     $('.dwf-panel').removeClass('on').attr('hidden', true);
     var $panel = $('#dwf-panel-' + id);
     $panel.addClass('on').removeAttr('hidden');
-    $('#tit-main').text(DWF_PANEL_TITLES[id]);
+    updateToolbarHeader(stat, id);
     $('#lk').toggle(id === 'fende');
     if (stat) renderDwfSubPanels(stat);
   }
@@ -6175,6 +6254,8 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     } else {
       $b.remove();
     }
+    var active = $('#dwf-main-nav .dwf-main-tab.on').attr('data-dwf-panel') || 'fende';
+    updateToolbarHeader(stat, active);
   }
 
   function initDwfMainNav() {
@@ -6189,7 +6270,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     });
     $('#dwf-main-nav').on('click', '.dwf-main-tab', function () {
       var id = $(this).attr('data-dwf-panel');
-      switchMainPanel(id);
+      switchMainPanel(id, global.getStatData ? global.getStatData() : null);
     });
     switchMainPanel(saved);
   }
@@ -6271,7 +6352,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         var SUPPORTING_META = {};
         Object.keys(SUPPORTING_META).forEach(function(n){ if (!CHAR_META[n]) CHAR_META[n] = { c: SUPPORTING_META[n].c }; });
 
-        var DWF_STATUS_LOG = '[天可汗:UI][status]';
+        var DWF_STATUS_LOG = '[大魏芳华:UI][status]';
         var LZ_STATUS_DEBUG = true;
         try { LZ_STATUS_DEBUG = localStorage.getItem('dawei-debug-v1') !== '0'; } catch(e) {}
         function lzStatusLog(message, detail) {
@@ -6831,7 +6912,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         }
 
         async function initGalleryStore() {
-            var charName = '天可汗';
+            var charName = '大魏芳华';
             try {
                 var getCurrentCharacterNameApi = getApi('getCurrentCharacterName');
                 if (getCurrentCharacterNameApi) charName = await getCurrentCharacterNameApi() || charName;
