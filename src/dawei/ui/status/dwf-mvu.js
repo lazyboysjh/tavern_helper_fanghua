@@ -474,7 +474,8 @@
     return 'safe';
   }
 
-  function renderCountdownTop(item, yueke, accent, level) {
+  /** 机宜卡片专用：距本条机宜「截止行程」的剩余格数，与世界天时/顶栏无关 */
+  function renderJiyiDeadlineBar(item, yueke, accent, level) {
     var deadline = Number(item['截止行程']) || 0;
     var openTrip = Number(item['开启行程']) || Math.max(1, yueke);
     if (!deadline) return '';
@@ -488,7 +489,7 @@
     return (
       '<div class="dwf-jiyi-countdown dwf-jiyi-countdown--' +
       state +
-      '" style="--jiyi-accent:' +
+      '" data-dwf-jiyi-deadline="1" style="--jiyi-accent:' +
       accent +
       '">' +
       '<div class="dwf-jiyi-countdown-ring" aria-label="剩余 ' +
@@ -509,10 +510,10 @@
       remain +
       '</span><span class="dwf-cd-unit">格</span></div></div>' +
       '<div class="dwf-jiyi-countdown-info">' +
-      '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> 余 ' +
+      '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> 机宜倒计时</div>' +
+      '<div class="dwf-jiyi-countdown-sub">剩余 <b>' +
       remain +
-      ' 格</div>' +
-      '<div class="dwf-jiyi-countdown-sub">第 <b>' +
+      '</b> 格 · 第 <b>' +
       deadline +
       '</b> 格截止 · 窗宽 ' +
       windowTotal +
@@ -605,7 +606,7 @@
     var accent = urgencyAccent(level);
     var parsed = parseJiyiReason(item['因由'] || '');
     var bucketCls = row.bucket === '津渡' ? 'is-jindu' : 'is-zhicha';
-    var countdownHtml = renderCountdownTop(item, yueke, accent, level);
+    var deadlineBarHtml = renderJiyiDeadlineBar(item, yueke, accent, level);
     var meta = [];
     if (item['相关人物']) {
       meta.push('<span class="dwf-jiyi-meta-chip"><i class="fa-solid fa-user"></i>' + esc(item['相关人物']) + '</span>');
@@ -620,7 +621,7 @@
       '" style="--jiyi-accent:' +
       accent +
       '">' +
-      countdownHtml +
+      deadlineBarHtml +
       '<div class="dwf-jiyi-glow" aria-hidden="true"></div>' +
       '<div class="dwf-jiyi-main">' +
       '<header class="dwf-jiyi-head">' +
@@ -882,23 +883,18 @@
     return listJiyiEntries(stat).length;
   }
 
+  /** 顶栏世界天时（纪年/月旬/时辰），不含机宜截止倒计时 */
   function updateToolbarHeader(stat, panelId) {
     stat = stat || (global.getStatData ? global.getStatData() : {});
     panelId = panelId || 'fende';
     if (!$('#tit-main').length) return;
     $('#tit-main').text('大魏芳华');
     $('#tit-sub').text(DWF_PANEL_TITLES[panelId] || '粉黛');
-    var world = (stat && stat['世界与剧情']) || {};
-    var trip = world['行程'];
-    var tripHtml =
-      trip != null && trip !== ''
-        ? '<span class="tit-trip"><i class="fa-solid fa-shoe-prints"></i> 第 ' + esc(String(trip)) + ' 格</span>'
-        : '';
     if (isEnded(stat)) {
       var endName = ((getEnding(stat) || {})['名']) || '故事已收束';
-      $('#tit-time').html('<i class="fa-solid fa-scroll"></i> ' + esc(endName) + tripHtml);
+      $('#tit-time').html('<i class="fa-solid fa-scroll"></i> ' + esc(endName));
     } else {
-      $('#tit-time').html(esc(formatDisplayTime(stat)) + tripHtml);
+      $('#tit-time').text(formatDisplayTime(stat));
     }
   }
 

@@ -355,7 +355,7 @@
 .dwf-jiyi-card.is-jindu{border-color:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 26%,rgba(255,255,255,.08))}
 .dwf-jiyi-card.is-zhicha .dwf-jiyi-main{border-left-color:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 70%,#8b9aab)}
 
-/* 机宜顶部倒计时 */
+/* 机宜卡片 · 截止行程倒计时（仅风闻机宜卡，非世界天时） */
 .dwf-jiyi-countdown{
   display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
   padding:12px 14px;
