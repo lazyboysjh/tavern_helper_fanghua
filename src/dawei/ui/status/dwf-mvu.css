@@ -550,3 +550,43 @@
 @media(min-width:521px) and (max-width:860px){
   .dwf-main-tab{min-height:48px}
 }
+
+/* ===== tab uniform heights v1（主栏双端统一；scene 变量供粉黛 tab 复用） ===== */
+:root{
+  --dwf-main-tab-h:52px;
+  --scene-tab-h:40px;
+  --scene-tabs-rail-h:44px;
+  --scene-tab-nav-sz:40px;
+}
+.dwf-main-nav{align-items:stretch!important}
+.dwf-main-tab{
+  height:var(--dwf-main-tab-h)!important;
+  min-height:var(--dwf-main-tab-h)!important;
+  max-height:var(--dwf-main-tab-h)!important;
+  box-sizing:border-box!important;
+  justify-content:center!important;
+  padding-block:6px!important;
+  overflow:hidden!important;
+}
+.dwf-main-tab span{
+  line-height:1.1!important;
+  max-height:2.2em!important;
+  overflow:hidden!important;
+}
+@media (max-width:860px){
+  :root{
+    --dwf-main-tab-h:48px;
+    --scene-tab-h:38px;
+    --scene-tabs-rail-h:42px;
+    --scene-tab-nav-sz:36px;
+  }
+}
+@media (max-width:520px){
+  :root{
+    --dwf-main-tab-h:44px;
+    --scene-tab-h:36px;
+    --scene-tabs-rail-h:40px;
+    --scene-tab-nav-sz:34px;
+  }
+}
+/* ===== /tab uniform heights v1 ===== */

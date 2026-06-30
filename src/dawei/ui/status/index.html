@@ -5159,7 +5159,87 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   .dwf-main-tab{min-height:48px}
 }
 
+/* ===== tab uniform heights v1（主栏双端统一；scene 变量供粉黛 tab 复用） ===== */
+:root{
+  --dwf-main-tab-h:52px;
+  --scene-tab-h:40px;
+  --scene-tabs-rail-h:44px;
+  --scene-tab-nav-sz:40px;
+}
+.dwf-main-nav{align-items:stretch!important}
+.dwf-main-tab{
+  height:var(--dwf-main-tab-h)!important;
+  min-height:var(--dwf-main-tab-h)!important;
+  max-height:var(--dwf-main-tab-h)!important;
+  box-sizing:border-box!important;
+  justify-content:center!important;
+  padding-block:6px!important;
+  overflow:hidden!important;
+}
+.dwf-main-tab span{
+  line-height:1.1!important;
+  max-height:2.2em!important;
+  overflow:hidden!important;
+}
+@media (max-width:860px){
+  :root{
+    --dwf-main-tab-h:48px;
+    --scene-tab-h:38px;
+    --scene-tabs-rail-h:42px;
+    --scene-tab-nav-sz:36px;
+  }
+}
+@media (max-width:520px){
+  :root{
+    --dwf-main-tab-h:44px;
+    --scene-tab-h:36px;
+    --scene-tabs-rail-h:40px;
+    --scene-tab-nav-sz:34px;
+  }
+}
+/* ===== /tab uniform heights v1 ===== */
+
 /* __DWF_MVU_CSS_END__ */
+
+/* ===== tab uniform heights v1（粉黛角色 tab 双端统一） ===== */
+.scene-tabs-wrap{align-items:center!important}
+.scene-tabs-mask{align-items:center!important}
+.scene-tabs{
+  align-items:center!important;
+  min-height:var(--scene-tabs-rail-h,44px)!important;
+  box-sizing:border-box!important;
+}
+.scene-tab-nav{
+  width:var(--scene-tab-nav-sz,40px)!important;
+  height:var(--scene-tab-nav-sz,40px)!important;
+  min-height:var(--scene-tab-nav-sz,40px)!important;
+  max-height:var(--scene-tab-nav-sz,40px)!important;
+  flex:0 0 var(--scene-tab-nav-sz,40px)!important;
+  box-sizing:border-box!important;
+}
+.scene-tab{
+  height:var(--scene-tab-h,40px)!important;
+  min-height:var(--scene-tab-h,40px)!important;
+  max-height:var(--scene-tab-h,40px)!important;
+  box-sizing:border-box!important;
+  align-items:center!important;
+  overflow:hidden!important;
+}
+.scene-tab-text{
+  justify-content:center!important;
+  min-width:0!important;
+}
+.scene-tab-title{
+  line-height:1.15!important;
+  white-space:nowrap!important;
+  overflow:hidden!important;
+  text-overflow:ellipsis!important;
+}
+#scene-shell .scene-tab:hover,
+#scene-shell .scene-tab.on{
+  transform:none!important;
+}
+/* ===== /tab uniform heights v1 ===== */
 
         </style>
 
@@ -6838,7 +6918,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         var CUSTOM_COLOR_KEY = 'dwfCustomColorsV1'; // 新增：自定义颜色存储键
         var UNLOCK_STAGE_KEY = 'dwfUnlockStageV1';
 
-                                                                /* __DWF_CHAR_ROSTER_START__ */
+                                                                                                                /* __DWF_CHAR_ROSTER_START__ */
         var CHAR_ORDER = ["王令君", "王玄姬", "郭太后", "羊徽瑜", "潘淑", "卢氏", "朝云", "甄氏", "宪英", "费氏", "白氏", "吴心", "薛夫人", "董氏", "张氏", "柏氏", "吴氏", "诸葛氏", "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏", "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏", "夏侯氏", "辛氏", "郭女王"];
         var CHAR_IDENTITY = {
             "王令君": "陌路 · 淮南",

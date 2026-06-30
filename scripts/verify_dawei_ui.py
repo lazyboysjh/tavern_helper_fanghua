@@ -27,7 +27,16 @@ def main():
             fail(f"missing {p.relative_to(ROOT)}")
 
     status = (DIST / "status" / "index.html").read_text(encoding="utf-8")
-    for needle in ("dwf-main-nav", "dwf-panel-tianji", "dwf-panel-fangming", "dwf-panel-zisi", "dwfMvu", "粉黛录"):
+    for needle in (
+        "dwf-main-nav",
+        "dwf-panel-tianji",
+        "dwf-panel-fangming",
+        "dwf-panel-zisi",
+        "dwfMvu",
+        "粉黛录",
+        "dwf-main-tab-h",
+        "getPinkBookFromStat",
+    ):
         if needle not in status:
             fail(f"status missing {needle}")
 
@@ -46,8 +55,8 @@ def main():
         (r for r in card["data"]["extensions"]["regex_scripts"] if r.get("scriptName") == "显示-状态栏与选项栏排序"),
         None,
     )
-    if not order or order.get("replaceString") != "$3\n$1$2":
-        fail("card sort regex must keep ActionOptions ($3\\n$1$2)")
+    if not order or order.get("replaceString") != "$2\n$1":
+        fail("card sort regex must keep ActionOptions ($2\\n$1)")
 
     print("OK: dawei UI dist + card CDN verified")
 
