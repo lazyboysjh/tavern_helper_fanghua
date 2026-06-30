@@ -1,7 +1,7 @@
 {
     "scripts":  {
                     "build:dev":  "node scripts/compose_dwf_status.mjs \u0026\u0026 webpack --mode development \u0026\u0026 node scripts/copy_dawei_static.mjs",
-                    "build":  "node scripts/compose_dwf_status.mjs \u0026\u0026 webpack --mode production",
+                    "build":  "node scripts/compose_dwf_status.mjs \u0026\u0026 webpack --mode production \u0026\u0026 node scripts/copy_dawei_static.mjs",
                     "watch":  "webpack --mode development --watch --progress",
                     "format":  "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,html,vue}\" --no-error-on-unmatched-pattern",
                     "lint":  "eslint",

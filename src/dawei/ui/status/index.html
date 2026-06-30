@@ -4585,11 +4585,11 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-main-tab:hover{color:var(--txt2);background:rgba(255,255,255,.04)}
 .dwf-main-tab.on{
   color:#fff;
-  border-color:color-mix(in srgb,var(--c) 45%,rgba(255,255,255,.1));
-  background:linear-gradient(165deg,color-mix(in srgb,var(--c) 24%,rgba(40,35,30,.9)),rgba(16,14,12,.95));
-  box-shadow:0 12px 28px rgba(0,0,0,.28),0 0 0 1px color-mix(in srgb,var(--c) 20%,transparent),inset 0 1px 0 rgba(255,255,255,.08);
+  border-color:color-mix(in srgb,var(--tab-accent,var(--c)) 48%,rgba(255,255,255,.1));
+  background:linear-gradient(165deg,color-mix(in srgb,var(--tab-accent,var(--c)) 22%,rgba(40,35,30,.9)),rgba(16,14,12,.95));
+  box-shadow:0 12px 28px rgba(0,0,0,.28),0 0 0 1px color-mix(in srgb,var(--tab-accent,var(--c)) 22%,transparent),inset 0 1px 0 rgba(255,255,255,.08);
 }
-.dwf-main-tab.on i{opacity:1;transform:translateY(-1px);color:var(--c);filter:drop-shadow(0 0 6px color-mix(in srgb,var(--c) 50%,transparent))}
+.dwf-main-tab.on i{opacity:1;transform:translateY(-1px);color:var(--tab-accent,var(--c));filter:drop-shadow(0 0 6px color-mix(in srgb,var(--tab-accent,var(--c)) 50%,transparent))}
 .dwf-main-tab .dwf-tab-badge{
   position:absolute;top:4px;right:6px;min-width:16px;height:16px;padding:0 4px;
   border-radius:999px;background:linear-gradient(135deg,#e85d6a,#c26a3a);
@@ -4619,6 +4619,35 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   display:flex;align-items:center;justify-content:center;
 }
 @keyframes dwfPanelIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* 各 Tab 顶栏 */
+.dwf-panel-intro{
+  display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
+  margin-bottom:14px;padding:12px 14px;border-radius:16px;
+  background:linear-gradient(135deg,color-mix(in srgb,var(--panel-accent,#b89465) 10%,rgba(255,255,255,.04)),rgba(0,0,0,.18));
+  border:1px solid color-mix(in srgb,var(--panel-accent,#b89465) 28%,rgba(255,255,255,.06));
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 8px 24px rgba(0,0,0,.16);
+}
+.dwf-panel-intro-icon{
+  width:40px;height:40px;border-radius:12px;display:grid;place-items:center;
+  color:#fff;font-size:1rem;
+  background:linear-gradient(145deg,color-mix(in srgb,var(--panel-accent,#b89465) 55%,#fff 6%),color-mix(in srgb,var(--panel-accent,#b89465) 30%,#000 12%));
+  box-shadow:0 8px 20px color-mix(in srgb,var(--panel-accent,#b89465) 30%,transparent);
+}
+.dwf-panel-intro-title{font-size:.88rem;font-weight:800;color:#fff;letter-spacing:.1em}
+.dwf-panel-intro-sub{font-size:.66rem;color:var(--dim);letter-spacing:.08em;margin-top:3px}
+.dwf-panel-intro-stat{
+  font-size:.68rem;font-weight:700;color:var(--txt2);white-space:nowrap;
+  padding:5px 10px;border-radius:999px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);
+}
+.dwf-panel-intro-stat i{color:var(--panel-accent,#b89465);margin-right:3px}
+
+/* 统一玻璃卡片 */
+.dwf-glass-card{
+  background:linear-gradient(155deg,rgba(28,24,22,.88),rgba(12,10,14,.94))!important;
+  border:1px solid rgba(255,255,255,.07)!important;
+  box-shadow:0 10px 28px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.04)!important;
+}
 
 /* 天机 */
 .dwf-tianji-hero{
@@ -4654,7 +4683,43 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   font-size:.68rem;font-weight:600;color:var(--txt2);
   background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);
 }
-.dwf-chip.accent{color:#fff;border-color:color-mix(in srgb,var(--c) 40%,transparent);background:color-mix(in srgb,var(--c) 14%,transparent)}
+.dwf-chip.accent{
+  color:#fff;
+  border-color:color-mix(in srgb,var(--chip-accent,var(--c)) 40%,transparent);
+  background:color-mix(in srgb,var(--chip-accent,var(--c)) 14%,transparent);
+}
+.dwf-chip-row-loose{gap:8px}
+.dwf-chip-lock{color:#ffc9cf;border-color:rgba(232,93,106,.25);background:rgba(232,93,106,.08)}
+.dwf-chip-dim{opacity:.72;margin-right:2px}
+.dwf-clamp-3{
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;
+  overflow:hidden;word-break:break-word;
+}
+.dwf-faction-card{
+  padding:14px 16px;border-radius:16px;
+  background:linear-gradient(155deg,rgba(28,24,22,.9),rgba(12,10,14,.94));
+  border:1px solid color-mix(in srgb,var(--faction-accent,#b89465) 28%,rgba(255,255,255,.06));
+  box-shadow:0 10px 26px rgba(0,0,0,.22);
+}
+.dwf-faction-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.dwf-faction-rank{font-size:.95rem;font-weight:800;color:#fff;letter-spacing:.06em}
+.dwf-faction-camp{
+  padding:4px 12px;border-radius:999px;font-size:.68rem;font-weight:800;letter-spacing:.1em;color:#fff;
+  background:color-mix(in srgb,var(--faction-accent,#b89465) 35%,rgba(0,0,0,.2));
+  border:1px solid color-mix(in srgb,var(--faction-accent,#b89465) 50%,transparent);
+}
+.dwf-faction-grid{display:grid;grid-template-columns:88px 1fr;gap:10px}
+.dwf-faction-stat{
+  padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.05);
+}
+.dwf-faction-stat-wide{grid-column:1/-1}
+.dwf-faction-stat-k{display:block;font-size:.64rem;color:var(--dim);margin-bottom:4px}
+.dwf-faction-stat-v{font-size:.8rem;color:var(--txt2);line-height:1.45;word-break:break-word}
+.dwf-jiyi-more{
+  margin-top:4px;padding:10px 12px;border-radius:12px;text-align:center;
+  font-size:.72rem;color:var(--dim);border:1px dashed rgba(255,255,255,.1);
+}
 .dwf-section{
   padding:14px;border-radius:16px;margin-bottom:10px;
   background:var(--block-bg);border:1px solid var(--block-border);box-shadow:var(--block-shadow);
@@ -4695,25 +4760,29 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   font-size:.64rem;font-weight:700;background:rgba(255,255,255,.06);color:var(--dim);
 }
 .dwf-urgent-pill.hot{color:#ffc9cf;background:rgba(232,93,106,.15);border:1px solid rgba(232,93,106,.25)}
-.dwf-rumor-list{display:grid;gap:8px}
+.dwf-rumor-list{display:grid;gap:10px}
 .dwf-rumor-item{
-  padding:10px 12px;border-radius:12px;font-size:.76rem;line-height:1.5;color:var(--txt2);
-  background:rgba(0,0,0,.18);border-left:2px solid color-mix(in srgb,var(--c) 50%,transparent);
+  padding:12px 14px;border-radius:14px;
+  background:linear-gradient(155deg,rgba(20,18,16,.85),rgba(8,8,10,.9));
+  border:1px solid rgba(255,255,255,.06);
+  border-left:3px solid color-mix(in srgb,var(--c) 55%,transparent);
+  box-shadow:0 8px 22px rgba(0,0,0,.18);
 }
 .dwf-rumor-key{font-size:.64rem;font-weight:800;color:var(--c);letter-spacing:.08em;margin-bottom:4px}
 
 /* 历事 */
-.dwf-timeline{position:relative;padding-left:20px}
+.dwf-timeline{position:relative;padding:4px 0 4px 8px}
 .dwf-timeline::before{
-  content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;
-  background:linear-gradient(180deg,var(--c),rgba(255,255,255,.06));
+  content:"";position:absolute;left:14px;top:12px;bottom:12px;width:2px;
+  background:linear-gradient(180deg,var(--c),rgba(255,255,255,.04));
 }
-.dwf-timeline-item{position:relative;padding:0 0 16px 16px}
+.dwf-timeline-item{position:relative;padding:0 0 12px 36px;margin-bottom:4px}
 .dwf-timeline-item::before{
-  content:"";position:absolute;left:-17px;top:6px;width:10px;height:10px;border-radius:50%;
-  background:var(--c);box-shadow:0 0 12px color-mix(in srgb,var(--c) 55%,transparent);
-  border:2px solid rgba(0,0,0,.4);
+  content:"";position:absolute;left:9px;top:14px;width:12px;height:12px;border-radius:50%;
+  background:var(--c);box-shadow:0 0 14px color-mix(in srgb,var(--c) 55%,transparent);
+  border:2px solid rgba(0,0,0,.45);
 }
+.dwf-timeline-item.dwf-glass-card{padding:12px 14px 12px 36px;border-radius:14px;margin-left:4px}
 .dwf-timeline-text{font-size:.8rem;line-height:1.55;color:var(--txt2)}
 .dwf-empty{
   padding:28px 16px;text-align:center;border-radius:16px;
@@ -4774,6 +4843,194 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-rumu-track{height:5px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
 .dwf-rumu-fill{height:100%;border-radius:inherit;background:linear-gradient(90deg,#6a8caf,#b89465,#e8c49a);transition:width .5s ease}
 
+/* 路线横幅 · 终局卡 · 机宜高级卡片 */
+.dwf-route-banner{
+  margin-bottom:12px;padding:14px 16px;border-radius:16px;
+  background:linear-gradient(145deg,rgba(28,24,22,.92),rgba(12,10,14,.96));
+  border:1px solid color-mix(in srgb,var(--route-accent,#b89465) 32%,rgba(255,255,255,.06));
+  box-shadow:0 10px 28px rgba(0,0,0,.22),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.dwf-route-banner.dwf-route-ended{
+  border-color:color-mix(in srgb,var(--route-accent,#b89465) 45%,rgba(255,255,255,.08));
+  background:linear-gradient(155deg,color-mix(in srgb,var(--route-accent,#b89465) 12%,rgba(28,24,22,.95)),rgba(10,8,12,.98));
+}
+.dwf-route-banner-k{font-size:.66rem;font-weight:800;letter-spacing:.16em;color:var(--dim);margin-bottom:6px}
+.dwf-route-banner-k i{color:var(--route-accent,#b89465);margin-right:4px}
+.dwf-route-banner-v{font-size:1rem;font-weight:800;color:#fff;letter-spacing:.06em}
+.dwf-route-banner-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.dwf-route-pill{
+  display:inline-flex;align-items:center;gap:5px;padding:5px 12px;border-radius:999px;
+  font-size:.72rem;font-weight:700;color:#fff;
+  background:color-mix(in srgb,var(--route-accent,#b89465) 28%,rgba(0,0,0,.25));
+  border:1px solid color-mix(in srgb,var(--route-accent,#b89465) 42%,transparent);
+}
+.dwf-route-pill.soft{color:var(--txt2);background:rgba(255,255,255,.05);border-color:rgba(255,255,255,.08)}
+.dwf-route-banner-sub,.dwf-route-banner-paras{margin-top:8px;font-size:.76rem;line-height:1.55;color:var(--txt2)}
+.dwf-route-banner-paras p{margin:0 0 6px}
+.dwf-route-banner-paras p:last-child{margin-bottom:0}
+.dwf-ending-card{
+  position:relative;padding:28px 22px 22px;border-radius:22px;margin-bottom:14px;overflow:hidden;text-align:center;
+  background:radial-gradient(ellipse 90% 70% at 50% 0%,color-mix(in srgb,var(--ending-accent,#b89465) 18%,transparent),transparent 58%),linear-gradient(165deg,rgba(22,18,16,.96),rgba(8,6,10,.98));
+  border:1px solid color-mix(in srgb,var(--ending-accent,#b89465) 38%,rgba(255,255,255,.06));
+  box-shadow:0 18px 48px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.06);
+}
+.dwf-ending-glow{position:absolute;inset:-40% -20% auto;height:70%;background:radial-gradient(circle at 50% 100%,color-mix(in srgb,var(--ending-accent,#b89465) 22%,transparent),transparent 68%);pointer-events:none}
+.dwf-ending-seal{width:52px;height:52px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:1.2rem;color:#fff;background:linear-gradient(145deg,color-mix(in srgb,var(--ending-accent,#b89465) 55%,#fff 8%),color-mix(in srgb,var(--ending-accent,#b89465) 25%,#000 15%));box-shadow:0 10px 28px color-mix(in srgb,var(--ending-accent,#b89465) 35%,transparent)}
+.dwf-ending-title{font-size:1.35rem;font-weight:800;color:#fff;letter-spacing:.12em;margin-bottom:6px}
+.dwf-ending-lead{font-size:.72rem;color:var(--dim);letter-spacing:.14em;margin-bottom:14px}
+.dwf-ending-paras{text-align:left;font-size:.82rem;line-height:1.65;color:var(--txt2)}
+.dwf-ending-paras p{margin:0 0 10px}
+.dwf-ending-paras p:last-child{margin-bottom:0}
+.dwf-ending-foot{display:flex;flex-wrap:wrap;justify-content:center;gap:10px;margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.06);font-size:.66rem;color:var(--dim);letter-spacing:.08em}
+.dwf-fengxin-ended .dwf-ending-card{margin-bottom:0}
+.dwf-jiyi-stack{display:grid;gap:14px;margin-bottom:12px}
+.dwf-jiyi-card{
+  position:relative;padding:0;border-radius:20px;overflow:hidden;
+  background:linear-gradient(158deg,rgba(26,20,18,.96),rgba(10,8,12,.98));
+  border:1px solid rgba(255,255,255,.08);
+  box-shadow:0 16px 40px rgba(0,0,0,.32),inset 0 1px 0 rgba(255,255,255,.05);
+}
+.dwf-jiyi-card::before{content:none}
+.dwf-jiyi-main{
+  position:relative;padding:14px 16px 16px;
+  border-left:3px solid var(--jiyi-accent,#e85d6a);
+}
+.dwf-jiyi-glow{position:absolute;top:-20%;right:-8%;width:50%;height:70%;pointer-events:none;background:radial-gradient(circle,color-mix(in srgb,var(--jiyi-accent,#e85d6a) 10%,transparent),transparent 72%)}
+.dwf-jiyi-card.is-jindu{border-color:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 26%,rgba(255,255,255,.08))}
+.dwf-jiyi-card.is-zhicha .dwf-jiyi-main{border-left-color:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 70%,#8b9aab)}
+
+/* 机宜顶部倒计时 */
+.dwf-jiyi-countdown{
+  display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
+  padding:12px 14px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--jiyi-accent,#e85d6a) 14%,rgba(0,0,0,.35)),rgba(0,0,0,.22));
+  border-bottom:1px solid rgba(255,255,255,.06);
+}
+.dwf-jiyi-countdown--critical{background:linear-gradient(90deg,rgba(232,93,106,.22),rgba(0,0,0,.28))}
+.dwf-jiyi-countdown--warning{background:linear-gradient(90deg,rgba(201,162,39,.16),rgba(0,0,0,.24))}
+.dwf-jiyi-countdown-ring{position:relative;width:56px;height:56px;flex-shrink:0}
+.dwf-jiyi-countdown-ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.dwf-cd-track{fill:none;stroke:rgba(255,255,255,.1);stroke-width:4}
+.dwf-cd-fill{
+  fill:none;stroke:var(--jiyi-accent,#e85d6a);stroke-width:4;stroke-linecap:round;
+  transition:stroke-dashoffset .55s cubic-bezier(.22,1,.36,1);
+}
+.dwf-jiyi-countdown--critical .dwf-cd-fill{stroke:#e85d6a;filter:drop-shadow(0 0 6px rgba(232,93,106,.55))}
+.dwf-jiyi-countdown--warning .dwf-cd-fill{stroke:#d97a56}
+.dwf-cd-core{
+  position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  pointer-events:none;line-height:1;
+}
+.dwf-cd-num{font-size:1.15rem;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+.dwf-cd-unit{font-size:.5rem;color:var(--dim);letter-spacing:.12em;margin-top:1px}
+.dwf-jiyi-countdown-label{font-size:.68rem;font-weight:800;color:#fff;letter-spacing:.08em}
+.dwf-jiyi-countdown-label i{color:var(--jiyi-accent,#e85d6a);margin-right:4px;font-size:.62rem}
+.dwf-jiyi-countdown-sub{font-size:.62rem;color:var(--dim);margin-top:3px}
+.dwf-jiyi-countdown-sub b{color:var(--txt2);font-weight:700}
+.dwf-jiyi-countdown-track{height:4px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:8px}
+.dwf-jiyi-countdown-track span{
+  display:block;height:100%;border-radius:inherit;
+  background:linear-gradient(90deg,var(--jiyi-accent,#e85d6a),color-mix(in srgb,var(--jiyi-accent,#e85d6a) 50%,#fff));
+  transition:width .5s ease;
+}
+.dwf-jiyi-countdown-fire{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:44px;
+  padding:6px 8px;border-radius:12px;
+  background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);
+}
+.dwf-jiyi-countdown-fire span{font-size:.56rem;font-weight:800;color:var(--dim);letter-spacing:.1em}
+.dwf-jiyi-countdown-fire em{font-style:normal;font-size:1rem;font-weight:800;color:var(--jiyi-accent,#e85d6a);line-height:1.1}
+.dwf-jiyi-countdown--critical .dwf-jiyi-countdown-fire{border-color:rgba(232,93,106,.35);animation:dwfPulse 2s ease-in-out infinite}
+@keyframes dwfPulse{0%,100%{box-shadow:0 0 0 0 rgba(232,93,106,0)}50%{box-shadow:0 0 12px rgba(232,93,106,.25)}}
+
+/* RPG 标签带 */
+.dwf-jiyi-tags{
+  display:flex;flex-wrap:wrap;gap:6px;align-items:center;
+  padding:8px 14px 4px;
+  border-bottom:1px solid rgba(255,255,255,.04);
+  background:rgba(0,0,0,.12);
+}
+.dwf-jiyi-tag{
+  display:inline-flex;align-items:center;gap:3px;
+  padding:3px 9px;border-radius:999px;
+  font-size:.58rem;font-weight:800;letter-spacing:.06em;line-height:1.3;
+  border:1px solid rgba(255,255,255,.1);
+  background:rgba(255,255,255,.05);color:var(--txt2);
+  max-width:100%;word-break:break-word;
+}
+.dwf-jiyi-tag.is-hot{box-shadow:0 0 10px color-mix(in srgb,var(--c) 35%,transparent)}
+.dwf-jiyi-tag--route{
+  color:#fff;
+  border-color:color-mix(in srgb,var(--tag-accent,#b89465) 45%,transparent);
+  background:color-mix(in srgb,var(--tag-accent,#b89465) 20%,rgba(0,0,0,.2));
+}
+.dwf-jiyi-tag--ending{
+  color:#f0d0b0;
+  border-color:rgba(184,148,101,.45);
+  background:linear-gradient(135deg,rgba(184,148,101,.18),rgba(0,0,0,.25));
+}
+.dwf-jiyi-tag--ending.is-hot,.dwf-jiyi-tag--ending:hover{
+  border-color:rgba(240,208,176,.55);
+  box-shadow:0 0 12px rgba(184,148,101,.22);
+}
+.dwf-jiyi-tag--block{
+  color:#ffc9cf;
+  border-color:rgba(232,93,106,.28);
+  background:rgba(232,93,106,.1);
+  opacity:.88;
+}
+.dwf-jiyi-tag--meet{
+  color:#ffc9cf;
+  border-color:rgba(232,93,106,.35);
+  background:linear-gradient(135deg,rgba(232,93,106,.16),rgba(0,0,0,.2));
+}
+.dwf-jiyi-tag--meet::before{
+  content:"";width:5px;height:5px;border-radius:50%;
+  background:#e85d6a;box-shadow:0 0 6px rgba(232,93,106,.6);
+}
+.dwf-jiyi-tag--fate{
+  color:var(--dim);
+  border-style:dashed;
+  border-color:rgba(255,255,255,.12);
+}
+.dwf-jiyi-tag--milestone{
+  color:var(--c);
+  border-color:color-mix(in srgb,var(--c) 35%,transparent);
+  background:color-mix(in srgb,var(--c) 10%,transparent);
+}
+.dwf-jiyi-tag--mutex{
+  color:#9ec5e8;
+  border-color:rgba(110,168,220,.3);
+  background:rgba(106,140,175,.12);
+}
+
+.dwf-jiyi-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
+.dwf-jiyi-head-left{min-width:0;flex:1}
+.dwf-jiyi-bucket{display:inline-block;padding:2px 8px;border-radius:999px;margin-bottom:6px;font-size:.58rem;font-weight:800;letter-spacing:.14em;color:var(--jiyi-accent,#e85d6a);background:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 14%,transparent);border:1px solid color-mix(in srgb,var(--jiyi-accent,#e85d6a) 28%,transparent)}
+.dwf-jiyi-name{margin:0;font-size:.98rem;font-weight:800;color:#fff;letter-spacing:.06em;line-height:1.35;word-break:break-word}
+.dwf-jiyi-urgency{flex-shrink:0;width:56px;text-align:right}
+.dwf-jiyi-urgency-lab{display:block;font-size:.56rem;font-weight:800;color:var(--dim);letter-spacing:.1em;margin-bottom:4px}
+.dwf-jiyi-urgency-bar{height:4px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
+.dwf-jiyi-urgency-bar span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--jiyi-accent,#e85d6a),color-mix(in srgb,var(--jiyi-accent,#e85d6a) 60%,#fff))}
+.dwf-jiyi-lead{font-size:.66rem;font-weight:700;color:var(--dim);letter-spacing:.06em;margin-bottom:6px;word-break:break-word}
+.dwf-jiyi-body{font-size:.78rem;line-height:1.62;color:var(--txt2)}
+.dwf-jiyi-body p{margin:0 0 8px}
+.dwf-jiyi-body p:last-child{margin-bottom:0}
+.dwf-jiyi-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.07)}
+.dwf-jiyi-meta-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font-size:.64rem;font-weight:600;color:var(--txt2);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);max-width:100%;word-break:break-word}
+.dwf-jiyi-meta-chip i{font-size:.58rem;color:var(--c);opacity:.85}
+.dwf-tab-ended-mark{position:absolute;top:4px;right:6px;min-width:16px;height:16px;padding:0 4px;border-radius:999px;background:linear-gradient(135deg,#b89465,#8b6a3a);color:#fff;font-size:.52rem;font-weight:800;line-height:16px;text-align:center}
+.dwf-main-tab.dwf-tab-ended.on{border-color:color-mix(in srgb,#b89465 45%,rgba(255,255,255,.1))}
+.dwf-empty-fengxin,.dwf-empty-lishi,.dwf-empty-fangming,.dwf-empty-zisi{flex-direction:column;gap:10px;min-height:140px}
+.dwf-empty-fengxin i,.dwf-empty-lishi i,.dwf-empty-fangming i,.dwf-empty-zisi i{font-size:1.4rem;color:color-mix(in srgb,var(--c) 70%,transparent);opacity:.7}
+.dwf-section-rumor{margin-top:12px}
+.dwf-rumor-body{font-size:.76rem;line-height:1.55;color:var(--txt2)}
+.dwf-rumor-body p{margin:0 0 6px}
+.dwf-rumor-body p:last-child{margin-bottom:0}
+.dwf-timeline-idx{font-size:.62rem;font-weight:800;color:var(--c);letter-spacing:.1em;margin-bottom:4px;opacity:.85}
+.dwf-timeline-text p{margin:0 0 6px}
+.dwf-timeline-text p:last-child{margin-bottom:0}
+
 @media(max-width:720px){
   .dwf-main-nav{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
@@ -4789,8 +5046,18 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   .dwf-tianji-loc{justify-content:center}
   .dwf-chip-row{justify-content:center}
   .dwf-kv-row{grid-template-columns:64px minmax(0,1fr)}
+  .dwf-faction-grid{grid-template-columns:1fr}
+  .dwf-event-tags{max-height:160px;overflow-y:auto}
   .dwf-rank-card{grid-template-columns:auto 1fr;grid-template-rows:auto auto}
   .dwf-rank-badge{grid-column:1/-1;justify-self:start}
+  .dwf-jiyi-head{flex-direction:column;gap:8px}
+  .dwf-jiyi-urgency{width:100%;text-align:left}
+  .dwf-ending-title{font-size:1.15rem}
+  .dwf-jiyi-card{border-radius:16px}
+  .dwf-jiyi-countdown{grid-template-columns:auto 1fr;gap:10px}
+  .dwf-jiyi-countdown-fire{grid-column:1/-1;flex-direction:row;gap:8px;min-width:0;width:100%;justify-content:space-between}
+  .dwf-panel-intro{grid-template-columns:auto 1fr;gap:10px}
+  .dwf-panel-intro-stat{grid-column:1/-1;justify-self:start}
 }
 @media(min-width:521px) and (max-width:860px){
   .dwf-main-tab{min-height:48px}
@@ -4992,6 +5259,108 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   };
   var RANK_ORDER = { 妾室: 4, 近侍: 3, 婢妾: 2, 外室: 1 };
   var RANK_COLORS = { 妾室: '#daa520', 近侍: '#e85d6a', 婢妾: '#8b9aab', 外室: '#6a8caf' };
+  var CAMP_COLORS = {
+    无: '#8b9aab',
+    曹爽: '#c6764a',
+    王凌: '#6a8caf',
+    司马氏: '#9b7bb8',
+    勤王系: '#e85d6a',
+    自立: '#daa520',
+  };
+  var ROUTE_COLORS = {
+    潜龙: '#e85d6a',
+    魏祚: '#b89465',
+    旁观: '#8b9aab',
+    山林: '#6a9a6a',
+    异数: '#9b7bb8',
+  };
+  var JIYI_SOFT_CAP = 10;
+  var TAB_META = {
+    tianji: { icon: 'fa-sun', title: '天机', sub: '行程 · 朝局 · 命途', accent: '#c9a227' },
+    fengxin: { icon: 'fa-wind', title: '风闻', sub: '机宜 · 邸报 · 里巷', accent: '#6a8caf' },
+    lishi: { icon: 'fa-book-open', title: '历事', sub: '津渡支汊已演之纪', accent: '#b89465' },
+    fangming: { icon: 'fa-house-chimney', title: '房名次', sub: '后宅礼法名分', accent: '#daa520' },
+    zisi: { icon: 'fa-baby', title: '子嗣', sub: '名册 · 孺慕', accent: '#e85d6a' },
+  };
+
+  function isEnded(stat) {
+    var w = (stat && stat['世界与剧情']) || {};
+    var v = w['已终局'];
+    return v === true || v === 'true' || v === 1 || v === '1';
+  }
+
+  function getEnding(stat) {
+    var w = (stat && stat['世界与剧情']) || {};
+    return (w['终局'] && typeof w['终局'] === 'object' ? w['终局'] : null) || null;
+  }
+
+  function getRoutePreview(stat) {
+    var w = (stat && stat['世界与剧情']) || {};
+    return (w['路线预判'] && typeof w['路线预判'] === 'object' ? w['路线预判'] : {}) || {};
+  }
+
+  function renderRouteBanner(stat) {
+    if (isEnded(stat)) {
+      var end = getEnding(stat) || {};
+      var rc = ROUTE_COLORS[(stat['命途'] || {})['主导']] || '#b89465';
+      return (
+        '<div class="dwf-route-banner dwf-route-ended" style="--route-accent:' +
+        rc +
+        '">' +
+        '<div class="dwf-route-banner-k"><i class="fa-solid fa-scroll"></i> 故事已收束</div>' +
+        '<div class="dwf-route-banner-v">' +
+        esc(end['名'] || '终局') +
+        '</div>' +
+        (end['叙述'] ? '<div class="dwf-route-banner-sub">' + renderParas(splitParas(end['叙述']), 'dwf-route-banner-paras') + '</div>' : '') +
+        '</div>'
+      );
+    }
+    var mingtu = (stat && stat['命途']) || {};
+    var lead = mingtu['主导'];
+    var prev = getRoutePreview(stat);
+    var hint = prev['倾向'] || '';
+    var rc = ROUTE_COLORS[lead] || '#8b9aab';
+    if (!lead && !hint) return '';
+    return (
+      '<div class="dwf-route-banner" style="--route-accent:' +
+      rc +
+      '">' +
+      '<div class="dwf-route-banner-k"><i class="fa-solid fa-compass"></i> 当前路线</div>' +
+      '<div class="dwf-route-banner-row">' +
+      (lead
+        ? '<span class="dwf-route-pill"><i class="fa-solid fa-flag"></i> ' + esc(lead) + '</span>'
+        : '') +
+      (hint ? '<span class="dwf-route-pill soft">收束倾向 · ' + esc(hint) + '</span>' : '') +
+      '</div></div>'
+    );
+  }
+
+  function renderEndingCard(stat) {
+    var end = getEnding(stat) || {};
+    var w = (stat && stat['世界与剧情']) || {};
+    var trip = w['行程'];
+    var lead = ((stat && stat['命途']) || {})['主导'];
+    var rc = ROUTE_COLORS[lead] || '#b89465';
+    return (
+      '<div class="dwf-ending-card" style="--ending-accent:' +
+      rc +
+      '">' +
+      '<div class="dwf-ending-glow" aria-hidden="true"></div>' +
+      '<div class="dwf-ending-seal"><i class="fa-solid fa-yin-yang"></i></div>' +
+      '<div class="dwf-ending-title">' +
+      esc(end['名'] || '乱世收束') +
+      '</div>' +
+      '<div class="dwf-ending-lead">' +
+      (lead ? '命途 · ' + esc(lead) : '命途未定') +
+      '</div>' +
+      '<div class="dwf-ending-body">' +
+      renderParas(splitParas(end['叙述'] || '大势已定，余韵尽在历事与群芳录中。'), 'dwf-ending-paras') +
+      '</div>' +
+      '<div class="dwf-ending-foot">' +
+      (trip != null ? '<span>收束于行程 ' + esc(String(trip)) + '</span>' : '') +
+      '<span>机宜已尘封</span></div></div>'
+    );
+  }
 
   function esc(s) {
     return String(s == null ? '' : s)
@@ -4999,6 +5368,73 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       .replace(/</g, '&lt;')
       .replace(/>/g, '&gt;')
       .replace(/"/g, '&quot;');
+  }
+
+  function safeStr(v, fallback) {
+    if (v == null || v === '') return fallback == null ? '—' : fallback;
+    if (typeof v === 'object') return fallback == null ? '—' : fallback;
+    return String(v);
+  }
+
+  function safeObj(v) {
+    return v && typeof v === 'object' && !Array.isArray(v) ? v : {};
+  }
+
+  function formatSceneRoles(v) {
+    if (v == null || v === '') return '—';
+    if (Array.isArray(v)) {
+      var arr = v.map(function (x) {
+        return String(x || '').trim();
+      }).filter(Boolean);
+      return arr.length ? arr.join('、') : '—';
+    }
+    return String(v);
+  }
+
+  function splitParas(text) {
+    var s = String(text || '').trim();
+    if (!s) return [];
+    return s
+      .split(/\n+|[；;]+/)
+      .map(function (p) {
+        return p.trim();
+      })
+      .filter(Boolean);
+  }
+
+  function parseJiyiReason(raw) {
+    var s = String(raw || '').trim();
+    if (!s) return { lead: '', paras: [] };
+    var idx = s.indexOf('：');
+    if (idx < 0) idx = s.indexOf(':');
+    var lead = idx >= 0 ? s.slice(0, idx).trim() : '';
+    var body = idx >= 0 ? s.slice(idx + 1).trim() : s;
+    var paras = splitParas(body);
+    if (!paras.length && body) paras = [body];
+    return { lead: lead, paras: paras };
+  }
+
+  function renderParas(paras, className) {
+    if (!paras || !paras.length) return '';
+    return (
+      '<div class="' +
+      className +
+      '">' +
+      paras
+        .map(function (p) {
+          return '<p>' + esc(p) + '</p>';
+        })
+        .join('') +
+      '</div>'
+    );
+  }
+
+  function urgencyLabel(level) {
+    var n = Number(level) || 0;
+    if (n >= 5) return '燃眉';
+    if (n >= 4) return '紧急';
+    if (n >= 3) return '要紧';
+    return '寻常';
   }
 
   function getPinkBook(stat) {
@@ -5052,6 +5488,13 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     Object.keys(zhicha).forEach(function (k) {
       rows.push({ key: k, item: zhicha[k] || {}, bucket: '支汊' });
     });
+    rows.sort(function (a, b) {
+      var fa = Number(a.item['火急']) || 0;
+      var fb = Number(b.item['火急']) || 0;
+      if (fb !== fa) return fb - fa;
+      if (a.bucket !== b.bucket) return a.bucket === '津渡' ? -1 : 1;
+      return String(a.key).localeCompare(String(b.key), 'zh-CN');
+    });
     return rows;
   }
   function renderMoonRing(yueke) {
@@ -5089,6 +5532,11 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   function renderTianjiPanel(stat) {
     var world = (stat && stat['世界与剧情']) || {};
     var hero = (stat && stat['主角']) || {};
+    var faction = (stat && stat['主角势力']) || {};
+    var chaos = (stat && stat['朝局']) || {};
+    var jinian = chaos['纪年'] || {};
+    var mingtu = (stat && stat['命途']) || {};
+    var yinji = (stat && stat['命途印记']) || {};
     var yueke = world['行程'];
     var events = (stat && stat['鼎革纪']) || {};
     var eventHtml = '';
@@ -5098,13 +5546,63 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         Object.keys(events)
           .map(function (k) {
             var v = events[k];
-            return '<span class="dwf-event-tag">' + esc(typeof v === 'string' ? v : k) + '</span>';
+            var label = typeof v === 'string' && v ? k + ' · ' + v : k;
+            return '<span class="dwf-event-tag" title="' + esc(k) + '">' + esc(label) + '</span>';
           })
           .join('') +
         '</div>';
     } else {
       eventHtml = '<div class="dwf-empty">暂无鼎革定局</div>';
     }
+    var routeHtml = '';
+    var tags = mingtu['标签'] || [];
+    var locks = mingtu['已锁'] || [];
+    var lead = mingtu['主导'];
+    if (lead || tags.length || locks.length || Object.keys(yinji).length) {
+      routeHtml =
+        '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-route"></i>命途</span></div><div class="dwf-chip-row dwf-chip-row-loose">';
+      if (lead) {
+        var rc = ROUTE_COLORS[lead] || '#b89465';
+        routeHtml +=
+          '<span class="dwf-chip accent" style="--chip-accent:' +
+          rc +
+          '"><i class="fa-solid fa-compass"></i> 主导 ' +
+          esc(lead) +
+          '</span>';
+      }
+      tags.forEach(function (t) {
+        routeHtml += '<span class="dwf-chip">' + esc(t) + '</span>';
+      });
+      locks.forEach(function (t) {
+        routeHtml += '<span class="dwf-chip dwf-chip-lock"><i class="fa-solid fa-lock"></i> ' + esc(t) + '</span>';
+      });
+      Object.keys(yinji).forEach(function (k) {
+        routeHtml +=
+          '<span class="dwf-chip" title="命途印记"><span class="dwf-chip-dim">' +
+          esc(k) +
+          '</span> ' +
+          esc(yinji[k]) +
+          '</span>';
+      });
+      routeHtml += '</div></div>';
+    }
+    var chaosHtml =
+      '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-landmark"></i>朝局</span></div><div class="dwf-kv">' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">皇帝</span><span class="dwf-kv-v">' +
+      esc(chaos['皇帝'] || '—') +
+      '</span></div>' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">权柄</span><span class="dwf-kv-v">' +
+      esc(chaos['权柄'] || '—') +
+      '</span></div>' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">法统</span><span class="dwf-kv-v">' +
+      esc(chaos['法统'] || '—') +
+      '</span></div>' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">纪年</span><span class="dwf-kv-v">' +
+      esc(
+        (jinian['年号'] || '') +
+          (jinian['年数'] != null && jinian['年数'] !== '' ? String(jinian['年数']) : ''),
+      ) +
+      '</span></div></div></div>';
     var clues = hero['关键线索与物品'];
     var clueHtml = '';
     if (clues && typeof clues === 'object' && Object.keys(clues).length) {
@@ -5122,9 +5620,16 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     } else {
       clueHtml = '<div class="dwf-empty" style="padding:14px">暂无关键线索</div>';
     }
-    var interact = world['当前互动角色'] || '—';
-    var scene = world['当前场景角色'] || '—';
+    var interact = safeStr(world['当前互动角色'], '—');
+    var scene = formatSceneRoles(world['当前场景角色']);
+    var rank = faction['官爵'] || '';
+    var camp = faction['阵营'] || '无';
+    var campColor = CAMP_COLORS[camp] || '#8b9aab';
+    var troops = faction['部曲'] != null && faction['部曲'] !== '' ? String(faction['部曲']) : '0';
+    var base = faction['根基'] || '—';
     return (
+      renderPanelIntro('tianji', stat, '<i class="fa-solid fa-compass-drafting"></i> 行程 ' + esc(String(yueke != null ? yueke : '—'))) +
+      renderRouteBanner(stat) +
       '<div class="dwf-tianji-hero">' +
       renderMoonRing(yueke) +
       '<div class="dwf-tianji-meta">' +
@@ -5144,15 +5649,32 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       '</div></div></div>' +
       '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-crown"></i>主角</span></div>' +
       '<div class="dwf-kv">' +
-      '<div class="dwf-kv-row"><span class="dwf-kv-k">位置</span><span class="dwf-kv-v">' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">位置</span><span class="dwf-kv-v dwf-clamp-3">' +
       esc(hero['当前位置'] || '—') +
       '</span></div>' +
-      '<div class="dwf-kv-row"><span class="dwf-kv-k">状态</span><span class="dwf-kv-v">' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">状态</span><span class="dwf-kv-v dwf-clamp-3">' +
       esc(hero['当前状态'] || '—') +
+      '</span></div></div></div>' +
+      '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-flag"></i>主角势力</span></div>' +
+      '<div class="dwf-faction-card" style="--faction-accent:' +
+      campColor +
+      '">' +
+      '<div class="dwf-faction-top">' +
+      '<span class="dwf-faction-rank">' +
+      esc(rank || '白身') +
+      '</span>' +
+      '<span class="dwf-faction-camp">' +
+      esc(camp) +
       '</span></div>' +
-      (hero['官爵'] ? '<div class="dwf-kv-row"><span class="dwf-kv-k">官爵</span><span class="dwf-kv-v">' + esc(hero['官爵']) + '</span></div>' : '') +
-      (hero['底盘'] ? '<div class="dwf-kv-row"><span class="dwf-kv-k">底盘</span><span class="dwf-kv-v">' + esc(hero['底盘']) + '</span></div>' : '') +
-      '</div></div>' +
+      '<div class="dwf-faction-grid">' +
+      '<div class="dwf-faction-stat"><span class="dwf-faction-stat-k">部曲</span><span class="dwf-faction-stat-v">' +
+      esc(troops) +
+      '</span></div>' +
+      '<div class="dwf-faction-stat dwf-faction-stat-wide"><span class="dwf-faction-stat-k">根基</span><span class="dwf-faction-stat-v">' +
+      esc(base) +
+      '</span></div></div></div></div>' +
+      chaosHtml +
+      routeHtml +
       '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-key"></i>关键线索</span></div>' +
       clueHtml +
       '</div>' +
@@ -5162,70 +5684,274 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     );
   }
 
+  function renderPanelIntro(panelId, stat, statText) {
+    var meta = TAB_META[panelId] || { icon: 'fa-circle', title: panelId, sub: '', accent: '#b89465' };
+    return (
+      '<div class="dwf-panel-intro" style="--panel-accent:' +
+      meta.accent +
+      '">' +
+      '<div class="dwf-panel-intro-icon"><i class="fa-solid ' +
+      meta.icon +
+      '"></i></div>' +
+      '<div class="dwf-panel-intro-text">' +
+      '<div class="dwf-panel-intro-title">' +
+      esc(meta.title) +
+      '</div>' +
+      '<div class="dwf-panel-intro-sub">' +
+      esc(meta.sub) +
+      '</div></div>' +
+      (statText ? '<div class="dwf-panel-intro-stat">' + statText + '</div>' : '') +
+      '</div>'
+    );
+  }
+
+  function countdownState(remain) {
+    if (remain == null) return 'open';
+    if (remain <= 1) return 'critical';
+    if (remain <= 4) return 'warning';
+    return 'safe';
+  }
+
+  function renderCountdownTop(item, yueke, accent, level) {
+    var deadline = Number(item['截止行程']) || 0;
+    var openTrip = Number(item['开启行程']) || Math.max(1, yueke);
+    if (!deadline) return '';
+    var remain = Math.max(0, deadline - yueke);
+    var windowTotal = Math.max(1, deadline - openTrip + 1);
+    var pct = Math.max(0.06, Math.min(1, remain / windowTotal));
+    var state = countdownState(remain);
+    var r = 24;
+    var c = 2 * Math.PI * r;
+    var off = c * (1 - pct);
+    return (
+      '<div class="dwf-jiyi-countdown dwf-jiyi-countdown--' +
+      state +
+      '" style="--jiyi-accent:' +
+      accent +
+      '">' +
+      '<div class="dwf-jiyi-countdown-ring" aria-label="剩余 ' +
+      remain +
+      ' 格">' +
+      '<svg viewBox="0 0 56 56" aria-hidden="true">' +
+      '<circle class="dwf-cd-track" cx="28" cy="28" r="' +
+      r +
+      '"/>' +
+      '<circle class="dwf-cd-fill" cx="28" cy="28" r="' +
+      r +
+      '" stroke-dasharray="' +
+      c +
+      '" stroke-dashoffset="' +
+      off +
+      '"/></svg>' +
+      '<div class="dwf-cd-core"><span class="dwf-cd-num">' +
+      remain +
+      '</span><span class="dwf-cd-unit">格</span></div></div>' +
+      '<div class="dwf-jiyi-countdown-info">' +
+      '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> 行程倒计时</div>' +
+      '<div class="dwf-jiyi-countdown-sub">第 <b>' +
+      deadline +
+      '</b> 格截止 · 窗宽 ' +
+      windowTotal +
+      ' 格</div>' +
+      '<div class="dwf-jiyi-countdown-track"><span style="width:' +
+      Math.round(pct * 100) +
+      '%"></span></div></div>' +
+      '<div class="dwf-jiyi-countdown-fire" title="火急 ' +
+      level +
+      '"><span>' +
+      esc(urgencyLabel(level)) +
+      '</span><em>' +
+      level +
+      '</em></div></div>'
+    );
+  }
+
+  function parseRelatedNames(raw) {
+    return String(raw || '')
+      .split(/[、,，]/)
+      .map(function (s) {
+        return s.trim();
+      })
+      .filter(Boolean);
+  }
+
+  function collectJiyiTags(stat, item) {
+    var tags = [];
+    var seen = {};
+    function push(kind, label) {
+      var k = kind + ':' + label;
+      if (seen[k]) return;
+      seen[k] = true;
+      tags.push({ kind: kind, label: label });
+    }
+    (item['卡片标签'] || []).forEach(function (t) {
+      if (t && t.label) push(t.kind || 'fate', t.label);
+    });
+    var book = getPinkBook(stat);
+    parseRelatedNames(item['相关人物']).forEach(function (name) {
+      if (!book[name]) return;
+      if (!isPresent(book[name]['是否登场'])) {
+        push('meet', '新逢·' + name);
+      }
+    });
+    var prev = getRoutePreview(stat);
+    var lead = ((stat && stat['命途']) || {})['主导'];
+    if (lead && prev['倾向']) {
+      var hint = String(prev['倾向']);
+      tags.forEach(function (t) {
+        if (t.kind !== 'ending') return;
+        var tail = String(t.label).replace(/^收束·/, '');
+        if (tail.indexOf(hint) >= 0 || hint.indexOf(tail) >= 0) t.hot = true;
+      });
+    }
+    return tags;
+  }
+
+  function renderJiyiTagRow(stat, item) {
+    var tags = collectJiyiTags(stat, item);
+    if (!tags.length) return '';
+    return (
+      '<div class="dwf-jiyi-tags">' +
+      tags
+        .map(function (t) {
+          var cls = 'dwf-jiyi-tag dwf-jiyi-tag--' + esc(t.kind || 'fate');
+          if (t.hot) cls += ' is-hot';
+          if (t.kind === 'route' && ROUTE_COLORS[t.label]) {
+            return (
+              '<span class="' +
+              cls +
+              '" style="--tag-accent:' +
+              ROUTE_COLORS[t.label] +
+              '">' +
+              esc(t.label) +
+              '</span>'
+            );
+          }
+          return '<span class="' + cls + '">' + esc(t.label) + '</span>';
+        })
+        .join('') +
+      '</div>'
+    );
+  }
+
+  function renderJiyiCard(row, yueke, stat) {
+    var key = row.key;
+    var item = row.item || {};
+    var level = Math.max(1, Math.min(5, Number(item['火急']) || 3));
+    var accent = urgencyAccent(level);
+    var parsed = parseJiyiReason(item['因由'] || '');
+    var bucketCls = row.bucket === '津渡' ? 'is-jindu' : 'is-zhicha';
+    var countdownHtml = renderCountdownTop(item, yueke, accent, level);
+    var meta = [];
+    if (item['相关人物']) {
+      meta.push('<span class="dwf-jiyi-meta-chip"><i class="fa-solid fa-user"></i>' + esc(item['相关人物']) + '</span>');
+    }
+    if (item['建议地点']) {
+      meta.push('<span class="dwf-jiyi-meta-chip"><i class="fa-solid fa-map-pin"></i>' + esc(item['建议地点']) + '</span>');
+    }
+    var tagsHtml = renderJiyiTagRow(stat, item);
+    return (
+      '<article class="dwf-jiyi-card ' +
+      bucketCls +
+      '" style="--jiyi-accent:' +
+      accent +
+      '">' +
+      countdownHtml +
+      (tagsHtml ? tagsHtml : '') +
+      '<div class="dwf-jiyi-glow" aria-hidden="true"></div>' +
+      '<div class="dwf-jiyi-main">' +
+      '<header class="dwf-jiyi-head">' +
+      '<div class="dwf-jiyi-head-left">' +
+      '<span class="dwf-jiyi-bucket">' +
+      esc(row.bucket) +
+      '</span>' +
+      '<h4 class="dwf-jiyi-name">' +
+      esc(key) +
+      '</h4></div></header>' +
+      (parsed.lead ? '<div class="dwf-jiyi-lead">' + esc(parsed.lead) + '</div>' : '') +
+      renderParas(parsed.paras, 'dwf-jiyi-body') +
+      (meta.length ? '<footer class="dwf-jiyi-foot">' + meta.join('') + '</footer>' : '') +
+      '</div></article>'
+    );
+  }
+
   function renderFengxinPanel(stat) {
-    var fx = (stat && stat['风闻录']) || {};
+    var fx = safeObj(stat && stat['风闻录']);
+    var banner = renderRouteBanner(stat);
+    if (isEnded(stat)) {
+      function rumorBlock(title, icon, data) {
+        var keys = data && typeof data === 'object' ? Object.keys(data) : [];
+        if (!keys.length) return '';
+        return (
+          '<div class="dwf-section dwf-section-rumor"><div class="dwf-section-hd"><span><i class="fa-solid ' +
+          icon +
+          '"></i>' +
+          title +
+          '</span></div><div class="dwf-rumor-list">' +
+          keys
+            .map(function (k) {
+              var paras = splitParas(data[k]);
+              return (
+                '<div class="dwf-rumor-item"><div class="dwf-rumor-key">' +
+                esc(k) +
+                '</div>' +
+                renderParas(paras.length ? paras : [String(data[k] || '')], 'dwf-rumor-body') +
+                '</div>'
+              );
+            })
+            .join('') +
+          '</div></div>'
+        );
+      }
+      return (
+        renderPanelIntro('fengxin', stat, '<i class="fa-solid fa-scroll"></i> 已收束') +
+        banner +
+        '<div class="dwf-fengxin-ended">' +
+        renderEndingCard(stat) +
+        '</div>' +
+        rumorBlock('邸报', 'fa-scroll', fx['邸报']) +
+        rumorBlock('里巷', 'fa-comments', fx['里巷'])
+      );
+    }
     var entries = listJiyiEntries(stat);
     var yueke = Number(_.get(stat, '世界与剧情.行程', 0)) || 0;
     var urgentHtml = '';
     if (entries.length) {
-      urgentHtml = entries
-        .map(function (row) {
-          var key = row.key;
-          var item = row.item || {};
-          var level = Number(item['火急']) || 3;
-          var deadline = Number(item['截止行程']) || 0;
-          var remain = deadline ? Math.max(0, deadline - yueke) : null;
-          return (
-            '<div class="dwf-urgent-card" style="--urgent-accent:' +
-            urgencyAccent(level) +
-            '">' +
-            '<div class="dwf-urgent-title">' +
-            esc(key) +
-            ' <span class="dwf-urgent-pill">' + esc(row.bucket) + '</span></div>' +
-            '<div class="dwf-urgent-reason">' +
-            esc(item['因由'] || '') +
-            '</div>' +
-            '<div class="dwf-urgent-foot">' +
-            '<span class="dwf-urgent-pill hot">火急 ' +
-            level +
-            '</span>' +
-            (item['相关人物']
-              ? '<span class="dwf-urgent-pill"><i class="fa-solid fa-user"></i> ' + esc(item['相关人物']) + '</span>'
-              : '') +
-            (item['建议地点']
-              ? '<span class="dwf-urgent-pill"><i class="fa-solid fa-map-pin"></i> ' + esc(item['建议地点']) + '</span>'
-              : '') +
-            (deadline
-              ? '<span class="dwf-urgent-pill' +
-                (remain !== null && remain <= 2 ? ' hot' : '') +
-                '">截止行程 ' +
-                deadline +
-                (remain !== null ? ' · 余' + remain + '格' : '') +
-                '</span>'
-              : '') +
-            '</div></div>'
-          );
-        })
-        .join('');
+      var shown = entries.slice(0, JIYI_SOFT_CAP);
+      urgentHtml =
+        '<div class="dwf-jiyi-stack">' +
+        shown
+          .map(function (row) {
+            return renderJiyiCard(row, yueke, stat);
+          })
+          .join('') +
+        '</div>';
+      if (entries.length > JIYI_SOFT_CAP) {
+        urgentHtml +=
+          '<div class="dwf-jiyi-more"><i class="fa-solid fa-layer-group"></i> 另有 ' +
+          (entries.length - JIYI_SOFT_CAP) +
+          ' 条机宜未展，演毕前置者后将陆续显现</div>';
+      }
     } else {
-      urgentHtml = '<div class="dwf-empty">风平无事，暂无机宜</div>';
+      urgentHtml = '<div class="dwf-empty dwf-empty-fengxin"><i class="fa-solid fa-wind"></i><span>风平无事，暂无机宜</span></div>';
     }
     function rumorBlock(title, icon, data) {
       var keys = data && typeof data === 'object' ? Object.keys(data) : [];
       if (!keys.length) return '';
       return (
-        '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid ' +
+        '<div class="dwf-section dwf-section-rumor"><div class="dwf-section-hd"><span><i class="fa-solid ' +
         icon +
         '"></i>' +
         title +
         '</span></div><div class="dwf-rumor-list">' +
         keys
           .map(function (k) {
+            var paras = splitParas(data[k]);
             return (
               '<div class="dwf-rumor-item"><div class="dwf-rumor-key">' +
               esc(k) +
               '</div>' +
-              esc(data[k]) +
+              renderParas(paras.length ? paras : [String(data[k] || '')], 'dwf-rumor-body') +
               '</div>'
             );
           })
@@ -5233,7 +5959,13 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         '</div></div>'
       );
     }
+    var introStat =
+      entries.length > 0
+        ? '<i class="fa-solid fa-bolt"></i> ' + entries.length + ' 条机宜'
+        : '<i class="fa-solid fa-leaf"></i> 无事';
     return (
+      renderPanelIntro('fengxin', stat, introStat) +
+      banner +
       urgentHtml +
       rumorBlock('邸报', 'fa-scroll', fx['邸报']) +
       rumorBlock('里巷', 'fa-comments', fx['里巷'])
@@ -5241,19 +5973,33 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   }
 
   function renderLishiPanel(stat) {
-    var log = (stat && stat['履历']) || {};
+    var log = safeObj(stat && stat['履历']);
     var keys = Object.keys(log).sort(function (a, b) {
       var na = parseInt(a, 10);
       var nb = parseInt(b, 10);
       if (!isNaN(na) && !isNaN(nb)) return na - nb;
-      return String(a).localeCompare(String(b));
+      return String(a).localeCompare(String(b), 'zh-CN');
     });
-    if (!keys.length) return '<div class="dwf-empty">史册未书 · 大节演毕后将记入历事</div>';
+    if (!keys.length) {
+      return (
+        renderPanelIntro('lishi', stat, '') +
+        '<div class="dwf-empty dwf-empty-lishi"><i class="fa-solid fa-book-open"></i><span>史册未书 · 大节演毕后将记入历事</span></div>'
+      );
+    }
     return (
+      renderPanelIntro('lishi', stat, '<i class="fa-solid fa-pen-nib"></i> ' + keys.length + ' 则') +
       '<div class="dwf-timeline">' +
       keys
-        .map(function (k) {
-          return '<div class="dwf-timeline-item"><div class="dwf-timeline-text">' + esc(log[k]) + '</div></div>';
+        .map(function (k, i) {
+          var paras = splitParas(log[k]);
+          return (
+            '<div class="dwf-timeline-item dwf-glass-card">' +
+            '<div class="dwf-timeline-idx">第 ' +
+            esc(String(k)) +
+            ' 则</div>' +
+            renderParas(paras.length ? paras : [safeStr(log[k], '')], 'dwf-timeline-text') +
+            '</div>'
+          );
         })
         .join('') +
       '</div>'
@@ -5266,17 +6012,23 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   }
 
   function renderFangmingPanel(stat) {
-    var ranks = (stat && stat['房名次']) || {};
-    var keys = Object.keys(ranks).sort(function (a, b) {
+    var ranks = safeObj(stat && stat['房名次']);
+    var keys = Object.keys(ranks).filter(function (name) {
+      return ranks[name] && typeof ranks[name] === 'object';
+    }).sort(function (a, b) {
       var da = rankSortKey(a, ranks[a]);
       var db = rankSortKey(b, ranks[b]);
       if (da !== db) return da - db;
       return String(a).localeCompare(String(b), 'zh-CN');
     });
     if (!keys.length) {
-      return '<div class="dwf-empty">后宅名分未立 · 收近侍、纳妾后将记入房名次</div>';
+      return (
+        renderPanelIntro('fangming', stat, '') +
+        '<div class="dwf-empty dwf-empty-fangming"><i class="fa-solid fa-house-chimney"></i><span>后宅名分未立 · 收近侍、纳妾后将记入房名次</span></div>'
+      );
     }
     return (
+      renderPanelIntro('fangming', stat, '<i class="fa-solid fa-crown"></i> ' + keys.length + ' 人') +
       '<div class="dwf-rank-grid">' +
       keys
         .map(function (name) {
@@ -5285,7 +6037,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
           var accent = RANK_COLORS[rank] || '#b89465';
           var mark = String(name).slice(0, 1);
           return (
-            '<div class="dwf-rank-card" style="--rank-accent:' +
+            '<div class="dwf-rank-card dwf-glass-card" style="--rank-accent:' +
             accent +
             '">' +
             '<div class="dwf-rank-seal">' +
@@ -5293,7 +6045,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
             '</div>' +
             '<div><div class="dwf-rank-name">' +
             esc(name) +
-            '</div><div class="dwf-rank-sub">大唐后宅礼法名分</div></div>' +
+            '</div><div class="dwf-rank-sub">后宅礼法名分</div></div>' +
             '<span class="dwf-rank-badge">' +
             esc(rank) +
             '</span></div>'
@@ -5305,17 +6057,23 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   }
 
   function renderZisiPanel(stat) {
-    var children = (stat && stat['子嗣']) || {};
-    var keys = Object.keys(children).sort(function (a, b) {
+    var children = safeObj(stat && stat['子嗣']);
+    var keys = Object.keys(children).filter(function (name) {
+      return children[name] && typeof children[name] === 'object';
+    }).sort(function (a, b) {
       var ca = Number(children[a] && children[a]['春秋']) || 0;
       var cb = Number(children[b] && children[b]['春秋']) || 0;
       if (cb !== ca) return cb - ca;
       return String(a).localeCompare(String(b), 'zh-CN');
     });
     if (!keys.length) {
-      return '<div class="dwf-empty">子嗣名册尚空 · 分娩或收养后将记入此册</div>';
+      return (
+        renderPanelIntro('zisi', stat, '') +
+        '<div class="dwf-empty dwf-empty-zisi"><i class="fa-solid fa-baby"></i><span>子嗣名册尚空 · 分娩或收养后将记入此册</span></div>'
+      );
     }
     return (
+      renderPanelIntro('zisi', stat, '<i class="fa-solid fa-heart"></i> ' + keys.length + ' 名') +
       '<div class="dwf-child-grid">' +
       keys
         .map(function (name) {
@@ -5325,7 +6083,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
           var accent = gender === 'female' ? '#e85d6a' : '#6a8caf';
           var rumu = Math.max(0, Math.min(100, Number(c['孺慕']) || 0));
           return (
-            '<div class="dwf-child-card" style="--child-accent:' +
+            '<div class="dwf-child-card dwf-glass-card" style="--child-accent:' +
             accent +
             '">' +
             '<div class="dwf-child-head"><span class="dwf-child-name">' +
@@ -5356,6 +6114,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   }
 
   function countFengxinBadge(stat) {
+    if (isEnded(stat)) return 0;
     return listJiyiEntries(stat).length;
   }
 
@@ -5368,6 +6127,11 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     $('#dwf-main-nav .dwf-main-tab')
       .removeClass('on')
       .attr('aria-selected', 'false')
+      .each(function () {
+        var pid = $(this).attr('data-dwf-panel');
+        var ac = (TAB_META[pid] || {}).accent;
+        if (ac) $(this).css('--tab-accent', ac);
+      })
       .filter('[data-dwf-panel="' + id + '"]')
       .addClass('on')
       .attr('aria-selected', 'true');
@@ -5385,18 +6149,26 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 
   function renderDwfSubPanels(stat) {
     stat = stat || (global.getStatData ? global.getStatData() : {});
+    var ended = isEnded(stat);
     $('#dwf-panel-tianji').html(wrapPanelBody(renderTianjiPanel(stat)));
     $('#dwf-panel-fengxin').html(wrapPanelBody(renderFengxinPanel(stat)));
     $('#dwf-panel-lishi').html(wrapPanelBody(renderLishiPanel(stat)));
     $('#dwf-panel-fangming').html(wrapPanelBody(renderFangmingPanel(stat)));
     $('#dwf-panel-zisi').html(wrapPanelBody(renderZisiPanel(stat)));
+    var $fengTab = $('#dwf-main-nav .dwf-main-tab[data-dwf-panel="fengxin"]');
+    $fengTab.toggleClass('dwf-tab-ended', ended);
     var badge = countFengxinBadge(stat);
     var $b = $('#dwf-fengxin-badge');
-    if (badge > 0) {
+    var $endMark = $('#dwf-fengxin-ended-mark');
+    $endMark.remove();
+    if (ended) {
+      $b.remove();
+      if (!$fengTab.find('#dwf-fengxin-ended-mark').length) {
+        $fengTab.append('<span class="dwf-tab-ended-mark" id="dwf-fengxin-ended-mark">终</span>');
+      }
+    } else if (badge > 0) {
       if (!$b.length) {
-        $('#dwf-main-nav .dwf-main-tab[data-dwf-panel="fengxin"]').append(
-          '<span class="dwf-tab-badge" id="dwf-fengxin-badge">' + badge + '</span>',
-        );
+        $fengTab.append('<span class="dwf-tab-badge" id="dwf-fengxin-badge">' + badge + '</span>');
       } else {
         $b.text(badge);
       }
@@ -5410,6 +6182,11 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     try {
       saved = localStorage.getItem(DWF_MAIN_PANEL_KEY) || 'fende';
     } catch (e) {}
+    $('#dwf-main-nav .dwf-main-tab').each(function () {
+      var pid = $(this).attr('data-dwf-panel');
+      var ac = (TAB_META[pid] || {}).accent;
+      if (ac) $(this).css('--tab-accent', ac);
+    });
     $('#dwf-main-nav').on('click', '.dwf-main-tab', function () {
       var id = $(this).attr('data-dwf-panel');
       switchMainPanel(id);
@@ -5710,11 +6487,17 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
                 var book = (stat && stat['群芳录']) || {};
                 return JSON.stringify({
                     loc: _.get(stat, '世界与剧情.当前地点', ''),
-                    time: _.get(stat, '世界与剧情.当前时间', ''),
+                    time: _.get(stat, '世界与剧情.天时.显示', ''),
                     yueke: _.get(stat, '世界与剧情.行程', ''),
-                    
+                    ended: _.get(stat, '世界与剧情.已终局', false),
+                    ending: _.get(stat, '世界与剧情.终局', {}),
+                    routeHint: _.get(stat, '世界与剧情.路线预判', {}),
+                    mingtu: _.get(stat, '命途', {}),
+                    dingge: _.get(stat, '鼎革纪', {}),
+                    chaos: _.get(stat, '朝局', {}),
+                    faction: _.get(stat, '主角势力', {}),
                     currentRole: _.get(stat, '世界与剧情.当前互动角色', ''),
-                    sceneRoles: _.get(stat, '世界与剧情.当前场景角色', []),
+                    sceneRoles: _.get(stat, '世界与剧情.当前场景角色', ''),
                     hero: _.get(stat, '主角', {}),
                     fengxin: _.get(stat, '风闻录', {}),
                     lishi: _.get(stat, '履历', {}),
