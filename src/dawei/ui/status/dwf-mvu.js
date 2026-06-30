@@ -108,6 +108,7 @@
   function renderTianjiPanel(stat) {
     var world = (stat && stat['世界与剧情']) || {};
     var hero = (stat && stat['主角']) || {};
+    var faction = (stat && stat['主角势力']) || {};
     var yueke = world['行程'];
     var events = (stat && stat['鼎革纪']) || {};
     var eventHtml = '';
@@ -143,6 +144,10 @@
     }
     var interact = world['当前互动角色'] || '—';
     var scene = world['当前场景角色'] || '—';
+    var rank = faction['官爵'] || '—';
+    var camp = faction['阵营'] || '无';
+    var troops = faction['部曲'] != null && faction['部曲'] !== '' ? String(faction['部曲']) : '0';
+    var base = faction['根基'] || '—';
     return (
       '<div class="dwf-tianji-hero">' +
       renderMoonRing(yueke) +
@@ -168,9 +173,13 @@
       '</span></div>' +
       '<div class="dwf-kv-row"><span class="dwf-kv-k">状态</span><span class="dwf-kv-v">' +
       esc(hero['当前状态'] || '—') +
-      '</span></div>' +
-      (hero['官爵'] ? '<div class="dwf-kv-row"><span class="dwf-kv-k">官爵</span><span class="dwf-kv-v">' + esc(hero['官爵']) + '</span></div>' : '') +
-      (hero['底盘'] ? '<div class="dwf-kv-row"><span class="dwf-kv-k">底盘</span><span class="dwf-kv-v">' + esc(hero['底盘']) + '</span></div>' : '') +
+      '</span></div></div></div>' +
+      '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-flag"></i>主角势力</span></div>' +
+      '<div class="dwf-kv">' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">官爵</span><span class="dwf-kv-v">' + esc(rank) + '</span></div>' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">阵营</span><span class="dwf-kv-v">' + esc(camp) + '</span></div>' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">部曲</span><span class="dwf-kv-v">' + esc(troops) + '</span></div>' +
+      '<div class="dwf-kv-row"><span class="dwf-kv-k">根基</span><span class="dwf-kv-v">' + esc(base) + '</span></div>' +
       '</div></div>' +
       '<div class="dwf-section"><div class="dwf-section-hd"><span><i class="fa-solid fa-key"></i>关键线索</span></div>' +
       clueHtml +
