@@ -6838,28 +6838,204 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         var CUSTOM_COLOR_KEY = 'dwfCustomColorsV1'; // 新增：自定义颜色存储键
         var UNLOCK_STAGE_KEY = 'dwfUnlockStageV1';
 
-                var CHAR_ORDER = ['宇文姬', '三娘', '裴娘', '蒙小雨', '白无常', '金城公主', '程婷', '太平公主'];
+                                                /* __DWF_CHAR_ROSTER_START__ */
+        var CHAR_ORDER = ["王令君", "王玄姬", "郭太后", "羊徽瑜", "潘淑", "卢氏", "朝云", "甄氏", "宪英", "费氏", "白氏", "吴心", "薛夫人", "董氏", "张氏", "柏氏", "吴氏", "诸葛氏", "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏", "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏", "夏侯氏", "辛氏", "郭女王"];
         var CHAR_IDENTITY = {
-            '宇文姬': '长安女神医 · 冯元俊未婚妻',
-            '三娘': '宇文家收养之孤儿 · 女无常',
-            '裴娘': '薛府厨娘之女 · 近侍',
-            '蒙小雨': '水云间歌妓',
-            '白无常': '宇文家暗线 · 白无常',
-            '金城公主': '章怀太子孙女 · 宗室公主',
-            '程婷': '太平公主府侍女',
-            '太平公主': '镇国公主 · {{user}}生母'
-        };
-
+            "王令君": "陌路 · 淮南",
+            "王玄姬": "陌路 · 寿春",
+            "郭太后": "陌路 · 洛阳·永宁宫",
+            "羊徽瑜": "陌路 · 泰山",
+            "潘淑": "陌路 · 建业",
+            "卢氏": "陌路 · 平原驿城",
+            "朝云": "陌路 · 洛阳",
+            "甄氏": "陌路 · 洛阳",
+            "宪英": "陌路 · 淮南",
+            "费氏": "陌路 · 洛阳",
+            "白氏": "陌路 · 寿春",
+            "吴心": "陌路 · 洛阳",
+            "薛夫人": "陌路 · 寿春",
+            "董氏": "庄邻 · 平原郡·秦家庄",
+            "张氏": "嫂嫂 · 平原郡·秦家庄",
+            "柏氏": "陌路 · 洛阳·太傅府",
+            "吴氏": "陌路 · 洛阳",
+            "诸葛氏": "陌路 · 寿春",
+            "夏侯徽": "陌路 · 洛阳",
+            "金乡公主": "陌路 · 洛阳",
+            "王元姬": "陌路 · 洛阳",
+            "袁夫人": "陌路 · 建业",
+            "蔡贞姬": "陌路 · 洛阳",
+            "陆氏": "陌路 · 建业",
+            "荀氏": "陌路 · 洛阳",
+            "徐氏": "陌路 · 青州",
+            "杨氏": "陌路 · 洛阳",
+            "王夫人": "陌路 · 建业",
+            "杜夫人": "陌路 · 洛阳",
+            "朱夫人": "陌路 · 建业",
+            "孙鲁班": "陌路 · 建业",
+            "张春华": "陌路 · 洛阳·太傅府",
+            "阮氏": "陌路 · 洛阳",
+            "令狐氏": "陌路 · 兖州",
+            "夏侯氏": "陌路 · 洛阳",
+            "辛氏": "陌路 · 洛阳",
+            "郭女王": "陌路 · 洛阳·永宁宫"
+};
         var CHAR_META = {
-            '宇文姬': { c: '#8b4513' },
-            '三娘': { c: '#708090' },
-            '裴娘': { c: '#cd853f' },
-            '蒙小雨': { c: '#6a8caf' },
-            '白无常': { c: '#c0c0c0' },
-            '金城公主': { c: '#daa520' },
-            '程婷': { c: '#9b7a9e' },
-            '太平公主': { c: '#b22222' }
-        };
+            "王令君": {
+                        "c": "#b89465"
+            },
+            "王玄姬": {
+                        "c": "#8b6914"
+            },
+            "郭太后": {
+                        "c": "#a0522d"
+            },
+            "羊徽瑜": {
+                        "c": "#708090"
+            },
+            "潘淑": {
+                        "c": "#cd853f"
+            },
+            "卢氏": {
+                        "c": "#6a8caf"
+            },
+            "朝云": {
+                        "c": "#9b7a9e"
+            },
+            "甄氏": {
+                        "c": "#b22222"
+            },
+            "宪英": {
+                        "c": "#2e8b57"
+            },
+            "费氏": {
+                        "c": "#9370db"
+            },
+            "白氏": {
+                        "c": "#d2691e"
+            },
+            "吴心": {
+                        "c": "#5f9ea0"
+            },
+            "薛夫人": {
+                        "c": "#bc8f8f"
+            },
+            "董氏": {
+                        "c": "#daa520"
+            },
+            "张氏": {
+                        "c": "#c71585"
+            },
+            "柏氏": {
+                        "c": "#b89465"
+            },
+            "吴氏": {
+                        "c": "#8b6914"
+            },
+            "诸葛氏": {
+                        "c": "#a0522d"
+            },
+            "夏侯徽": {
+                        "c": "#708090"
+            },
+            "金乡公主": {
+                        "c": "#cd853f"
+            },
+            "王元姬": {
+                        "c": "#6a8caf"
+            },
+            "袁夫人": {
+                        "c": "#9b7a9e"
+            },
+            "蔡贞姬": {
+                        "c": "#b22222"
+            },
+            "陆氏": {
+                        "c": "#2e8b57"
+            },
+            "荀氏": {
+                        "c": "#9370db"
+            },
+            "徐氏": {
+                        "c": "#d2691e"
+            },
+            "杨氏": {
+                        "c": "#5f9ea0"
+            },
+            "王夫人": {
+                        "c": "#bc8f8f"
+            },
+            "杜夫人": {
+                        "c": "#daa520"
+            },
+            "朱夫人": {
+                        "c": "#c71585"
+            },
+            "孙鲁班": {
+                        "c": "#b89465"
+            },
+            "张春华": {
+                        "c": "#8b6914"
+            },
+            "阮氏": {
+                        "c": "#a0522d"
+            },
+            "令狐氏": {
+                        "c": "#708090"
+            },
+            "夏侯氏": {
+                        "c": "#cd853f"
+            },
+            "辛氏": {
+                        "c": "#6a8caf"
+            },
+            "郭女王": {
+                        "c": "#9b7a9e"
+            }
+};
+        /* __DWF_CHAR_ROSTER_MID__ */
+        var GALLERY_ROLE_ORDER = ["王令君", "王玄姬", "郭太后", "羊徽瑜", "潘淑", "卢氏", "朝云", "甄氏", "宪英", "费氏", "白氏", "吴心", "薛夫人", "董氏", "张氏", "柏氏", "吴氏", "诸葛氏", "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏", "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏", "夏侯氏", "辛氏", "郭女王"];
+        var CORE_GALLERY_ROLES = {"王令君": true, "王玄姬": true, "郭太后": true, "羊徽瑜": true, "潘淑": true, "卢氏": true, "朝云": true, "甄氏": true, "宪英": true, "费氏": true, "白氏": true, "吴心": true, "薛夫人": true, "董氏": true, "张氏": true};
+        var ROLE_SLUG = {};
+        var IMG_DATA = {
+            "王令君": [],
+            "王玄姬": [],
+            "郭太后": [],
+            "羊徽瑜": [],
+            "潘淑": [],
+            "卢氏": [],
+            "朝云": [],
+            "甄氏": [],
+            "宪英": [],
+            "费氏": [],
+            "白氏": [],
+            "吴心": [],
+            "薛夫人": [],
+            "董氏": [],
+            "张氏": [],
+            "柏氏": [],
+            "吴氏": [],
+            "诸葛氏": [],
+            "夏侯徽": [],
+            "金乡公主": [],
+            "王元姬": [],
+            "袁夫人": [],
+            "蔡贞姬": [],
+            "陆氏": [],
+            "荀氏": [],
+            "徐氏": [],
+            "杨氏": [],
+            "王夫人": [],
+            "杜夫人": [],
+            "朱夫人": [],
+            "孙鲁班": [],
+            "张春华": [],
+            "阮氏": [],
+            "令狐氏": [],
+            "夏侯氏": [],
+            "辛氏": [],
+            "郭女王": []
+};
+        /* __DWF_CHAR_ROSTER_END__ */
         var THEME_META = {
             dark: '深色背景',
             light: '浅色背景'
@@ -6867,20 +7043,6 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 
         var IMG_BASE = 'https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/';
         var GALLERY_STORE_PREFIX = 'DWF_gallery:v1:';
-                var GALLERY_ROLE_ORDER = ['宇文姬', '三娘', '裴娘', '蒙小雨', '白无常', '金城公主', '程婷', '太平公主'];
-        var CORE_GALLERY_ROLES = { '宇文姬': true, '三娘': true, '裴娘': true, '蒙小雨': true, '白无常': true, '金城公主': true, '程婷': true, '太平公主': true };
-        var ROLE_SLUG = { '宇文姬':'wenyu-ji', '三娘':'san-niang', '裴娘':'pei-niang', '蒙小雨':'meng-xiaoyu', '白无常':'bai-wuchang', '金城公主':'jin-cheng', '程婷':'cheng-ting', '太平公主':'tai-ping' };
-
-                var IMG_DATA = {
-            "宇文姬": [],
-            "三娘": [],
-            "裴娘": [],
-            "蒙小雨": [],
-            "白无常": [],
-            "金城公主": [],
-            "程婷": [],
-            "太平公主": []
-        };
         var SUPPORTING_ORDER = [];
         var SUPPORTING_META = {};
         Object.keys(SUPPORTING_META).forEach(function(n){ if (!CHAR_META[n]) CHAR_META[n] = { c: SUPPORTING_META[n].c }; });
@@ -7124,7 +7286,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
                     lishi: _.get(stat, '履历', {}),
                     fangming: _.get(stat, '房名次', {}),
                     zisi: _.get(stat, '子嗣', {}),
-                    core: CHAR_ORDER.map(function(n){
+                    core: sortCharNames(Object.keys(book)).map(function(n){
                         var c = book[n] || {};
                         return [n, c['是否登场'], c['好感度'], c['好感度上限'], c['当前位置'], c['服饰'], c['外貌'], c['当前状态'], c['心里想法'], c['心情'], c['与user关系'], c['有孕'], c['子嗣数']];
                     })
@@ -7813,12 +7975,34 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
             return v === true || v === 'true' || v === 1 || v === '1';
         }
 
-        function normalizeRoleName(name) {
+        function getPinkBookFromStat(stat) {
+            stat = stat || (typeof getStatData === 'function' ? getStatData() : {});
+            var book = stat['群芳录'];
+            return book && typeof book === 'object' ? book : {};
+        }
+
+        function compareCharOrder(a, b) {
+            var ia = CHAR_ORDER.indexOf(a);
+            var ib = CHAR_ORDER.indexOf(b);
+            if (ia >= 0 && ib >= 0) return ia - ib;
+            if (ia >= 0) return -1;
+            if (ib >= 0) return 1;
+            return String(a).localeCompare(String(b), 'zh-CN');
+        }
+
+        function sortCharNames(names) {
+            return names.slice().sort(compareCharOrder);
+        }
+
+        function normalizeRoleName(name, stat) {
             name = String(name || '').trim();
+            if (!name) return '';
+            var book = getPinkBookFromStat(stat);
+            if (book[name] && typeof book[name] === 'object') return name;
             return CHAR_ORDER.indexOf(name) >= 0 ? name : '';
         }
 
-        function normalizeRoleList(raw) {
+        function normalizeRoleList(raw, stat) {
             var list = [];
             if (Array.isArray(raw)) {
                 list = raw;
@@ -7827,31 +8011,30 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
             }
             var result = [];
             for (var i = 0; i < list.length; i++) {
-                var name = normalizeRoleName(list[i]);
+                var name = normalizeRoleName(list[i], stat);
                 if (name && result.indexOf(name) < 0) result.push(name);
             }
-            return result;
+            return sortCharNames(result);
         }
 
         function getCurrentInteractionRole(stat) {
-            return normalizeRoleName(_.get(stat, '世界与剧情.当前互动角色', ''));
+            return normalizeRoleName(_.get(stat, '世界与剧情.当前互动角色', ''), stat);
         }
 
         function getPresenceFallbackNames(stat) {
             var names = [];
-            var book = (stat && stat['群芳录']) || {};
-            for (var i = 0; i < CHAR_ORDER.length; i++) {
-                var name = CHAR_ORDER[i];
+            var book = getPinkBookFromStat(stat);
+            Object.keys(book).forEach(function(name) {
                 var cData = book[name];
-                if (cData && isPresent(cData['是否登场'])) names.push(name);
-            }
-            return names;
+                if (cData && typeof cData === 'object' && isPresent(cData['是否登场'])) names.push(name);
+            });
+            return sortCharNames(names);
         }
 
         function getPresentCharNames(stat) {
             var names = [];
-            var book = (stat && stat['群芳录']) || {};
-            var sceneNames = normalizeRoleList(_.get(stat, '世界与剧情.当前场景角色', []));
+            var book = getPinkBookFromStat(stat);
+            var sceneNames = normalizeRoleList(_.get(stat, '世界与剧情.当前场景角色', []), stat);
             var current = getCurrentInteractionRole(stat);
 
             function add(name) {
@@ -7865,7 +8048,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 
             var fallback = getPresenceFallbackNames(stat);
             for (var j = 0; j < fallback.length; j++) add(fallback[j]);
-            return names;
+            return sortCharNames(names);
         }
 
         function getCharActivitySig(stat, name) {
@@ -7899,9 +8082,8 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
             if (currentRole && tabNames.indexOf(currentRole) >= 0) return currentRole;
 
             if (__mnxSceneTabInitialized && added.length) {
-                for (var j = CHAR_ORDER.length - 1; j >= 0; j--) {
-                    if (added.indexOf(CHAR_ORDER[j]) >= 0) return CHAR_ORDER[j];
-                }
+                var addedSorted = sortCharNames(added);
+                return addedSorted[addedSorted.length - 1];
             }
 
             if (activeSceneTab && present.indexOf(activeSceneTab) < 0) {
@@ -7921,9 +8103,8 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
             if (__mnxSceneTabInitialized && changedNames.length && activeValid) {
                 var activeChanged = changedNames.indexOf(activeSceneTab) >= 0;
                 if (!activeChanged) {
-                    for (var m = CHAR_ORDER.length - 1; m >= 0; m--) {
-                        if (changedNames.indexOf(CHAR_ORDER[m]) >= 0) return CHAR_ORDER[m];
-                    }
+                    var changedSorted = sortCharNames(changedNames);
+                    return changedSorted[changedSorted.length - 1];
                 }
             }
 
@@ -7957,7 +8138,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
                 result.push({
                     type: 'core',
                     name: name,
-                    title: CHAR_IDENTITY[name] || name,
+                    title: CHAR_IDENTITY[name] || cData['与user关系'] || name,
                     clothes: cData['服饰'] || '',
                     appearance: cData['外貌'] || '',
                     state: cData['当前状态'] || '平静',
