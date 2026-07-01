@@ -38,6 +38,19 @@
   var TASK_LIMIT_BY_TYPE = { 津渡: 1, 支汊: 2 };
   var ZOD_MODULE_URL =
     'https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource/dist/util/mvu_zod.js';
+  var WAIT_UNTIL_MODULE_URL = 'https://testingcf.jsdelivr.net/npm/async-wait-until/+esm';
+
+  function resolveDwfStatusBase() {
+    var base = global.__DWF_STATUS_BASE__;
+    if (!base) return '';
+    base = String(base);
+    return base.endsWith('/') ? base : base + '/';
+  }
+
+  function dwfStatusAsset(name) {
+    var base = resolveDwfStatusBase();
+    return base ? base + name : name;
+  }
   var BUCKET_LABELS = { 津渡: '主线', 支汊: '支线' };
   var BUCKET_COLORS = { 津渡: '#c9a227', 支汊: '#5c9ead' };
   var DWF_TAB_SEEN_KEY = 'dwf-tab-seen-v1';
@@ -1082,7 +1095,7 @@
         return;
       }
       var script = document.createElement('script');
-      script.src = 'dwf-stat-schema.js';
+      script.src = dwfStatusAsset('dwf-stat-schema.js');
       script.onload = function () {
         resolve(!!global.__DWF_STAT_SCHEMA__);
       };
@@ -1124,13 +1137,47 @@
     return loadStatSchemaScript();
   }
 
+  async function ensureWaitUntil() {
+    if (global.__DWF_PREVIEW_BOOT__ || typeof global.__dwfWaitUntil === 'function') return true;
+    if (global.__dwfWaitUntilLoading) return global.__dwfWaitUntilLoading;
+    global.__dwfWaitUntilLoading = (async function () {
+      try {
+        var dynamicImport = new Function('url', 'return import(url);');
+        var mod = await dynamicImport(WAIT_UNTIL_MODULE_URL);
+        global.__dwfWaitUntil = mod.waitUntil || (mod.default && mod.default.waitUntil) || mod.default || mod;
+        return typeof global.__dwfWaitUntil === 'function';
+      } catch (e) {
+        console.warn('[大魏芳华:UI] 加载 waitUntil 失败', e);
+        return false;
+      }
+    })();
+    return global.__dwfWaitUntilLoading;
+  }
+
+  function messageHasStatData() {
+    var MvuApi = resolveMvuApi();
+    var opt = getMvuMessageOption();
+    if (MvuApi && typeof MvuApi.getMvuData === 'function') {
+      try {
+        var mvuData = MvuApi.getMvuData(opt || { type: 'message' }) || {};
+        if (_.has(mvuData, 'stat_data')) return true;
+      } catch (e) {}
+    }
+    var getVariables = resolveTavernApi('getVariables');
+    if (!getVariables) return false;
+    try {
+      if (opt && _.has(getVariables(opt), 'stat_data')) return true;
+      return _.has(getVariables({ type: 'message' }), 'stat_data');
+    } catch (e) {}
+    return false;
+  }
+
   /** KB: await waitUntil(() => _.has(getVariables({ type: 'message' }), 'stat_data')) */
   async function waitForMessageStatData() {
     if (global.__DWF_PREVIEW_BOOT__) return true;
-    for (var wi = 0; wi < 50 && typeof global.__dwfWaitUntil !== 'function'; wi += 1) {
-      await new Promise(function (resolve) {
-        setTimeout(resolve, 20);
-      });
+    if (!(await ensureWaitUntil())) {
+      console.warn('[大魏芳华:UI] waitUntil 不可用');
+      return false;
     }
     var getVariables = resolveTavernApi('getVariables');
     var waitUntil = global.__dwfWaitUntil;
@@ -1141,7 +1188,7 @@
     try {
       await waitUntil(
         function () {
-          return _.has(getVariables({ type: 'message' }), 'stat_data');
+          return messageHasStatData();
         },
         { timeout: 60000, intervalBetweenAttempts: 50 },
       );

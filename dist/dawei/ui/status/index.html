@@ -1,12 +1,16 @@
 <!doctype html>
 <html lang="zh-CN">
-<head><script src="./vendor/jquery.min.js"></script><script>window.errorCatched=function(fn){return fn;};</script>
-<script>
+<head><script>
 (function () {
   try {
     var q = new URLSearchParams(location.search);
     if (q.get('dwf_preview') === '1') window.__DWF_PREVIEW_BOOT__ = true;
   } catch (e) {}
+  var base = window.__DWF_STATUS_BASE__;
+  if (base) {
+    base = String(base);
+    window.__DWF_STATUS_BASE__ = base.endsWith('/') ? base : base + '/';
+  }
   if (typeof window.waitGlobalInitialized !== 'function') {
     window.waitGlobalInitialized = function () { return Promise.resolve(); };
   }
@@ -21,6 +25,10 @@
       var previewUser = sessionStorage.getItem('__dwf_preview_user_name__');
       if (previewUser) window.name1 = previewUser;
     } catch (e) {}
+  }
+  if (typeof window._ === 'undefined') {
+    var lodashBase = window.__DWF_STATUS_BASE__ || './';
+    document.write('<script src="' + lodashBase + 'vendor/lodash.min.js"><\/script>');
   }
 })();
 </script>
@@ -5706,11 +5714,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     </div>
 
 
-        <script src="./vendor/lodash.min.js"></script>
-    <script type="module">
-    import { waitUntil } from 'https://testingcf.jsdelivr.net/npm/async-wait-until/+esm';
-    window.__dwfWaitUntil = waitUntil;
-    </script>
+        <script>window.errorCatched=function(fn){return fn;};</script>
     <script>
 
         /* __DWF_MVU_JS_START__ */
@@ -5754,6 +5758,19 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   var TASK_LIMIT_BY_TYPE = { 津渡: 1, 支汊: 2 };
   var ZOD_MODULE_URL =
     'https://testingcf.jsdelivr.net/gh/StageDog/tavern_resource/dist/util/mvu_zod.js';
+  var WAIT_UNTIL_MODULE_URL = 'https://testingcf.jsdelivr.net/npm/async-wait-until/+esm';
+
+  function resolveDwfStatusBase() {
+    var base = global.__DWF_STATUS_BASE__;
+    if (!base) return '';
+    base = String(base);
+    return base.endsWith('/') ? base : base + '/';
+  }
+
+  function dwfStatusAsset(name) {
+    var base = resolveDwfStatusBase();
+    return base ? base + name : name;
+  }
   var BUCKET_LABELS = { 津渡: '主线', 支汊: '支线' };
   var BUCKET_COLORS = { 津渡: '#c9a227', 支汊: '#5c9ead' };
   var DWF_TAB_SEEN_KEY = 'dwf-tab-seen-v1';
@@ -6798,7 +6815,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         return;
       }
       var script = document.createElement('script');
-      script.src = 'dwf-stat-schema.js';
+      script.src = dwfStatusAsset('dwf-stat-schema.js');
       script.onload = function () {
         resolve(!!global.__DWF_STAT_SCHEMA__);
       };
@@ -6840,13 +6857,47 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     return loadStatSchemaScript();
   }
 
+  async function ensureWaitUntil() {
+    if (global.__DWF_PREVIEW_BOOT__ || typeof global.__dwfWaitUntil === 'function') return true;
+    if (global.__dwfWaitUntilLoading) return global.__dwfWaitUntilLoading;
+    global.__dwfWaitUntilLoading = (async function () {
+      try {
+        var dynamicImport = new Function('url', 'return import(url);');
+        var mod = await dynamicImport(WAIT_UNTIL_MODULE_URL);
+        global.__dwfWaitUntil = mod.waitUntil || (mod.default && mod.default.waitUntil) || mod.default || mod;
+        return typeof global.__dwfWaitUntil === 'function';
+      } catch (e) {
+        console.warn('[大魏芳华:UI] 加载 waitUntil 失败', e);
+        return false;
+      }
+    })();
+    return global.__dwfWaitUntilLoading;
+  }
+
+  function messageHasStatData() {
+    var MvuApi = resolveMvuApi();
+    var opt = getMvuMessageOption();
+    if (MvuApi && typeof MvuApi.getMvuData === 'function') {
+      try {
+        var mvuData = MvuApi.getMvuData(opt || { type: 'message' }) || {};
+        if (_.has(mvuData, 'stat_data')) return true;
+      } catch (e) {}
+    }
+    var getVariables = resolveTavernApi('getVariables');
+    if (!getVariables) return false;
+    try {
+      if (opt && _.has(getVariables(opt), 'stat_data')) return true;
+      return _.has(getVariables({ type: 'message' }), 'stat_data');
+    } catch (e) {}
+    return false;
+  }
+
   /** KB: await waitUntil(() => _.has(getVariables({ type: 'message' }), 'stat_data')) */
   async function waitForMessageStatData() {
     if (global.__DWF_PREVIEW_BOOT__) return true;
-    for (var wi = 0; wi < 50 && typeof global.__dwfWaitUntil !== 'function'; wi += 1) {
-      await new Promise(function (resolve) {
-        setTimeout(resolve, 20);
-      });
+    if (!(await ensureWaitUntil())) {
+      console.warn('[大魏芳华:UI] waitUntil 不可用');
+      return false;
     }
     var getVariables = resolveTavernApi('getVariables');
     var waitUntil = global.__dwfWaitUntil;
@@ -6857,7 +6908,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     try {
       await waitUntil(
         function () {
-          return _.has(getVariables({ type: 'message' }), 'stat_data');
+          return messageHasStatData();
         },
         { timeout: 60000, intervalBetweenAttempts: 50 },
       );
@@ -8313,7 +8364,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         var CUSTOM_COLOR_KEY = 'dwfCustomColorsV1'; // 新增：自定义颜色存储键
         var UNLOCK_STAGE_KEY = 'dwfUnlockStageV1';
 
-                                                                                                                                                                                                                                                                                                        /* __DWF_CHAR_ROSTER_START__ */
+                                                                                                                                                                                                                                                                                                                        /* __DWF_CHAR_ROSTER_START__ */
         var CHAR_ORDER = ["王令君", "王玄姬", "郭太后", "羊徽瑜", "潘淑", "卢氏", "朝云", "甄氏", "宪英", "费氏", "白氏", "吴心", "薛夫人", "董氏", "张氏", "柏氏", "吴氏", "诸葛氏", "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏", "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏", "夏侯氏", "辛氏", "郭女王"];
         var CHAR_IDENTITY = {
             "王令君": "陌路 · 淮南",
