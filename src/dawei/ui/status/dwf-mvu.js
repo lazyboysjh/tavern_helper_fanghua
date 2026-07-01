@@ -547,8 +547,38 @@
     return null;
   }
 
+  function resolveMvuMessageId() {
+    var roots = [global];
+    try {
+      if (global.parent && global.parent !== global) roots.push(global.parent);
+    } catch (e) {}
+    for (var i = 0; i < roots.length; i += 1) {
+      var root = roots[i];
+      if (!root) continue;
+      if (typeof root.getHostingMessageId === 'function') {
+        var hostId = root.getHostingMessageId();
+        if (hostId != null && hostId !== '') return Number(hostId);
+      }
+      if (typeof root.getLatestAssistantMessageId === 'function') {
+        var latestId = root.getLatestAssistantMessageId();
+        if (latestId != null) return Number(latestId);
+      }
+      if (typeof root.getCurrentMessageId === 'function') {
+        var curId = root.getCurrentMessageId();
+        if (curId != null && curId !== '') return Number(curId);
+      }
+    }
+    return 'latest';
+  }
+
+  function invalidateJiyiCache() {
+    __jiyiCacheKey = '';
+    __jiyiCacheRows = null;
+  }
+
   function persistStat(stat) {
     if (!stat || typeof stat !== 'object') return false;
+    invalidateJiyiCache();
     if (global.__DWF_PREVIEW_BOOT__) {
       try {
         sessionStorage.setItem('__dwf_preview_stat__', JSON.stringify(stat));
@@ -557,11 +587,33 @@
       return true;
     }
     try {
+      var messageId = resolveMvuMessageId();
+      var MvuApi = global.Mvu || (global.parent && global.parent.Mvu);
+      if (MvuApi && typeof MvuApi.getMvuData === 'function' && typeof MvuApi.replaceMvuData === 'function') {
+        var mvuData = cloneData(MvuApi.getMvuData({ type: 'message', message_id: messageId }) || {});
+        _.set(mvuData, 'stat_data', stat);
+        var replaceResult = MvuApi.replaceMvuData(mvuData, { type: 'message', message_id: messageId });
+        if (replaceResult && typeof replaceResult.then === 'function') {
+          replaceResult
+            .then(function () {
+              global.__dwfPersistedStat = cloneData(stat);
+              renderDwfSubPanels(stat);
+            })
+            .catch(function (e) {
+              console.warn('[大魏芳华:UI] Mvu.replaceMvuData 失败', e);
+            });
+        } else {
+          global.__dwfPersistedStat = cloneData(stat);
+        }
+        renderDwfSubPanels(stat);
+        return true;
+      }
       var api = resolveVariableApi();
       if (api) {
-        var vars = api.getVariables({ type: 'chat' }) || {};
+        var vars = api.getVariables({ type: 'message', message_id: messageId }) || {};
         _.set(vars, 'stat_data', stat);
-        api.replaceVariables(vars, { type: 'chat' });
+        api.replaceVariables(vars, { type: 'message', message_id: messageId });
+        global.__dwfPersistedStat = cloneData(stat);
         renderDwfSubPanels(stat);
         return true;
       }
@@ -1378,7 +1430,7 @@
     $panel.addClass('on').removeAttr('hidden');
     updateToolbarHeader(stat, id);
     $('#lk').toggle(id === 'fende');
-    if (stat) renderDwfSubPanels(stat);
+    renderDwfSubPanels(stat || (global.getStatData ? global.getStatData() : null));
   }
 
   function wrapPanelBody(html) {

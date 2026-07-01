@@ -6017,8 +6017,38 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     return null;
   }
 
+  function resolveMvuMessageId() {
+    var roots = [global];
+    try {
+      if (global.parent && global.parent !== global) roots.push(global.parent);
+    } catch (e) {}
+    for (var i = 0; i < roots.length; i += 1) {
+      var root = roots[i];
+      if (!root) continue;
+      if (typeof root.getHostingMessageId === 'function') {
+        var hostId = root.getHostingMessageId();
+        if (hostId != null && hostId !== '') return Number(hostId);
+      }
+      if (typeof root.getLatestAssistantMessageId === 'function') {
+        var latestId = root.getLatestAssistantMessageId();
+        if (latestId != null) return Number(latestId);
+      }
+      if (typeof root.getCurrentMessageId === 'function') {
+        var curId = root.getCurrentMessageId();
+        if (curId != null && curId !== '') return Number(curId);
+      }
+    }
+    return 'latest';
+  }
+
+  function invalidateJiyiCache() {
+    __jiyiCacheKey = '';
+    __jiyiCacheRows = null;
+  }
+
   function persistStat(stat) {
     if (!stat || typeof stat !== 'object') return false;
+    invalidateJiyiCache();
     if (global.__DWF_PREVIEW_BOOT__) {
       try {
         sessionStorage.setItem('__dwf_preview_stat__', JSON.stringify(stat));
@@ -6027,11 +6057,33 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       return true;
     }
     try {
+      var messageId = resolveMvuMessageId();
+      var MvuApi = global.Mvu || (global.parent && global.parent.Mvu);
+      if (MvuApi && typeof MvuApi.getMvuData === 'function' && typeof MvuApi.replaceMvuData === 'function') {
+        var mvuData = cloneData(MvuApi.getMvuData({ type: 'message', message_id: messageId }) || {});
+        _.set(mvuData, 'stat_data', stat);
+        var replaceResult = MvuApi.replaceMvuData(mvuData, { type: 'message', message_id: messageId });
+        if (replaceResult && typeof replaceResult.then === 'function') {
+          replaceResult
+            .then(function () {
+              global.__dwfPersistedStat = cloneData(stat);
+              renderDwfSubPanels(stat);
+            })
+            .catch(function (e) {
+              console.warn('[大魏芳华:UI] Mvu.replaceMvuData 失败', e);
+            });
+        } else {
+          global.__dwfPersistedStat = cloneData(stat);
+        }
+        renderDwfSubPanels(stat);
+        return true;
+      }
       var api = resolveVariableApi();
       if (api) {
-        var vars = api.getVariables({ type: 'chat' }) || {};
+        var vars = api.getVariables({ type: 'message', message_id: messageId }) || {};
         _.set(vars, 'stat_data', stat);
-        api.replaceVariables(vars, { type: 'chat' });
+        api.replaceVariables(vars, { type: 'message', message_id: messageId });
+        global.__dwfPersistedStat = cloneData(stat);
         renderDwfSubPanels(stat);
         return true;
       }
@@ -6848,7 +6900,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     $panel.addClass('on').removeAttr('hidden');
     updateToolbarHeader(stat, id);
     $('#lk').toggle(id === 'fende');
-    if (stat) renderDwfSubPanels(stat);
+    renderDwfSubPanels(stat || (global.getStatData ? global.getStatData() : null));
   }
 
   function wrapPanelBody(html) {
@@ -6960,7 +7012,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         var CUSTOM_COLOR_KEY = 'dwfCustomColorsV1'; // 新增：自定义颜色存储键
         var UNLOCK_STAGE_KEY = 'dwfUnlockStageV1';
 
-                                                                                                                        /* __DWF_CHAR_ROSTER_START__ */
+                                                                                                                                /* __DWF_CHAR_ROSTER_START__ */
         var CHAR_ORDER = ["王令君", "王玄姬", "郭太后", "羊徽瑜", "潘淑", "卢氏", "朝云", "甄氏", "宪英", "费氏", "白氏", "吴心", "薛夫人", "董氏", "张氏", "柏氏", "吴氏", "诸葛氏", "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏", "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏", "夏侯氏", "辛氏", "郭女王"];
         var CHAR_IDENTITY = {
             "王令君": "陌路 · 淮南",
@@ -8027,7 +8079,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         function readStatFromMessage(messageId) {
             if (messageId == null || messageId === '') return null;
             try {
-                const message_variables = Mvu.getMvuData({ type: 'message', message_id: Number(messageId) }) || {};
+                const message_variables = Mvu.getMvuData({ type: 'message', message_id: messageId }) || {};
                 const message_stat_data = _.get(message_variables, 'stat_data', {});
                 if (message_stat_data && typeof message_stat_data === 'object'
                     && (message_stat_data['群芳录'] || message_stat_data['世界与剧情'])) {
@@ -8050,6 +8102,31 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
             if (window.__DWF_PREVIEW_STAT__ && typeof window.__DWF_PREVIEW_STAT__ === 'object') {
                 return window.__DWF_PREVIEW_STAT__;
             }
+            if (window.__dwfPersistedStat && typeof window.__dwfPersistedStat === 'object') {
+                var overlay = window.__dwfPersistedStat;
+                if (overlay['群芳录'] || overlay['世界与剧情']) return overlay;
+            }
+            try {
+                var candidateIds = [];
+                if (isLatestAssistantMessage()) {
+                    var latestId = getLatestAssistantMessageId();
+                    if (latestId != null) candidateIds.push(Number(latestId));
+                }
+                var hostId = getHostingMessageId();
+                if (hostId != null && candidateIds.indexOf(Number(hostId)) < 0) candidateIds.push(Number(hostId));
+                if (!candidateIds.length && typeof getCurrentMessageId === 'function') {
+                    var currentId = getCurrentMessageId();
+                    if (currentId != null && currentId !== '') candidateIds.push(Number(currentId));
+                }
+                for (var ci = 0; ci < candidateIds.length; ci++) {
+                    var fromMessage = readStatFromMessage(candidateIds[ci]);
+                    if (fromMessage) return fromMessage;
+                }
+                if (window.Mvu && typeof Mvu.getMvuData === 'function') {
+                    var latestMvu = readStatFromMessage('latest');
+                    if (latestMvu) return latestMvu;
+                }
+            } catch (e) {}
             let stat_data = {};
             try {
                 const _getAllVars = typeof getAllVariables === 'function'
@@ -8071,27 +8148,25 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
                 }
             } catch (e) {}
             try {
-                var candidateIds = [];
+                var fallbackIds = [];
                 if (isLatestAssistantMessage()) {
-                    var latestId = getLatestAssistantMessageId();
-                    if (latestId != null) candidateIds.push(Number(latestId));
+                    var latestId2 = getLatestAssistantMessageId();
+                    if (latestId2 != null) fallbackIds.push(Number(latestId2));
                 }
-                var hostId = getHostingMessageId();
-                if (hostId != null && candidateIds.indexOf(Number(hostId)) < 0) candidateIds.push(Number(hostId));
-                if (!candidateIds.length && typeof getCurrentMessageId === 'function') {
-                    var currentId = getCurrentMessageId();
-                    if (currentId != null && currentId !== '') candidateIds.push(Number(currentId));
+                var hostId2 = getHostingMessageId();
+                if (hostId2 != null && fallbackIds.indexOf(Number(hostId2)) < 0) fallbackIds.push(Number(hostId2));
+                if (!fallbackIds.length && typeof getCurrentMessageId === 'function') {
+                    var currentId2 = getCurrentMessageId();
+                    if (currentId2 != null && currentId2 !== '') fallbackIds.push(Number(currentId2));
                 }
-                for (var ci = 0; ci < candidateIds.length; ci++) {
-                    var fromMessage = readStatFromMessage(candidateIds[ci]);
-                    if (fromMessage) return fromMessage;
+                for (var fi = 0; fi < fallbackIds.length; fi++) {
+                    var fromMessage2 = readStatFromMessage(fallbackIds[fi]);
+                    if (fromMessage2) return fromMessage2;
                 }
             } catch (e) {}
             return stat_data;
         }
-        if (window.__DWF_PREVIEW_BOOT__) {
-            window.getStatData = getStatData;
-        }
+        window.getStatData = getStatData;
 
         function isPresent(v) {
             return v === true || v === 'true' || v === 1 || v === '1';
@@ -9121,6 +9196,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 
             if (!window.__DWF_PREVIEW_BOOT__ && typeof eventOn === 'function' && window.Mvu && Mvu.events) {
             var mvuUpdateStop = eventOn(Mvu.events.VARIABLE_UPDATE_ENDED, function() {
+                window.__dwfPersistedStat = null;
                 invalidateEnsureLiveStatusBarCache();
                 scheduleRefreshScene(true);
             });
