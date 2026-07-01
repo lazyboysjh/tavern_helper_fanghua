@@ -104,7 +104,6 @@
   --dwf-jiyi-surface-border:rgba(255,255,255,.08);
   --dwf-panel-view-h:clamp(300px,44vh,480px);
   --dwf-fende-stage-h:clamp(420px,56vh,600px);
-  --dwf-fende-scene-min-h:clamp(300px,calc(var(--dwf-fende-stage-h) - 138px),460px);
   --dwf-fende-portrait-max-h:min(68vh,480px);
   --dwf-fende-portrait-max-w:clamp(248px,42vw,380px);
 }
@@ -129,18 +128,37 @@
 .dwf-panel-body::-webkit-scrollbar{width:4px;height:4px}
 .dwf-panel-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px}
 #dwf-panel-fende.on .scene-stage{
-  flex:1;min-height:var(--dwf-fende-scene-min-h)!important;display:flex;flex-direction:column;
+  flex:0 0 auto;min-height:auto!important;height:auto!important;display:flex;flex-direction:column;
 }
 #dwf-panel-fende .scene-stage-clip{
-  flex:1;min-height:var(--dwf-fende-scene-min-h);
-  overflow-x:hidden;overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-  overscroll-behavior:contain;
-  scrollbar-width:thin;
-  scrollbar-color:rgba(255,255,255,.22) transparent;
+  flex:0 0 auto;min-height:auto;height:auto;
+  overflow:visible;
 }
-#dwf-panel-fende .scene-stage-clip::-webkit-scrollbar{width:4px}
-#dwf-panel-fende .scene-stage-clip::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px}
+#dwf-panel-fende .scene-shell{
+  flex:1 1 auto;min-height:auto;height:auto;align-content:start;
+}
+#dwf-panel-fende #scene-shell #scene-stage{
+  display:flex!important;
+  flex-direction:column!important;
+  grid-template-rows:none!important;
+  overflow:visible!important;
+  min-height:auto!important;
+  height:auto!important;
+  max-height:none!important;
+}
+/* 粉黛激活时：山水背景随内容延展，避免 fixed 背景与立绘底部脱节 */
+.w:has(#dwf-panel-fende.on){
+  background:
+    linear-gradient(145deg,rgba(15,15,18,.75),rgba(5,5,8,.85)),
+    var(--bg-img) center top/cover no-repeat scroll!important;
+  background-attachment:scroll,scroll!important;
+}
+:root[data-theme="light"] .w:has(#dwf-panel-fende.on){
+  background:
+    linear-gradient(145deg,rgba(230,230,235,.35),rgba(215,215,220,.45)),
+    var(--bg-img) center top/cover no-repeat scroll!important;
+  background-attachment:scroll,scroll!important;
+}
 .dwf-section .dwf-kv-v,.dwf-urgent-reason,.dwf-timeline-text,.dwf-rank-sub,.dwf-rumor-item{word-break:break-word}
 .dwf-empty{
   min-height:120px;
@@ -941,7 +959,6 @@
   :root{
     --dwf-panel-view-h:clamp(260px,48vh,420px);
     --dwf-fende-stage-h:clamp(360px,62vh,560px);
-    --dwf-fende-scene-min-h:clamp(248px,calc(var(--dwf-fende-stage-h) - 124px),420px);
     --dwf-fende-portrait-max-h:min(72vh,440px);
     --dwf-fende-portrait-max-w:min(88vw,320px);
   }
@@ -1079,7 +1096,7 @@
 }
 /* 粉黛 · 整片 scene-shell 凹陷（tabs + 折叠条 + 人物卡同底） */
 #dwf-panel-fende .scene-shell{
-  flex:1;min-height:0;display:flex;flex-direction:column;
+  flex:1 1 auto;min-height:auto;height:auto;align-content:start;
   padding:14px!important;border-radius:16px;margin-bottom:0;gap:10px;min-width:0;
   background:var(--block-bg);border:1px solid var(--block-border);box-shadow:var(--block-shadow);
 }
@@ -1481,6 +1498,18 @@
   margin-inline:auto!important;
 }
 @media (min-width:761px){
+  #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel,
+  #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
+  #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner,
+  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel,
+  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
+  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner{
+    width:min(100%,var(--dwf-fende-portrait-max-w))!important;
+    max-width:100%!important;
+    min-height:0!important;
+    height:auto!important;
+    max-height:none!important;
+  }
   #dwf-panel-fende #scene-stage-clip > .det-r:has(> .av-flip-wrap),
   #dwf-panel-fende #scene-stage-clip > .det-r:has(> .lz-char-flip-container),
   #dwf-panel-fende .scene-stage > .det-r:has(> .av-flip-wrap),
