@@ -78,6 +78,7 @@
     <button type="button" class="scene" data-scene="jiajuan">家眷样例</button>
     <button type="button" class="scene" data-scene="luoyang">洛阳·剑舞</button>
     <button type="button" class="scene" data-scene="pingyuan">平原·守孝</button>
+    <button type="button" class="scene" data-scene="heavy">长局压测</button>
     <button type="button" class="tab-btn" data-tab="tianji">天机</button>
     <button type="button" class="tab-btn" data-tab="fengxin">机宜</button>
     <button type="button" class="tab-btn" data-tab="fengwen">风闻</button>
@@ -438,6 +439,32 @@
           里巷: { 秦家庄: '何尚书礼聘风声又起，庄外时有青衣人观望。' },
         },
       },
+      heavy: (function () {
+        var lvli = {};
+        var dibao = {};
+        var lixiang = {};
+        for (var i = 1; i <= 80; i++) {
+          var k = String(i).padStart(3, '0');
+          lvli[k] = '正始' + Math.ceil(i / 12) + '年·洛阳·节点' + i + '：长局压测履历条目。';
+        }
+        for (var j = 1; j <= 35; j++) {
+          var dk = '潮汛_' + String(j).padStart(2, '0');
+          var lk = '坊间_' + String(j).padStart(2, '0');
+          dibao[dk] = '邸报·第' + j + '则：朝局风动，边关军情频传。';
+          lixiang[lk] = '坊间·第' + j + '则：酒肆里巷议论天下。';
+        }
+        return {
+          世界与剧情: {
+            行程: 200,
+            当前地点: '洛阳·长局压测',
+            已终局: false,
+            天时: { 显示: '正始十年·长局压测' },
+          },
+          主角: { 当前位置: '洛阳', 当前状态: '检视历事/风闻折叠与倒序' },
+          履历: lvli,
+          风闻录: { 邸报: dibao, 里巷: lixiang },
+        };
+      })(),
     };
 
     var currentScene = 'tags';

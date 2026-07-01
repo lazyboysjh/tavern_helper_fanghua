@@ -5272,6 +5272,13 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-lvli-when,.dwf-lvli-where{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:.62rem;font-weight:700;color:var(--txt2);background:rgba(255,255,255,.04);border:1px solid var(--border)}
 .dwf-lvli-where i{font-size:.58rem;opacity:.75}
 .dwf-lvli-deed{font-size:.84rem;font-weight:600;line-height:1.58;color:var(--txt);letter-spacing:.02em}
+.dwf-list-expand-foot{display:flex;justify-content:center;padding:8px 0 4px}
+.dwf-list-expand-btn{
+  appearance:none;border:1px solid rgba(184,148,101,.28);background:rgba(184,148,101,.08);
+  color:var(--c);font-size:.68rem;font-weight:700;letter-spacing:.06em;padding:6px 14px;border-radius:999px;cursor:pointer;
+}
+.dwf-list-expand-btn:hover{background:rgba(184,148,101,.16)}
+.dwf-section-hd .dwf-section-count{margin-left:auto}
 
 @media(max-width:720px){
   .dwf-main-nav{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -5777,6 +5784,8 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   var DWF_POOLED_EVENT_IDS = ["东关之战","东兴巷议","令君寒衣","令君省庄","令狐愚夜谈","令狐氏探亲","伊阙大战","伐吴议政","伐蜀出师","伐蜀随行观","何晏青衣","何骏嫌隙","侄问经籍","假黄钺","兄困清河","入大将军府","刘禅北狩","剑阁天险","剑阁撤军","劝进表","勤王起兵","卢氏清河信","受挫还寿春","受禅登基","司马使者","司马师接触","合肥屯田","吴心入府","吴氏解救","夏侯徽秘闻","大将军府","太学故人","太尉府观诏","太尉府记室","娶王令君","嫂子劝仕","嫂病榻前","孙礼考课","孙鲁班锋芒","宪英线","寿春谍影","山庄雪夜","平原隐居","平吴策","平康坊听政","庄园秋收","应召入仕","废曹芳","废立风闻","异数保帝疏","张春华鸩酒","成都受降","拒勤王","拒受禅","拒召再出山","拒大将军府","拒婚令君","拒废帝","拒征辟","拒晋王","施水废城","旁观卢氏边缘","晋宫旁观宴","朝云探亲庄","朝云舞剑","朝会博弈","柏氏粥羹","正元改元","毋丘俭谋反","永宁宫人","汝南首战","沙丘对峙","洛阳观望","淮南入幕","淮南再镇","淮南探亲","淮南自保","清河案收束","潘淑入宫","玄姬秘告","王令君谏止废立","王元姬危局","王凌密信","王夫人怨诉","王玄姬传闻","甄氏线","田园终老念","白氏初逢","白氏商队歇脚","离淮南赴洛","策封晋王","终局收束","绑太后出京","羊徽瑜入府","羊祜江口","荆州水战","董氏携孙来","蔡贞姬羊家","薛夫人送别","薛夫人问安","袁夫人争宠","西陵之战","西陵江观战","西陵驿道","许昌之战","诸葛恪情报","诸葛氏入门","诸葛诞幕僚","费氏收束","费氏线","贾充谏言","辞让九锡","迁府晋宫","迎驾洛阳","邸报天下","郭太后初谒","郭太后托公卿","郭女王身后事","郭氏盟誓","金乡公主家宴","附曹爽边缘","陆凝六安联络","陆抗对峙","陆氏萍水相逢","驿城卢氏","高平陵邮驿","魏祚谏禅","鸿门宴","麦收新醪","麦田董氏","齐王密谋"];
   /* __DWF_POOLED_EVENT_IDS_END__ */
   var NO_PANEL_INTRO = { tianji: true, fengxin: true, fengwen: true, lishi: true };
+  var LIST_COLLAPSE_LIMIT = { lishi: 15, rumor: 8 };
+  var __dwfListExpanded = { lishi: false, dibao: false, lixiang: false };
 
   function isEnded(stat) {
     var w = (stat && stat['世界与剧情']) || {};
@@ -7526,16 +7535,74 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     );
   }
 
-  function renderRumorBlock(title, icon, data) {
-    var keys = data && typeof data === 'object' ? Object.keys(data) : [];
-    if (!keys.length) return '';
+  function renderListExpandFooter(sectionId, total, limit, unit) {
+    unit = unit || '则';
+    if (total <= limit) return '';
+    if (__dwfListExpanded[sectionId]) {
+      return (
+        '<div class="dwf-list-expand-foot">' +
+        '<button type="button" class="dwf-list-expand-btn" data-dwf-list-collapse="1" data-dwf-list-target="' +
+        esc(sectionId) +
+        '">收起较早' +
+        unit +
+        '</button></div>'
+      );
+    }
     return (
-      '<div class="dwf-section dwf-section-rumor"><div class="dwf-section-hd"><span><i class="fa-solid ' +
+      '<div class="dwf-list-expand-foot">' +
+      '<button type="button" class="dwf-list-expand-btn" data-dwf-list-expand="1" data-dwf-list-target="' +
+      esc(sectionId) +
+      '">更早 ' +
+      (total - limit) +
+      unit +
+      '</button></div>'
+    );
+  }
+
+  function visibleListKeys(allKeys, sectionId, limit) {
+    if (__dwfListExpanded[sectionId] || allKeys.length <= limit) return allKeys;
+    return allKeys.slice(0, limit);
+  }
+
+  function sortLvliKeysNewestFirst(keys) {
+    return keys.slice().sort(function (a, b) {
+      var na = parseInt(a, 10);
+      var nb = parseInt(b, 10);
+      if (!isNaN(na) && !isNaN(nb)) return nb - na;
+      return String(b).localeCompare(String(a), 'zh-CN');
+    });
+  }
+
+  function sortRecordKeysNewestFirst(keys) {
+    return keys.slice().reverse();
+  }
+
+  function handleListExpandClick(target, expand) {
+    if (!target || !Object.prototype.hasOwnProperty.call(__dwfListExpanded, target)) return;
+    __dwfListExpanded[target] = !!expand;
+    var panelId = target === 'lishi' ? 'lishi' : 'fengwen';
+    var stat = global.getStatData ? global.getStatData() : __dwfLastGoodStat;
+    renderDwfSubPanels(stat, { only: panelId, force: true, activePanel: panelId });
+  }
+
+  function renderRumorBlock(title, icon, data, sectionId) {
+    var keys = data && typeof data === 'object' ? sortRecordKeysNewestFirst(Object.keys(data)) : [];
+    if (!keys.length) return '';
+    var limit = LIST_COLLAPSE_LIMIT.rumor;
+    var visible = visibleListKeys(keys, sectionId, limit);
+    return (
+      '<div class="dwf-section dwf-section-rumor" data-dwf-list-section="' +
+      esc(sectionId) +
+      '"><div class="dwf-section-hd"><span><i class="fa-solid ' +
       icon +
       '"></i>' +
       title +
-      '</span></div><div class="dwf-rumor-list">' +
-      keys
+      '</span>' +
+      (keys.length > limit
+        ? '<span class="dwf-section-count">显示 ' + visible.length + '/' + keys.length + '</span>'
+        : '') +
+      '</div><div class="dwf-rumor-list">' +
+      visible
         .map(function (k) {
           var paras = splitParas(data[k]);
           return (
@@ -7547,7 +7614,9 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
           );
         })
         .join('') +
-      '</div></div>'
+      '</div>' +
+      renderListExpandFooter(sectionId, keys.length, limit, '条') +
+      '</div>'
     );
   }
 
@@ -7645,43 +7714,42 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         renderEndingCard(stat) +
         '</div>' +
         renderWorldRumorPanel(stat) +
-        renderRumorBlock('邸报', 'fa-scroll', fx['邸报']) +
-        renderRumorBlock('坊间', 'fa-comments', fx['里巷'])
+        renderRumorBlock('邸报', 'fa-scroll', fx['邸报'], 'dibao') +
+        renderRumorBlock('坊间', 'fa-comments', fx['里巷'], 'lixiang')
       );
     }
     return (
       renderWorldRumorPanel(stat) +
-      renderRumorBlock('邸报', 'fa-scroll', fx['邸报']) +
-      renderRumorBlock('坊间', 'fa-comments', fx['里巷']) +
+      renderRumorBlock('邸报', 'fa-scroll', fx['邸报'], 'dibao') +
+      renderRumorBlock('坊间', 'fa-comments', fx['里巷'], 'lixiang') +
       renderFreeActionHint(stat)
     );
   }
 
   function renderLishiPanel(stat) {
     var log = safeObj(stat && stat['履历']);
-    var keys = Object.keys(log).sort(function (a, b) {
-      var na = parseInt(a, 10);
-      var nb = parseInt(b, 10);
-      if (!isNaN(na) && !isNaN(nb)) return na - nb;
-      return String(a).localeCompare(String(b), 'zh-CN');
-    });
+    var keys = sortLvliKeysNewestFirst(Object.keys(log));
     if (!keys.length) {
       return (
         '<div class="dwf-section dwf-section-lishi"><div class="dwf-section-hd"><span><i class="fa-solid fa-book-open"></i>已行之迹</span></div>' +
         '<div class="dwf-empty dwf-empty-lishi"><i class="fa-solid fa-book-open"></i><span>史册未书 · 大事过后，会按时间、地点记入此册</span></div></div>'
       );
     }
+    var limit = LIST_COLLAPSE_LIMIT.lishi;
+    var visible = visibleListKeys(keys, 'lishi', limit);
     return (
-      '<div class="dwf-section dwf-section-lishi"><div class="dwf-section-hd"><span><i class="fa-solid fa-book-open"></i>已行之迹</span><span class="dwf-section-count">' +
-      keys.length +
-      ' 则</span></div>' +
+      '<div class="dwf-section dwf-section-lishi" data-dwf-list-section="lishi"><div class="dwf-section-hd"><span><i class="fa-solid fa-book-open"></i>已行之迹</span><span class="dwf-section-count">' +
+      (keys.length > limit ? '显示 ' + visible.length + '/' + keys.length + ' 则' : keys.length + ' 则') +
+      '</span></div>' +
       '<div class="dwf-lvli-timeline">' +
-      keys
+      visible
         .map(function (k) {
           return renderLvliCard(k, log[k]);
         })
         .join('') +
-      '</div></div>'
+      '</div>' +
+      renderListExpandFooter('lishi', keys.length, limit, '则') +
+      '</div>'
     );
   }
 
@@ -8193,6 +8261,13 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
           handleTaskButtonClick(this, e);
         },
       );
+    $(document)
+      .off('click.dwfListExpand')
+      .on('click.dwfListExpand', '[data-dwf-list-expand],[data-dwf-list-collapse]', function (e) {
+        if (e && e.preventDefault) e.preventDefault();
+        var target = $(this).attr('data-dwf-list-target');
+        handleListExpandClick(target, $(this).is('[data-dwf-list-expand]'));
+      });
     if (!global.__DWF_PREVIEW_BOOT__) {
       switchMainPanel(saved);
     }
@@ -8238,7 +8313,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         var CUSTOM_COLOR_KEY = 'dwfCustomColorsV1'; // 新增：自定义颜色存储键
         var UNLOCK_STAGE_KEY = 'dwfUnlockStageV1';
 
-                                                                                                                                                                                                                                                                        /* __DWF_CHAR_ROSTER_START__ */
+                                                                                                                                                                                                                                                                                                        /* __DWF_CHAR_ROSTER_START__ */
         var CHAR_ORDER = ["王令君", "王玄姬", "郭太后", "羊徽瑜", "潘淑", "卢氏", "朝云", "甄氏", "宪英", "费氏", "白氏", "吴心", "薛夫人", "董氏", "张氏", "柏氏", "吴氏", "诸葛氏", "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏", "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏", "夏侯氏", "辛氏", "郭女王"];
         var CHAR_IDENTITY = {
             "王令君": "陌路 · 淮南",

@@ -643,6 +643,13 @@
 .dwf-lvli-when,.dwf-lvli-where{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:.62rem;font-weight:700;color:var(--txt2);background:rgba(255,255,255,.04);border:1px solid var(--border)}
 .dwf-lvli-where i{font-size:.58rem;opacity:.75}
 .dwf-lvli-deed{font-size:.84rem;font-weight:600;line-height:1.58;color:var(--txt);letter-spacing:.02em}
+.dwf-list-expand-foot{display:flex;justify-content:center;padding:8px 0 4px}
+.dwf-list-expand-btn{
+  appearance:none;border:1px solid rgba(184,148,101,.28);background:rgba(184,148,101,.08);
+  color:var(--c);font-size:.68rem;font-weight:700;letter-spacing:.06em;padding:6px 14px;border-radius:999px;cursor:pointer;
+}
+.dwf-list-expand-btn:hover{background:rgba(184,148,101,.16)}
+.dwf-section-hd .dwf-section-count{margin-left:auto}
 
 @media(max-width:720px){
   .dwf-main-nav{grid-template-columns:repeat(3,minmax(0,1fr))}
