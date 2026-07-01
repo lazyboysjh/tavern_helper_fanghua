@@ -67,6 +67,11 @@
   min-height:var(--dwf-panel-view-h);
   max-height:var(--dwf-panel-view-h);
 }
+.dwf-panels-stage:has(#dwf-panel-fende.on){
+  height:var(--dwf-fende-stage-h);
+  min-height:var(--dwf-fende-stage-h);
+  max-height:var(--dwf-fende-stage-h);
+}
 .dwf-panel.on{
   display:flex;
   flex-direction:column;
@@ -89,12 +94,19 @@
 .dwf-panel-body-fende{
   display:flex;
   flex-direction:column;
+  overflow-y:auto;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
 }
 :root{
   --dwf-jiyi-pick-h:44px;
   --dwf-jiyi-surface:linear-gradient(158deg,rgba(26,20,18,.96),rgba(10,8,12,.98));
   --dwf-jiyi-surface-border:rgba(255,255,255,.08);
   --dwf-panel-view-h:clamp(300px,44vh,480px);
+  --dwf-fende-stage-h:clamp(420px,56vh,600px);
+  --dwf-fende-scene-min-h:clamp(300px,calc(var(--dwf-fende-stage-h) - 138px),460px);
+  --dwf-fende-portrait-max-h:min(68vh,480px);
+  --dwf-fende-portrait-max-w:clamp(248px,42vw,380px);
 }
 .dwf-stat-degraded{
   display:flex;align-items:flex-start;gap:8px;margin-bottom:10px;padding:10px 12px;
@@ -117,9 +129,18 @@
 .dwf-panel-body::-webkit-scrollbar{width:4px;height:4px}
 .dwf-panel-body::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px}
 #dwf-panel-fende.on .scene-stage{
-  flex:1;min-height:0!important;display:flex;flex-direction:column;
+  flex:1;min-height:var(--dwf-fende-scene-min-h)!important;display:flex;flex-direction:column;
 }
-#dwf-panel-fende .scene-stage-clip{flex:1;min-height:0;overflow:auto}
+#dwf-panel-fende .scene-stage-clip{
+  flex:1;min-height:var(--dwf-fende-scene-min-h);
+  overflow-x:hidden;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  overscroll-behavior:contain;
+  scrollbar-width:thin;
+  scrollbar-color:rgba(255,255,255,.22) transparent;
+}
+#dwf-panel-fende .scene-stage-clip::-webkit-scrollbar{width:4px}
+#dwf-panel-fende .scene-stage-clip::-webkit-scrollbar-thumb{background:rgba(255,255,255,.18);border-radius:4px}
 .dwf-section .dwf-kv-v,.dwf-urgent-reason,.dwf-timeline-text,.dwf-rank-sub,.dwf-rumor-item{word-break:break-word}
 .dwf-empty{
   min-height:120px;
@@ -917,7 +938,13 @@
   :root{--dwf-jiyi-pick-h:42px}
 }
 @media(max-width:760px){
-  :root{--dwf-panel-view-h:clamp(260px,48vh,420px)}
+  :root{
+    --dwf-panel-view-h:clamp(260px,48vh,420px);
+    --dwf-fende-stage-h:clamp(360px,62vh,560px);
+    --dwf-fende-scene-min-h:clamp(248px,calc(var(--dwf-fende-stage-h) - 124px),420px);
+    --dwf-fende-portrait-max-h:min(72vh,440px);
+    --dwf-fende-portrait-max-w:min(88vw,320px);
+  }
 }
 @media(max-width:720px){
   .dwf-main-nav{grid-template-columns:repeat(3,minmax(0,1fr))}
@@ -1387,19 +1414,83 @@
   min-width:34px!important;min-height:34px!important;
   max-width:34px!important;max-height:34px!important;
 }
-/* 粉黛立绘区：压过 index 520px 最小高度，在统一 panel 视口内滚动 */
+/* 粉黛：加高场景背景 + 立绘自然比例；压过 index 460–620px 历史碎片 */
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel,
+#dwf-panel-fende .scene-stage-clip > .det-r.scene-panel,
+#dwf-panel-fende #scene-stage-clip > .det-r,
+#dwf-panel-fende .scene-stage > .det-r{
+  width:min(100%,var(--dwf-fende-portrait-max-w))!important;
+  max-width:100%!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:none!important;
+  flex:0 0 auto!important;
+  margin-inline:auto!important;
+  display:flex!important;
+  flex-direction:column!important;
+  grid-template-columns:minmax(0,1fr)!important;
+  padding:0!important;
+  align-items:stretch!important;
+}
+#dwf-panel-fende .lz-char-flip-container,
+#dwf-panel-fende .av-flip-wrap{
+  width:100%!important;
+  min-width:0!important;
+  min-height:0!important;
+  height:auto!important;
+  max-height:var(--dwf-fende-portrait-max-h)!important;
+  aspect-ratio:3/4!important;
+  flex:0 0 auto!important;
+}
+#dwf-panel-fende .lz-char-flip-inner,
+#dwf-panel-fende .lz-char-front,
+#dwf-panel-fende .lz-char-back,
+#dwf-panel-fende .lz-char-portrait,
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner,
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap,
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap > .av-flip,
+#dwf-panel-fende .scene-stage .av-flip,
+#dwf-panel-fende .scene-stage > .det-r > .av-flip-wrap > .av-flip{
+  min-height:0!important;
+  max-height:100%!important;
+  height:100%!important;
+}
+#dwf-panel-fende .scene-stage .support-grid{
+  min-height:0!important;
+  height:auto!important;
+  width:min(100%,var(--dwf-fende-portrait-max-w))!important;
+  margin-inline:auto!important;
+  grid-template-columns:minmax(0,1fr)!important;
+}
 @media (min-width:761px){
-  #dwf-panel-fende .scene-stage > .det-r:has(> .av-flip-wrap),
   #dwf-panel-fende .scene-stage .support-grid{
-    min-height:0!important;height:auto!important;
     grid-template-columns:minmax(200px,38%) minmax(0,1fr)!important;
+    width:100%!important;
+    max-width:min(100%,720px)!important;
   }
-  #dwf-panel-fende .scene-stage > .det-r > .av-flip-wrap,
-  #dwf-panel-fende .scene-stage > .det-r > .av-flip-wrap > .av-flip,
-  #dwf-panel-fende .scene-stage .support-figure,
-  #dwf-panel-fende .scene-stage .support-placeholder,
-  #dwf-panel-fende .lz-char-flip-container{
-    min-height:0!important;height:auto!important;
+}
+#dwf-panel-fende .scene-stage .support-figure,
+#dwf-panel-fende .scene-stage .support-placeholder{
+  width:100%!important;
+  max-width:var(--dwf-fende-portrait-max-w)!important;
+  height:auto!important;
+  min-height:0!important;
+  max-height:var(--dwf-fende-portrait-max-h)!important;
+  aspect-ratio:3/4!important;
+  margin-inline:auto!important;
+}
+@media (min-width:761px){
+  #dwf-panel-fende #scene-stage-clip > .det-r:has(> .av-flip-wrap),
+  #dwf-panel-fende #scene-stage-clip > .det-r:has(> .lz-char-flip-container),
+  #dwf-panel-fende .scene-stage > .det-r:has(> .av-flip-wrap),
+  #dwf-panel-fende .scene-stage > .det-r:has(> .lz-char-flip-container){
+    display:flex!important;
+    flex-direction:column!important;
+    min-height:0!important;
+    height:auto!important;
+    max-height:none!important;
+    grid-template-columns:minmax(0,1fr)!important;
   }
 }
 /* ===== /最终覆盖 ===== */
