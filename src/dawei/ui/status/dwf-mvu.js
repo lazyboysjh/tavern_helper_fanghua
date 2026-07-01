@@ -1886,7 +1886,7 @@
     var c = 2 * Math.PI * r;
     var off = c * (1 - pct);
     return (
-      '<div class="dwf-jiyi-countdown dwf-jiyi-countdown--' +
+      '<div class="dwf-jiyi-countdown dwf-jiyi-countdown--task dwf-jiyi-countdown--' +
       state +
       '" data-dwf-task-deadline="1" style="--jiyi-accent:' +
       accent +
@@ -2127,22 +2127,24 @@
       renderJiyiTagRow(stat, task) +
       renderParas(parsed.paras, 'dwf-jiyi-body') +
       locHtml +
+      '<div class="dwf-task-goals-wrap">' +
       renderTaskGoals(task) +
+      '</div>' +
       '<div class="dwf-task-actions' +
       (failed ? ' dwf-task-actions--solo' : '') +
       '">' +
       (failed
         ? '<button type="button" class="dwf-task-btn danger" data-dwf-task-clear="1" data-dwf-task-current-id="' +
           esc(task.id) +
-          '"><i class="fa-solid fa-trash"></i><span>删除失败事件</span></button>'
+          '"><i class="fa-solid fa-trash"></i><span class="dwf-task-btn-label dwf-task-btn-label--long">删除失败事件</span><span class="dwf-task-btn-label dwf-task-btn-label--short">删除</span></button>'
         : '<button type="button" class="dwf-task-btn danger" data-dwf-task-abandon="1" data-dwf-task-current-id="' +
           esc(task.id) +
-          '"><i class="fa-solid fa-ban"></i><span>放弃任务</span></button>' +
+          '"><i class="fa-solid fa-ban"></i><span class="dwf-task-btn-label dwf-task-btn-label--long">放弃任务</span><span class="dwf-task-btn-label dwf-task-btn-label--short">放弃</span></button>' +
           '<button type="button" class="dwf-task-btn primary" data-dwf-task-complete="1" data-dwf-task-current-id="' +
           esc(task.id) +
           '"' +
           (completable ? '' : ' disabled') +
-          '><i class="fa-solid fa-check-double"></i><span>完成任务</span></button>') +
+          '><i class="fa-solid fa-check-double"></i><span class="dwf-task-btn-label dwf-task-btn-label--long">完成任务</span><span class="dwf-task-btn-label dwf-task-btn-label--short">完成</span></button>') +
       '</div>' +
       '</div></article>'
     );

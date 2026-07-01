@@ -748,6 +748,7 @@
 .dwf-task-actions--solo{grid-template-columns:1fr}
 .dwf-task-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:34px;padding:7px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));color:var(--txt2);font-size:.7rem;font-weight:800;letter-spacing:.06em;cursor:pointer;transition:transform .22s ease,border-color .22s ease,background .22s ease,opacity .22s ease}
 .dwf-task-btn span{white-space:nowrap}
+.dwf-task-btn-label--short{display:none}
 .dwf-task-btn:hover:not(:disabled){transform:translateY(-1px);border-color:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 42%,rgba(255,255,255,.1));color:#fff}
 .dwf-task-btn:disabled{opacity:.45;cursor:default}
 .dwf-task-btn.primary{color:#fff;background:linear-gradient(135deg,rgba(106,154,106,.32),rgba(0,0,0,.18));border-color:rgba(106,154,106,.36)}
@@ -893,7 +894,47 @@
   .dwf-main-tab .dwf-tab-badge,
   .dwf-main-tab .dwf-tab-ended-mark{top:2px;right:2px;min-width:15px;height:15px;padding:0 4px;font-size:.48rem}
   .dwf-main-tab .dwf-tab-badge--dot{width:7px;height:7px;min-width:7px;top:3px;right:3px;padding:0!important}
-  .dwf-task-btn{min-height:44px;padding:9px 14px}
+  .dwf-fengxin-stage .dwf-task-goals-wrap{display:none}
+  .dwf-task-card .dwf-jiyi-main{padding:10px 12px 12px}
+  .dwf-task-card .dwf-jiyi-countdown--task{
+    grid-template-columns:minmax(0,1fr);
+    gap:6px;padding:8px 10px;
+  }
+  .dwf-task-card .dwf-jiyi-countdown--task .dwf-jiyi-countdown-ring{display:none}
+  .dwf-task-card .dwf-jiyi-countdown--task .dwf-jiyi-countdown-info{
+    flex-direction:row;flex-wrap:wrap;align-items:center;gap:4px 8px;
+  }
+  .dwf-task-card .dwf-jiyi-countdown--task .dwf-jiyi-countdown-hd{
+    flex:1 1 auto;min-width:0;gap:6px;
+  }
+  .dwf-task-card .dwf-jiyi-countdown--task .dwf-jiyi-countdown-label{
+    font-size:.64rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+  .dwf-task-card .dwf-jiyi-countdown--task .dwf-jiyi-countdown-sub{
+    margin:0;flex:0 0 auto;font-size:.58rem;white-space:nowrap;
+  }
+  .dwf-task-card .dwf-jiyi-countdown--task .dwf-jiyi-countdown-track{
+    flex:1 1 100%;margin:0;height:3px;
+  }
+  .dwf-task-card .dwf-jiyi-countdown--task .dwf-jiyi-urgency-pill{
+    padding:1px 6px;font-size:.5rem;
+  }
+  .dwf-task-card .dwf-jiyi-titlebar{
+    display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;
+    gap:4px 8px;
+  }
+  .dwf-task-card .dwf-jiyi-bucket{grid-column:1}
+  .dwf-task-card .dwf-jiyi-name{grid-column:2;font-size:.9rem;line-height:1.25}
+  .dwf-task-card .dwf-task-state{grid-column:3;padding:2px 7px;font-size:.56rem}
+  .dwf-task-card .dwf-jiyi-tags{padding-bottom:6px;margin-bottom:0}
+  .dwf-task-card .dwf-jiyi-body{font-size:.76rem;line-height:1.55}
+  .dwf-task-card .dwf-jiyi-foot{margin-top:8px;padding-top:6px}
+  .dwf-task-actions{gap:6px;margin-top:8px}
+  .dwf-task-btn{min-height:40px;padding:8px 10px;font-size:.66rem;gap:5px}
+  .dwf-task-btn i{font-size:.72rem}
+  .dwf-task-btn-label--long{display:none}
+  .dwf-task-btn-label--short{display:inline}
+  .dwf-task-btn.dwf-task-accept{min-height:40px}
 }
 /* ===== tab uniform heights v2（六轨/粉黛/立绘按钮同高；scene 变量供角色 tab 复用） ===== */
 :root{
