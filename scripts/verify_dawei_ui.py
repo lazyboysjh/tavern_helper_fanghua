@@ -34,7 +34,7 @@ def main():
         "dwf-panel-zisi",
         "dwfMvu",
         "粉黛录",
-        "dwf-main-tab-h",
+        "dwf-tab-h",
         "getPinkBookFromStat",
     ):
         if needle not in status:

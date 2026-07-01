@@ -5159,12 +5159,14 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   .dwf-main-tab{min-height:48px}
 }
 
-/* ===== tab uniform heights v1（主栏双端统一；scene 变量供粉黛 tab 复用） ===== */
+/* ===== tab uniform heights v2（六轨/粉黛/立绘按钮同高；scene 变量供角色 tab 复用） ===== */
 :root{
-  --dwf-main-tab-h:52px;
-  --scene-tab-h:40px;
-  --scene-tabs-rail-h:44px;
-  --scene-tab-nav-sz:40px;
+  --dwf-tab-h:52px;
+  --dwf-main-tab-h:var(--dwf-tab-h);
+  --dwf-top-btn-h:var(--dwf-tab-h);
+  --scene-tab-h:var(--dwf-tab-h);
+  --scene-tabs-rail-h:calc(var(--dwf-tab-h) + 6px);
+  --scene-tab-nav-sz:var(--dwf-tab-h);
 }
 .dwf-main-nav{align-items:stretch!important}
 .dwf-main-tab{
@@ -5181,48 +5183,59 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   max-height:2.2em!important;
   overflow:hidden!important;
 }
+.tb-btn-wrap .tg,
+.tb-btn-wrap #lk{
+  width:var(--dwf-top-btn-h)!important;
+  height:var(--dwf-top-btn-h)!important;
+  min-width:var(--dwf-top-btn-h)!important;
+  min-height:var(--dwf-top-btn-h)!important;
+  max-height:var(--dwf-top-btn-h)!important;
+  box-sizing:border-box!important;
+}
 @media (max-width:860px){
-  :root{
-    --dwf-main-tab-h:48px;
-    --scene-tab-h:38px;
-    --scene-tabs-rail-h:42px;
-    --scene-tab-nav-sz:36px;
-  }
+  :root{--dwf-tab-h:50px;}
 }
 @media (max-width:520px){
-  :root{
-    --dwf-main-tab-h:44px;
-    --scene-tab-h:36px;
-    --scene-tabs-rail-h:40px;
-    --scene-tab-nav-sz:34px;
-  }
+  :root{--dwf-tab-h:48px;}
 }
-/* ===== /tab uniform heights v1 ===== */
+/* ===== /tab uniform heights v2 ===== */
 
 /* __DWF_MVU_CSS_END__ */
 
-/* ===== tab uniform heights v1（粉黛角色 tab 双端统一） ===== */
+/* ===== tab uniform heights v2（粉黛角色 tab + 立绘库 tab 与六轨同高） ===== */
 .scene-tabs-wrap{align-items:center!important}
 .scene-tabs-mask{align-items:center!important}
 .scene-tabs{
   align-items:center!important;
-  min-height:var(--scene-tabs-rail-h,44px)!important;
+  min-height:var(--scene-tabs-rail-h,58px)!important;
   box-sizing:border-box!important;
 }
-.scene-tab-nav{
-  width:var(--scene-tab-nav-sz,40px)!important;
-  height:var(--scene-tab-nav-sz,40px)!important;
-  min-height:var(--scene-tab-nav-sz,40px)!important;
-  max-height:var(--scene-tab-nav-sz,40px)!important;
-  flex:0 0 var(--scene-tab-nav-sz,40px)!important;
+#scene-shell .scene-tab-nav,
+.scene-tabs-wrap .scene-tab-nav{
+  width:var(--scene-tab-nav-sz,52px)!important;
+  height:var(--scene-tab-nav-sz,52px)!important;
+  min-width:var(--scene-tab-nav-sz,52px)!important;
+  min-height:var(--scene-tab-nav-sz,52px)!important;
+  max-height:var(--scene-tab-nav-sz,52px)!important;
+  flex:0 0 var(--scene-tab-nav-sz,52px)!important;
   box-sizing:border-box!important;
 }
-.scene-tab{
-  height:var(--scene-tab-h,40px)!important;
-  min-height:var(--scene-tab-h,40px)!important;
-  max-height:var(--scene-tab-h,40px)!important;
+@media (max-width:860px){
+  #scene-shell .scene-tabs-wrap,
+  .scene-tabs-wrap{
+    grid-template-columns:var(--scene-tab-nav-sz,52px) minmax(0,1fr) var(--scene-tab-nav-sz,52px)!important;
+    align-items:center!important;
+  }
+}
+#scene-shell .scene-tab,
+.scene-tabs .scene-tab{
+  height:var(--scene-tab-h,52px)!important;
+  min-height:var(--scene-tab-h,52px)!important;
+  max-height:var(--scene-tab-h,52px)!important;
   box-sizing:border-box!important;
   align-items:center!important;
+  padding-block:0!important;
+  padding-inline:12px!important;
   overflow:hidden!important;
 }
 .scene-tab-text{
@@ -5239,7 +5252,36 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 #scene-shell .scene-tab.on{
   transform:none!important;
 }
-/* ===== /tab uniform heights v1 ===== */
+#st-tabs .st-tab,
+.st-tabs-wrap-gallery .st-tab{
+  min-height:var(--scene-tab-h,52px)!important;
+  height:var(--scene-tab-h,52px)!important;
+  max-height:var(--scene-tab-h,52px)!important;
+  box-sizing:border-box!important;
+  display:inline-flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  padding-block:0!important;
+}
+@media (min-width:761px){
+  #scene-stage-clip > .det-r.scene-panel,
+  .scene-stage-clip > .det-r.scene-panel{
+    min-height:clamp(460px,calc(100dvh - 272px),620px)!important;
+    height:clamp(460px,calc(100dvh - 272px),620px)!important;
+  }
+  #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap,
+  #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
+  #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap > .av-flip,
+  #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner,
+  .scene-stage-clip > .det-r.scene-panel > .av-flip-wrap,
+  .scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
+  .scene-stage-clip > .det-r.scene-panel > .av-flip-wrap > .av-flip,
+  .scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner{
+    min-height:100%!important;
+    height:100%!important;
+  }
+}
+/* ===== /tab uniform heights v2 ===== */
 
         </style>
 
@@ -6918,7 +6960,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         var CUSTOM_COLOR_KEY = 'dwfCustomColorsV1'; // 新增：自定义颜色存储键
         var UNLOCK_STAGE_KEY = 'dwfUnlockStageV1';
 
-                                                                                                                /* __DWF_CHAR_ROSTER_START__ */
+                                                                                                                        /* __DWF_CHAR_ROSTER_START__ */
         var CHAR_ORDER = ["王令君", "王玄姬", "郭太后", "羊徽瑜", "潘淑", "卢氏", "朝云", "甄氏", "宪英", "费氏", "白氏", "吴心", "薛夫人", "董氏", "张氏", "柏氏", "吴氏", "诸葛氏", "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏", "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏", "夏侯氏", "辛氏", "郭女王"];
         var CHAR_IDENTITY = {
             "王令君": "陌路 · 淮南",
