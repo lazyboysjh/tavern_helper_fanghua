@@ -539,8 +539,13 @@
   background:rgba(106,140,175,.12);
 }
 
-.dwf-jiyi-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:8px}
+.dwf-jiyi-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:6px}
 .dwf-jiyi-head-left{min-width:0;flex:1}
+.dwf-jiyi-titlebar{
+  display:flex;align-items:center;gap:8px;flex-wrap:wrap;min-width:0;flex:1;
+}
+.dwf-jiyi-titlebar .dwf-jiyi-bucket{margin-bottom:0;flex-shrink:0}
+.dwf-jiyi-titlebar .dwf-jiyi-name{margin:0;flex:1;min-width:0}
 .dwf-jiyi-bucket{
   display:inline-flex;align-items:center;gap:4px;
   padding:2px 8px;border-radius:999px;margin-bottom:6px;
@@ -560,10 +565,11 @@
 .dwf-jiyi-urgency-bar{height:4px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden}
 .dwf-jiyi-urgency-bar span{display:block;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--jiyi-accent,#e85d6a),color-mix(in srgb,var(--jiyi-accent,#e85d6a) 60%,#fff))}
 .dwf-jiyi-lead{font-size:.66rem;font-weight:700;color:var(--dim);letter-spacing:.06em;margin-bottom:6px;word-break:break-word}
-.dwf-jiyi-body{font-size:.78rem;line-height:1.62;color:var(--txt2)}
-.dwf-jiyi-body p{margin:0 0 8px}
-.dwf-jiyi-body p:last-child{margin-bottom:0}
-.dwf-jiyi-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.07)}
+.dwf-jiyi-body{font-size:.78rem;line-height:1.62;color:var(--txt2);margin-top:2px}
+.dwf-jiyi-body p{margin:0}
+.dwf-jiyi-body p + p{margin-top:6px}
+.dwf-jiyi-tags{margin:2px 0 8px}
+.dwf-jiyi-foot{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px;padding-top:8px;border-top:1px dashed rgba(255,255,255,.07)}
 .dwf-jiyi-meta-chip{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;border-radius:999px;font-size:.64rem;font-weight:600;color:var(--txt2);background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);max-width:100%;word-break:break-word}
 .dwf-jiyi-meta-chip i{font-size:.58rem;color:var(--c);opacity:.85}
 .dwf-task-current{border-color:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 30%,rgba(255,255,255,.06))}
@@ -690,10 +696,6 @@
   .dwf-main-tab .dwf-tab-badge--dot{width:7px;height:7px;min-width:7px;top:3px;right:3px;padding:0!important}
   .dwf-task-btn{min-height:44px;padding:9px 14px}
 }
-@media(min-width:521px) and (max-width:860px){
-  .dwf-main-tab{min-height:48px}
-}
-
 /* ===== tab uniform heights v2（六轨/粉黛/立绘按钮同高；scene 变量供角色 tab 复用） ===== */
 :root{
   --dwf-tab-h:52px;
@@ -734,6 +736,44 @@
   :root{--dwf-tab-h:48px;}
 }
 /* ===== /tab uniform heights v2 ===== */
+
+/* ===== tab uniform heights v3：折叠条对齐 + 压过历史 mobile 碎片 ===== */
+:root{
+  --scene-collapse-bar-h:var(--dwf-tab-h);
+  --scene-collapse-toggle-sz:calc(var(--dwf-tab-h) - 18px);
+}
+#scene-shell .scene-collapse-bar,
+.scene-collapse-bar,
+#scene-shell:not(.scene-collapsed) .scene-collapse-bar,
+#scene-shell.scene-collapsed .scene-collapse-bar,
+.scene-collapsed .scene-collapse-bar{
+  min-height:var(--scene-collapse-bar-h)!important;
+  height:var(--scene-collapse-bar-h)!important;
+  max-height:var(--scene-collapse-bar-h)!important;
+  box-sizing:border-box!important;
+  padding-block:0!important;
+  padding-inline:10px!important;
+  align-items:center!important;
+}
+.scene-collapse-toggle,
+#scene-shell .scene-collapse-toggle,
+#scene-shell:not(.scene-collapsed) .scene-collapse-toggle,
+#scene-shell.scene-collapsed .scene-collapse-toggle{
+  width:var(--scene-collapse-toggle-sz)!important;
+  height:var(--scene-collapse-toggle-sz)!important;
+  min-width:var(--scene-collapse-toggle-sz)!important;
+  min-height:var(--scene-collapse-toggle-sz)!important;
+  max-width:var(--scene-collapse-toggle-sz)!important;
+  max-height:var(--scene-collapse-toggle-sz)!important;
+  flex:0 0 var(--scene-collapse-toggle-sz)!important;
+}
+@media (max-width:860px){
+  #scene-shell .scene-tabs-wrap,
+  .scene-tabs-wrap{min-height:var(--scene-tabs-rail-h)!important}
+  .scene-tabs-mask{min-height:var(--scene-tabs-rail-h)!important}
+  .scene-tabs{min-height:var(--scene-tabs-rail-h)!important}
+}
+/* ===== /tab uniform heights v3 ===== */
 
 /* 浅色主题 · 六轨与机宜（双端） */
 :root[data-theme="light"] .dwf-main-tab .dwf-tab-badge,

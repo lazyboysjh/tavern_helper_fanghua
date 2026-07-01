@@ -76,6 +76,7 @@
     <button type="button" class="scene on" data-scene="tags">标签样例</button>
     <button type="button" class="scene" data-scene="tasks">任务样例</button>
     <button type="button" class="scene" data-scene="jiajuan">家眷样例</button>
+    <button type="button" class="scene" data-scene="jiyiCard">机宜去重</button>
     <button type="button" class="scene" data-scene="luoyang">洛阳·剑舞</button>
     <button type="button" class="scene" data-scene="pingyuan">平原·守孝</button>
     <button type="button" class="scene" data-scene="heavy">长局压测</button>
@@ -312,6 +313,46 @@
         履历: {
           '128': { 时间: '景初五年春', 地点: '洛阳·秦府', 事迹: '册立王令君为正室，羊徽瑜为侧室。' },
           '130': { 时间: '景初五年夏', 地点: '洛阳·秦府', 事迹: '嫡子秦曜入家学，婉娘随母习女红。' },
+        },
+      },
+      },
+      jiyiCard: {
+        世界与剧情: {
+          行程: 8,
+          当前地点: '平原郡·秦家庄',
+          已终局: false,
+          天时: { 显示: '景初三年·机宜卡片' },
+        },
+        主角: { 当前位置: '平原郡·秦家庄', 当前状态: '检视机宜卡片去重布局' },
+        群芳录: {
+          董氏: {
+            是否登场: false,
+            当前位置: '平原郡',
+            好感度: 20,
+            好感度上限: 100,
+            与user关系: '乡谊',
+          },
+          王康: { 是否登场: false, 当前位置: '清河', 好感度: 0, 好感度上限: 100 },
+        },
+        风闻录: {
+          机宜: {
+            津渡: {},
+            支汊: {
+              董氏报恩: {
+                因由: '支汊·董氏报恩：王康携家小登门，诉秦府旧恩；董氏在侧传话，盼你有所回应。',
+                火急: 2,
+                相关人物: '董氏、王康',
+                开启行程: 5,
+                截止行程: 12,
+                目标: {
+                  目标1: '董氏登门报恩',
+                  目标2: '听王康一家与秦府旧恩',
+                  目标3: '收下心意或礼送出门',
+                },
+                演完写入: {},
+              },
+            },
+          },
         },
       },
       luoyang: {
