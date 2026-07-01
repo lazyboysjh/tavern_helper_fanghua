@@ -1,14 +1,23 @@
 {
     "scripts": {
+<<<<<<< HEAD
         "build:dev": "node scripts/compose_dwf_status.mjs && webpack --mode development && node scripts/copy_dawei_static.mjs",
         "build": "node scripts/compose_dwf_status.mjs && webpack --mode production && node scripts/copy_dawei_static.mjs",
+=======
+    "build:dev": "webpack --mode development",
+    "build": "webpack --mode production",
+>>>>>>> 92bc9ed4a5ff1e65a494b9644780983031cdb1df
         "watch": "webpack --mode development --watch --progress",
         "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx,css,scss,html,vue}\" --no-error-on-unmatched-pattern",
         "lint": "eslint",
         "lint:fix": "eslint --fix",
         "dump": "node dump_schema.ts",
+<<<<<<< HEAD
         "sync": "node tavern_sync.mjs",
         "prebuild": "node scripts/compose_dwf_status.mjs"
+=======
+    "sync": "node tavern_sync.mjs"
+>>>>>>> 92bc9ed4a5ff1e65a494b9644780983031cdb1df
     },
     "browserslist": [
         "defaults and partially supports es6-module"
