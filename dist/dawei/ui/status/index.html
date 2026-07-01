@@ -4757,6 +4757,9 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   height:100%;
   min-height:0;
 }
+#dwf-panel-fende.on{
+  overflow:hidden;
+}
 .dwf-panel-body{
   flex:1 1 auto;
   min-height:0;
@@ -4773,9 +4776,13 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-panel-body-fende{
   display:flex;
   flex-direction:column;
+  flex:1 1 auto;
+  min-height:0;
+  max-height:100%;
   overflow-y:auto;
   overflow-x:hidden;
   -webkit-overflow-scrolling:touch;
+  scrollbar-gutter:stable;
 }
 :root{
   --dwf-jiyi-pick-h:44px;
@@ -4814,7 +4821,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   overflow:visible;
 }
 #dwf-panel-fende .scene-shell{
-  flex:1 1 auto;min-height:auto;height:auto;align-content:start;
+  flex:0 0 auto;min-height:auto;height:auto;align-content:start;
 }
 #dwf-panel-fende #scene-shell #scene-stage{
   display:flex!important;
@@ -5775,12 +5782,19 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 }
 /* 粉黛 · 整片 scene-shell 凹陷（tabs + 折叠条 + 人物卡同底） */
 #dwf-panel-fende .scene-shell{
-  flex:1 1 auto;min-height:auto;height:auto;align-content:start;
+  flex:0 0 auto;min-height:auto;height:auto;align-content:start;
   padding:14px!important;border-radius:16px;margin-bottom:0;gap:10px;min-width:0;
   background:var(--block-bg);border:1px solid var(--block-border);box-shadow:var(--block-shadow);
 }
 #dwf-panel-fende .dwf-fende-hd{
   margin-bottom:0;padding-bottom:10px;text-transform:none;letter-spacing:.08em;
+  min-width:0;gap:10px;
+}
+#dwf-panel-fende .dwf-fende-hd > span:first-child{
+  min-width:0;flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+#dwf-panel-fende .dwf-fende-hd .dwf-section-count{
+  flex:0 0 auto;white-space:nowrap;margin-left:auto;letter-spacing:.02em;
 }
 #dwf-panel-fende .scene-tabs-wrap{margin:0;padding-bottom:10px;position:relative}
 #dwf-panel-fende .scene-tabs-wrap::after{
@@ -6129,7 +6143,10 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   align-items:stretch!important;
 }
 #dwf-panel-fende .lz-char-flip-container,
-#dwf-panel-fende .av-flip-wrap{
+#dwf-panel-fende .av-flip-wrap,
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap{
+  position:relative!important;
   width:100%!important;
   min-width:0!important;
   min-height:0!important;
@@ -6139,18 +6156,41 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   flex:0 0 auto!important;
 }
 #dwf-panel-fende .lz-char-flip-inner,
-#dwf-panel-fende .lz-char-front,
-#dwf-panel-fende .lz-char-back,
-#dwf-panel-fende .lz-char-portrait,
-#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
 #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner,
-#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap,
+#dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:100%!important;
+  max-height:none!important;
+}
+#dwf-panel-fende .lz-char-front,
+#dwf-panel-fende .lz-char-back{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:100%!important;
+  max-height:none!important;
+}
+#dwf-panel-fende .lz-char-portrait{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-height:none!important;
+}
 #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap > .av-flip,
 #dwf-panel-fende .scene-stage .av-flip,
 #dwf-panel-fende .scene-stage > .det-r > .av-flip-wrap > .av-flip{
-  min-height:0!important;
-  max-height:100%!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
   height:100%!important;
+  min-height:100%!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
 }
 #dwf-panel-fende .scene-stage .support-grid{
   min-height:0!important;
@@ -6179,10 +6219,8 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 @media (min-width:761px){
   #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel,
   #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
-  #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner,
   #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel,
-  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
-  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner{
+  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container{
     width:min(100%,var(--dwf-fende-portrait-max-w))!important;
     max-width:100%!important;
     min-height:0!important;
@@ -6391,10 +6429,8 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 @media (min-width:761px){
   #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel,
   #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
-  #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner,
   #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel,
-  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
-  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner{
+  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container{
     width:min(100%,var(--dwf-fende-portrait-max-w,380px))!important;
     min-height:0!important;
     height:auto!important;
@@ -6405,6 +6441,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 #dwf-panel-fende .av-flip-wrap,
 #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
 #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap{
+  position:relative!important;
   width:100%!important;
   min-height:0!important;
   height:auto!important;
@@ -6413,14 +6450,41 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   flex:0 0 auto!important;
 }
 #dwf-panel-fende .lz-char-flip-inner,
-#dwf-panel-fende .lz-char-front,
-#dwf-panel-fende .lz-char-back,
-#dwf-panel-fende .lz-char-portrait,
 #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner,
-#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap > .av-flip{
-  min-height:0!important;
-  max-height:100%!important;
+#dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
   height:100%!important;
+  min-height:100%!important;
+  max-height:none!important;
+}
+#dwf-panel-fende .lz-char-front,
+#dwf-panel-fende .lz-char-back{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:100%!important;
+  max-height:none!important;
+}
+#dwf-panel-fende .lz-char-portrait{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-height:none!important;
+}
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap > .av-flip,
+#dwf-panel-fende .scene-stage .av-flip,
+#dwf-panel-fende .scene-stage > .det-r > .av-flip-wrap > .av-flip{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:100%!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
 }
 #dwf-panel-fende .scene-stage .support-figure,
 #dwf-panel-fende .scene-stage .support-placeholder{
@@ -6431,6 +6495,102 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   height:auto!important;
   aspect-ratio:3/4!important;
   margin-inline:auto!important;
+}
+/* 粉黛滚动链：固定 stage 视口，panel-body 内滚；scene-shell 随立绘自然撑开 */
+#dwf-panel-fende.on{overflow:hidden!important}
+#dwf-panel-fende .dwf-panel-body,
+#dwf-panel-fende .dwf-panel-body-fende{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  max-height:100%!important;
+  overflow-y:auto!important;
+  overflow-x:hidden!important;
+  -webkit-overflow-scrolling:touch!important;
+  scrollbar-width:thin!important;
+  scrollbar-gutter:stable!important;
+}
+#dwf-panel-fende .dwf-panel-body-fende::-webkit-scrollbar{width:5px}
+#dwf-panel-fende .dwf-panel-body-fende::-webkit-scrollbar-thumb{background:rgba(255,255,255,.22);border-radius:4px}
+#dwf-panel-fende .scene-shell{
+  flex:0 0 auto!important;
+  min-height:auto!important;
+  height:auto!important;
+}
+#dwf-panel-fende .dwf-fende-hd{min-width:0!important;gap:10px!important}
+#dwf-panel-fende .dwf-fende-hd > span:first-child{
+  min-width:0!important;flex:1 1 auto!important;
+  overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
+}
+#dwf-panel-fende .dwf-fende-hd .dwf-section-count{
+  flex:0 0 auto!important;white-space:nowrap!important;margin-left:auto!important;letter-spacing:.02em!important;
+}
+@media (min-width:761px){
+  #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel,
+  #dwf-panel-fende .scene-stage-clip > .det-r.scene-panel{
+    min-height:0!important;height:auto!important;max-height:none!important;
+  }
+  #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap,
+  #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container{
+    min-height:0!important;height:auto!important;max-height:var(--dwf-fende-portrait-max-h,min(68vh,480px))!important;
+  }
+}
+/* 粉黛立绘 overlay：好感左上 / 心里想法右上，平板防重叠 */
+#dwf-panel-fende .lz-char-portrait .av-favor-meter,
+#dwf-panel-fende .av-portrait-shell .av-favor-meter{
+  left:10px!important;
+  right:auto!important;
+  top:10px!important;
+  bottom:auto!important;
+  width:min(36%,124px)!important;
+  max-width:124px!important;
+  z-index:6!important;
+}
+#dwf-panel-fende .lz-char-portrait .av-thought-bubble,
+#dwf-panel-fende .av-portrait-shell .av-thought-bubble{
+  top:10px!important;
+  right:10px!important;
+  left:auto!important;
+  bottom:auto!important;
+  max-width:min(54%,calc(100% - 140px))!important;
+  z-index:7!important;
+}
+#dwf-panel-fende .lz-char-portrait .av-mood-chip,
+#dwf-panel-fende .av-portrait-shell .av-mood-chip{
+  position:static!important;
+  left:auto!important;
+  bottom:auto!important;
+  transform:none!important;
+  grid-column:1/-1!important;
+  justify-self:start!important;
+  max-width:100%!important;
+}
+#dwf-panel-fende .lz-char-portrait.show-thought .av-favor-meter,
+#dwf-panel-fende .lz-char-portrait.thought-pinned .av-favor-meter,
+#dwf-panel-fende .lz-char-portrait.thought-holding .av-favor-meter,
+#dwf-panel-fende .lz-char-flip-container:hover .lz-char-portrait .av-favor-meter,
+#dwf-panel-fende .av-flip-wrap:hover .av-portrait-shell .av-favor-meter{
+  opacity:.45!important;
+  transform:scale(.96)!important;
+  pointer-events:none!important;
+}
+@media (min-width:761px) and (max-width:860px){
+  #dwf-panel-fende .lz-char-portrait .av-favor-meter,
+  #dwf-panel-fende .av-portrait-shell .av-favor-meter{
+    width:min(32%,108px)!important;
+    max-width:108px!important;
+    left:8px!important;
+    top:8px!important;
+    padding:6px 8px!important;
+  }
+  #dwf-panel-fende .lz-char-portrait .av-thought-bubble,
+  #dwf-panel-fende .av-portrait-shell .av-thought-bubble{
+    top:8px!important;
+    right:8px!important;
+    max-width:min(56%,calc(100% - 124px))!important;
+    font-size:.64rem!important;
+    line-height:1.42!important;
+    padding:7px 9px!important;
+  }
 }
 /* ===== /粉黛场景区 ===== */
 /* ===== /粉黛 tab 绝对最终覆盖 ===== */
@@ -9943,7 +10103,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         var CUSTOM_COLOR_KEY = 'dwfCustomColorsV1'; // 新增：自定义颜色存储键
         var UNLOCK_STAGE_KEY = 'dwfUnlockStageV1';
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                /* __DWF_CHAR_ROSTER_START__ */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        /* __DWF_CHAR_ROSTER_START__ */
         var CHAR_ORDER = ["王令君", "王玄姬", "郭太后", "羊徽瑜", "潘淑", "卢氏", "朝云", "甄氏", "宪英", "费氏", "白氏", "吴心", "薛夫人", "董氏", "张氏", "柏氏", "吴氏", "诸葛氏", "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏", "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏", "夏侯氏", "辛氏", "郭女王"];
         var CHAR_IDENTITY = {
             "王令君": "陌路 · 淮南",

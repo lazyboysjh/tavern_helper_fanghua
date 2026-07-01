@@ -78,6 +78,9 @@
   height:100%;
   min-height:0;
 }
+#dwf-panel-fende.on{
+  overflow:hidden;
+}
 .dwf-panel-body{
   flex:1 1 auto;
   min-height:0;
@@ -94,9 +97,13 @@
 .dwf-panel-body-fende{
   display:flex;
   flex-direction:column;
+  flex:1 1 auto;
+  min-height:0;
+  max-height:100%;
   overflow-y:auto;
   overflow-x:hidden;
   -webkit-overflow-scrolling:touch;
+  scrollbar-gutter:stable;
 }
 :root{
   --dwf-jiyi-pick-h:44px;
@@ -135,7 +142,7 @@
   overflow:visible;
 }
 #dwf-panel-fende .scene-shell{
-  flex:1 1 auto;min-height:auto;height:auto;align-content:start;
+  flex:0 0 auto;min-height:auto;height:auto;align-content:start;
 }
 #dwf-panel-fende #scene-shell #scene-stage{
   display:flex!important;
@@ -1096,12 +1103,19 @@
 }
 /* 粉黛 · 整片 scene-shell 凹陷（tabs + 折叠条 + 人物卡同底） */
 #dwf-panel-fende .scene-shell{
-  flex:1 1 auto;min-height:auto;height:auto;align-content:start;
+  flex:0 0 auto;min-height:auto;height:auto;align-content:start;
   padding:14px!important;border-radius:16px;margin-bottom:0;gap:10px;min-width:0;
   background:var(--block-bg);border:1px solid var(--block-border);box-shadow:var(--block-shadow);
 }
 #dwf-panel-fende .dwf-fende-hd{
   margin-bottom:0;padding-bottom:10px;text-transform:none;letter-spacing:.08em;
+  min-width:0;gap:10px;
+}
+#dwf-panel-fende .dwf-fende-hd > span:first-child{
+  min-width:0;flex:1 1 auto;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+#dwf-panel-fende .dwf-fende-hd .dwf-section-count{
+  flex:0 0 auto;white-space:nowrap;margin-left:auto;letter-spacing:.02em;
 }
 #dwf-panel-fende .scene-tabs-wrap{margin:0;padding-bottom:10px;position:relative}
 #dwf-panel-fende .scene-tabs-wrap::after{
@@ -1450,7 +1464,10 @@
   align-items:stretch!important;
 }
 #dwf-panel-fende .lz-char-flip-container,
-#dwf-panel-fende .av-flip-wrap{
+#dwf-panel-fende .av-flip-wrap,
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
+#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap{
+  position:relative!important;
   width:100%!important;
   min-width:0!important;
   min-height:0!important;
@@ -1460,18 +1477,41 @@
   flex:0 0 auto!important;
 }
 #dwf-panel-fende .lz-char-flip-inner,
-#dwf-panel-fende .lz-char-front,
-#dwf-panel-fende .lz-char-back,
-#dwf-panel-fende .lz-char-portrait,
-#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
 #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner,
-#dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap,
+#dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:100%!important;
+  max-height:none!important;
+}
+#dwf-panel-fende .lz-char-front,
+#dwf-panel-fende .lz-char-back{
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
+  height:100%!important;
+  min-height:100%!important;
+  max-height:none!important;
+}
+#dwf-panel-fende .lz-char-portrait{
+  flex:1 1 auto!important;
+  min-height:0!important;
+  width:100%!important;
+  height:100%!important;
+  max-height:none!important;
+}
 #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .av-flip-wrap > .av-flip,
 #dwf-panel-fende .scene-stage .av-flip,
 #dwf-panel-fende .scene-stage > .det-r > .av-flip-wrap > .av-flip{
-  min-height:0!important;
-  max-height:100%!important;
+  position:absolute!important;
+  inset:0!important;
+  width:100%!important;
   height:100%!important;
+  min-height:100%!important;
+  max-height:none!important;
+  aspect-ratio:auto!important;
 }
 #dwf-panel-fende .scene-stage .support-grid{
   min-height:0!important;
@@ -1500,10 +1540,8 @@
 @media (min-width:761px){
   #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel,
   #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
-  #dwf-panel-fende #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner,
   #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel,
-  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container,
-  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container > .lz-char-flip-inner{
+  #dwf-panel-fende #scene-shell #scene-stage-clip > .det-r.scene-panel > .lz-char-flip-container{
     width:min(100%,var(--dwf-fende-portrait-max-w))!important;
     max-width:100%!important;
     min-height:0!important;

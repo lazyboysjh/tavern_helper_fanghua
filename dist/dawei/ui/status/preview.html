@@ -82,6 +82,59 @@
       background: #6a8caf;
       color: #0f1418;
     }
+    .preview-bar button.viewport-btn {
+      border-color: rgba(120, 168, 120, .4);
+      background: rgba(120, 168, 120, .12);
+    }
+    .preview-bar button.viewport-btn.on {
+      background: #78a878;
+      color: #101410;
+      border-color: #78a878;
+    }
+    .preview-size-hint {
+      font-size: 11px;
+      color: #71717a;
+      letter-spacing: .04em;
+      white-space: nowrap;
+    }
+    .preview-stage {
+      flex: 1 1 auto;
+      min-height: 0;
+      overflow: auto;
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 12px 16px 16px;
+      background:
+        radial-gradient(circle at 50% 0%, rgba(184, 148, 101, .08), transparent 42%),
+        #0a0a0c;
+    }
+    .preview-frame-wrap {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      min-height: 0;
+      height: 100%;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, .45);
+      border: 1px solid rgba(255, 255, 255, .08);
+      background: #0f0f11;
+    }
+    .preview-stage[data-viewport="desktop"] .preview-frame-wrap {
+      max-width: min(1280px, 100%);
+      min-height: min(720px, calc(100vh - 200px));
+    }
+    .preview-stage[data-viewport="tablet"] .preview-frame-wrap {
+      width: min(834px, 100%);
+      max-width: 834px;
+      min-height: min(1024px, calc(100vh - 200px));
+    }
+    .preview-stage[data-viewport="mobile"] .preview-frame-wrap {
+      width: min(390px, 100%);
+      max-width: 390px;
+      min-height: min(844px, calc(100vh - 200px));
+    }
     #frame {
       flex: 1 1 auto;
       width: 100%;
@@ -116,6 +169,13 @@
       <button type="button" class="scene" data-scene="heavy">长局压测</button>
     </div>
     <div class="preview-bar-group">
+      <span class="preview-bar-label">视口</span>
+      <button type="button" class="viewport-btn on" data-viewport="desktop">桌面 PC</button>
+      <button type="button" class="viewport-btn" data-viewport="tablet">平板</button>
+      <button type="button" class="viewport-btn" data-viewport="mobile">手机</button>
+      <span class="preview-size-hint" id="viewport-hint">桌面 · 全宽</span>
+    </div>
+    <div class="preview-bar-group">
       <span class="preview-bar-label tab">Tab</span>
       <button type="button" class="tab-btn" data-tab="tianji">天机</button>
       <button type="button" class="tab-btn on" data-tab="fengxin">机宜</button>
@@ -125,12 +185,28 @@
       <button type="button" class="tab-btn" data-tab="fende">粉黛</button>
     </div>
   </header>
-  <iframe id="frame" title="大魏芳华状态栏"></iframe>
+  <div class="preview-stage" id="preview-stage" data-viewport="desktop">
+    <div class="preview-frame-wrap" id="preview-frame-wrap">
+      <iframe id="frame" title="大魏芳华状态栏"></iframe>
+    </div>
+  </div>
   </div>
   <script>
     var PREVIEW_KEY = '__dwf_preview_stat__';
     var TAB_KEY = '__dwf_preview_tab__';
     var SCENE_KEY = '__dwf_preview_scene__';
+    var VIEWPORT_KEY = '__dwf_preview_viewport__';
+    var VIEWPORTS = {
+      desktop: { label: '桌面 · 全宽', width: null },
+      tablet: { label: '平板 · 834px', width: 834 },
+      mobile: { label: '手机 · 390px', width: 390 },
+    };
+
+    var currentViewport = sessionStorage.getItem(VIEWPORT_KEY) || 'desktop';
+    if (!VIEWPORTS[currentViewport]) currentViewport = 'desktop';
+    var previewStage = document.getElementById('preview-stage');
+    var viewportHint = document.getElementById('viewport-hint');
+    var frameWrap = document.getElementById('preview-frame-wrap');
 
     function jiyiItem(overrides) {
       return Object.assign({
@@ -631,6 +707,26 @@
       document.querySelectorAll('.tab-btn').forEach(function (btn) {
         btn.classList.toggle('on', btn.getAttribute('data-tab') === currentTab);
       });
+      document.querySelectorAll('.viewport-btn').forEach(function (btn) {
+        btn.classList.toggle('on', btn.getAttribute('data-viewport') === currentViewport);
+      });
+    }
+
+    function updateViewportHint() {
+      if (!viewportHint || !frameWrap) return;
+      var preset = VIEWPORTS[currentViewport] || VIEWPORTS.desktop;
+      var rect = frameWrap.getBoundingClientRect();
+      var width = Math.round(rect.width);
+      var height = Math.round(rect.height);
+      viewportHint.textContent = preset.label + ' · 实际 ' + width + '×' + height;
+    }
+
+    function applyViewport(save) {
+      if (!VIEWPORTS[currentViewport]) currentViewport = 'desktop';
+      if (previewStage) previewStage.setAttribute('data-viewport', currentViewport);
+      if (save) sessionStorage.setItem(VIEWPORT_KEY, currentViewport);
+      markPreviewBarActive();
+      requestAnimationFrame(updateViewportHint);
     }
 
     function injectPreviewStat(reset) {
@@ -703,6 +799,7 @@
     }
 
     markPreviewBarActive();
+    applyViewport(false);
     sessionStorage.setItem(SCENE_KEY, currentScene);
     sessionStorage.setItem(PREVIEW_KEY, JSON.stringify(buildStat(currentScene)));
     sessionStorage.setItem(TAB_KEY, currentTab);
@@ -711,6 +808,7 @@
 
     frame.addEventListener('load', function () {
       injectPreviewStat(true);
+      requestAnimationFrame(updateViewportHint);
       var tries = 0;
       var bootTimer = setInterval(function () {
         if (tryBootPreviewUi() || ++tries >= 20) clearInterval(bootTimer);
@@ -742,6 +840,22 @@
         persistAndReload();
       });
     });
+
+    document.querySelectorAll('.viewport-btn').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        currentViewport = btn.getAttribute('data-viewport') || 'desktop';
+        applyViewport(true);
+      });
+    });
+
+    window.addEventListener('resize', function () {
+      requestAnimationFrame(updateViewportHint);
+    });
+    if (window.ResizeObserver && frameWrap) {
+      new ResizeObserver(function () {
+        updateViewportHint();
+      }).observe(frameWrap);
+    }
   </script>
 </body>
 </html>
