@@ -248,6 +248,16 @@
     return '寻常';
   }
 
+  function renderUrgencyPill(level) {
+    return (
+      '<span class="dwf-jiyi-urgency-pill" title="' +
+      esc(urgencyLabel(level)) +
+      '">' +
+      esc(urgencyLabel(level)) +
+      '</span>'
+    );
+  }
+
   function getPinkBook(stat) {
     stat = stat || (global.getStatData ? global.getStatData() : {});
     var book = stat['群芳录'];
@@ -1850,17 +1860,15 @@
       remain +
       '</span><span class="dwf-cd-unit">步</span></div></div>' +
       '<div class="dwf-jiyi-countdown-info">' +
+      '<div class="dwf-jiyi-countdown-hd">' +
       '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> ' +
       esc(remainText) +
       '</div>' +
+      renderUrgencyPill(level) +
+      '</div>' +
       '<div class="dwf-jiyi-countdown-track"><span style="width:' +
       Math.round(pct * 100) +
-      '%"></span></div></div>' +
-      '<div class="dwf-jiyi-countdown-fire" title="' +
-      esc(urgencyLabel(level)) +
-      '"><span>' +
-      esc(urgencyLabel(level)) +
-      '</span></div></div>'
+      '%"></span></div></div></div>'
     );
   }
 
@@ -1901,20 +1909,18 @@
       displayRemain +
       '</span><span class="dwf-cd-unit">步</span></div></div>' +
       '<div class="dwf-jiyi-countdown-info">' +
+      '<div class="dwf-jiyi-countdown-hd">' +
       '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> ' +
       esc(label) +
+      '</div>' +
+      renderUrgencyPill(level) +
       '</div>' +
       '<div class="dwf-jiyi-countdown-sub">任务截止：第 <b>' +
       esc(String(deadline)) +
       '</b> 步</div>' +
       '<div class="dwf-jiyi-countdown-track"><span style="width:' +
       Math.round(pct * 100) +
-      '%"></span></div></div>' +
-      '<div class="dwf-jiyi-countdown-fire" title="' +
-      esc(urgencyLabel(level)) +
-      '"><span>' +
-      esc(urgencyLabel(level)) +
-      '</span></div></div>'
+      '%"></span></div></div></div>'
     );
   }
 
@@ -2026,7 +2032,7 @@
       tagsHtml +
       renderParas(parsed.paras, 'dwf-jiyi-body') +
       locHtml +
-      '<div class="dwf-task-actions"><button type="button" class="dwf-task-btn dwf-task-accept" data-dwf-task-accept="1" data-dwf-task-bucket="' +
+      '<div class="dwf-task-actions dwf-task-actions--solo"><button type="button" class="dwf-task-btn dwf-task-accept" data-dwf-task-accept="1" data-dwf-task-bucket="' +
       esc(row.bucket) +
       '" data-dwf-task-id="' +
       esc(key) +
@@ -2113,16 +2119,18 @@
       '</span><h4 class="dwf-jiyi-name">' +
       slotMarkHtml +
       esc(task.id) +
-      '</h4></div><span class="dwf-task-state ' +
+      '</h4><span class="dwf-task-state ' +
       (failed ? 'is-failed' : completable ? 'is-ready' : '') +
       '">' +
       esc(failed ? '已失败' : completable ? '可完成' : '进行中') +
-      '</span></header>' +
+      '</span></div></header>' +
       renderJiyiTagRow(stat, task) +
       renderParas(parsed.paras, 'dwf-jiyi-body') +
       locHtml +
       renderTaskGoals(task) +
-      '<div class="dwf-task-actions">' +
+      '<div class="dwf-task-actions' +
+      (failed ? ' dwf-task-actions--solo' : '') +
+      '">' +
       (failed
         ? '<button type="button" class="dwf-task-btn danger" data-dwf-task-clear="1" data-dwf-task-current-id="' +
           esc(task.id) +

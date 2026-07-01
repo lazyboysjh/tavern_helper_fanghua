@@ -5071,11 +5071,14 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 
 /* 机宜卡片 · 截止行程倒计时（仅风闻机宜卡，非世界天时） */
 .dwf-jiyi-countdown{
-  display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
-  padding:12px 14px;
+  display:grid;grid-template-columns:auto minmax(0,1fr);gap:10px 12px;align-items:center;
+  padding:10px 12px;
   background:linear-gradient(90deg,color-mix(in srgb,var(--jiyi-accent,#e85d6a) 14%,rgba(0,0,0,.35)),rgba(0,0,0,.22));
   border-bottom:1px solid rgba(255,255,255,.06);
 }
+.dwf-jiyi-countdown-info{min-width:0;display:flex;flex-direction:column;gap:4px}
+.dwf-jiyi-countdown-hd{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+.dwf-jiyi-countdown-hd .dwf-jiyi-countdown-label{flex:1;min-width:0}
 .dwf-jiyi-countdown--critical{background:linear-gradient(90deg,rgba(232,93,106,.22),rgba(0,0,0,.28))}
 .dwf-jiyi-countdown--warning{background:linear-gradient(90deg,rgba(201,162,39,.16),rgba(0,0,0,.24))}
 .dwf-jiyi-countdown-ring{position:relative;width:56px;height:56px;flex-shrink:0}
@@ -5100,21 +5103,22 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-jiyi-countdown-label i{color:var(--jiyi-accent,#e85d6a);margin-right:4px;font-size:.62rem}
 .dwf-jiyi-countdown-sub{font-size:.62rem;color:var(--dim);margin-top:3px;line-height:1.45}
 .dwf-jiyi-countdown-sub b{color:var(--txt2);font-weight:700}
-.dwf-jiyi-countdown-track{height:4px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:8px}
+.dwf-jiyi-countdown-track{height:4px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:2px}
 .dwf-jiyi-countdown-track span{
   display:block;height:100%;border-radius:inherit;
   background:linear-gradient(90deg,var(--jiyi-accent,#e85d6a),color-mix(in srgb,var(--jiyi-accent,#e85d6a) 50%,#fff));
   transition:width .5s ease;
 }
-.dwf-jiyi-countdown-fire{
-  display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:44px;
-  padding:6px 8px;border-radius:12px;
-  background:rgba(0,0,0,.22);border:1px solid rgba(255,255,255,.08);
+.dwf-jiyi-urgency-pill{
+  flex-shrink:0;display:inline-flex;align-items:center;
+  padding:2px 8px;border-radius:999px;
+  font-size:.54rem;font-weight:800;letter-spacing:.1em;line-height:1.35;
+  color:var(--jiyi-accent,#e85d6a);
+  background:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 14%,rgba(0,0,0,.28));
+  border:1px solid color-mix(in srgb,var(--jiyi-accent,#e85d6a) 36%,rgba(255,255,255,.08));
 }
-.dwf-jiyi-countdown-fire span{font-size:.56rem;font-weight:800;color:var(--dim);letter-spacing:.1em}
-.dwf-jiyi-countdown-fire em{font-style:normal;font-size:1rem;font-weight:800;color:var(--jiyi-accent,#e85d6a);line-height:1.1}
-.dwf-jiyi-countdown--critical .dwf-jiyi-countdown-fire{border-color:rgba(232,93,106,.35);animation:dwfPulse 2s ease-in-out infinite}
-@keyframes dwfPulse{0%,100%{box-shadow:0 0 0 0 rgba(232,93,106,0)}50%{box-shadow:0 0 12px rgba(232,93,106,.25)}}
+.dwf-jiyi-countdown--critical .dwf-jiyi-urgency-pill{animation:dwfPulse 2s ease-in-out infinite}
+@keyframes dwfPulse{0%,100%{box-shadow:0 0 0 0 rgba(232,93,106,0)}50%{box-shadow:0 0 10px rgba(232,93,106,.28)}}
 
 /* RPG 标签带 */
 .dwf-jiyi-tags{
@@ -5195,6 +5199,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 }
 .dwf-jiyi-titlebar .dwf-jiyi-bucket{margin-bottom:0;flex-shrink:0}
 .dwf-jiyi-titlebar .dwf-jiyi-name{margin:0;flex:1;min-width:0}
+.dwf-jiyi-titlebar .dwf-task-state{margin-left:auto;flex-shrink:0}
 .dwf-jiyi-bucket{
   display:inline-flex;align-items:center;gap:4px;
   padding:2px 8px;border-radius:999px;margin-bottom:6px;
@@ -5383,8 +5388,10 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-action-chip-text{word-break:break-word}
 .dwf-action-chip-lock{color:var(--dim);font-size:.68rem;padding-top:2px}
 .dwf-action-hint{font-size:.7rem;color:var(--dim);padding:6px 2px}
-.dwf-task-actions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;margin-top:12px}
-.dwf-task-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:34px;padding:7px 12px;border-radius:10px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));color:var(--txt2);font-size:.7rem;font-weight:800;letter-spacing:.06em;cursor:pointer;transition:transform .22s ease,border-color .22s ease,background .22s ease,opacity .22s ease}
+.dwf-task-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
+.dwf-task-actions--solo{grid-template-columns:1fr}
+.dwf-task-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:34px;padding:7px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));color:var(--txt2);font-size:.7rem;font-weight:800;letter-spacing:.06em;cursor:pointer;transition:transform .22s ease,border-color .22s ease,background .22s ease,opacity .22s ease}
+.dwf-task-btn span{white-space:nowrap}
 .dwf-task-btn:hover:not(:disabled){transform:translateY(-1px);border-color:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 42%,rgba(255,255,255,.1));color:#fff}
 .dwf-task-btn:disabled{opacity:.45;cursor:default}
 .dwf-task-btn.primary{color:#fff;background:linear-gradient(135deg,rgba(106,154,106,.32),rgba(0,0,0,.18));border-color:rgba(106,154,106,.36)}
@@ -5481,19 +5488,24 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   .dwf-event-tags{max-height:160px;overflow-y:auto}
   .dwf-rank-card{grid-template-columns:auto 1fr;grid-template-rows:auto auto}
   .dwf-rank-badge{grid-column:1/-1;justify-self:start}
-  .dwf-jiyi-head{flex-direction:column;gap:8px}
   .dwf-jiyi-urgency{width:100%;text-align:left}
   .dwf-ending-title{font-size:1.15rem}
   .dwf-jiyi-card{border-radius:16px}
-  .dwf-jiyi-countdown{grid-template-columns:auto 1fr;gap:10px}
-  .dwf-jiyi-countdown-fire{grid-column:1/-1;flex-direction:row;gap:8px;min-width:0;width:100%;justify-content:space-between}
+  .dwf-jiyi-countdown{gap:8px 10px;padding:9px 10px}
+  .dwf-jiyi-countdown-ring{width:48px;height:48px}
+  .dwf-cd-num{font-size:1rem}
   .dwf-panel-intro{grid-template-columns:auto 1fr;gap:10px}
   .dwf-panel-intro-stat{grid-column:1/-1;justify-self:start}
   .dwf-world-grid{grid-template-columns:1fr}
   .dwf-section-trip .dwf-tianji-tripbar{flex-direction:column;align-items:center;text-align:center;gap:10px}
   .dwf-section-trip .dwf-tianji-tripnote{width:100%}
   .dwf-section-trip .dwf-moon-ring{width:76px;height:76px}
-  .dwf-jiyi-tags{max-height:72px;overflow-y:auto;padding-right:2px}
+  .dwf-jiyi-tags{
+    flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;max-height:none;
+    -webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:2px;margin-right:-2px
+  }
+  .dwf-jiyi-tags::-webkit-scrollbar{display:none}
+  .dwf-jiyi-tag{flex-shrink:0}
   .dwf-fengxin-top{grid-template-columns:minmax(0,1fr);gap:8px}
   .dwf-jiyi-rail{flex-direction:row;position:static;gap:6px}
   .dwf-jiyi-rail-btn{
@@ -5700,7 +5712,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   .dwf-tab-badge--dot,
   .dwf-tab-badge--ready,
   .dwf-jiyi-tag.is-hot::after,
-  .dwf-jiyi-countdown--critical .dwf-jiyi-countdown-fire{animation:none!important}
+  .dwf-jiyi-countdown--critical .dwf-jiyi-urgency-pill{animation:none!important}
   .dwf-main-tab i,
   .dwf-panel,
   .dwf-moon-ring .dwf-moon-fill,
@@ -6272,6 +6284,16 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     if (n >= 4) return '紧急';
     if (n >= 3) return '要紧';
     return '寻常';
+  }
+
+  function renderUrgencyPill(level) {
+    return (
+      '<span class="dwf-jiyi-urgency-pill" title="' +
+      esc(urgencyLabel(level)) +
+      '">' +
+      esc(urgencyLabel(level)) +
+      '</span>'
+    );
   }
 
   function getPinkBook(stat) {
@@ -7876,17 +7898,15 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       remain +
       '</span><span class="dwf-cd-unit">步</span></div></div>' +
       '<div class="dwf-jiyi-countdown-info">' +
+      '<div class="dwf-jiyi-countdown-hd">' +
       '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> ' +
       esc(remainText) +
       '</div>' +
+      renderUrgencyPill(level) +
+      '</div>' +
       '<div class="dwf-jiyi-countdown-track"><span style="width:' +
       Math.round(pct * 100) +
-      '%"></span></div></div>' +
-      '<div class="dwf-jiyi-countdown-fire" title="' +
-      esc(urgencyLabel(level)) +
-      '"><span>' +
-      esc(urgencyLabel(level)) +
-      '</span></div></div>'
+      '%"></span></div></div></div>'
     );
   }
 
@@ -7927,20 +7947,18 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       displayRemain +
       '</span><span class="dwf-cd-unit">步</span></div></div>' +
       '<div class="dwf-jiyi-countdown-info">' +
+      '<div class="dwf-jiyi-countdown-hd">' +
       '<div class="dwf-jiyi-countdown-label"><i class="fa-regular fa-hourglass-half"></i> ' +
       esc(label) +
+      '</div>' +
+      renderUrgencyPill(level) +
       '</div>' +
       '<div class="dwf-jiyi-countdown-sub">任务截止：第 <b>' +
       esc(String(deadline)) +
       '</b> 步</div>' +
       '<div class="dwf-jiyi-countdown-track"><span style="width:' +
       Math.round(pct * 100) +
-      '%"></span></div></div>' +
-      '<div class="dwf-jiyi-countdown-fire" title="' +
-      esc(urgencyLabel(level)) +
-      '"><span>' +
-      esc(urgencyLabel(level)) +
-      '</span></div></div>'
+      '%"></span></div></div></div>'
     );
   }
 
@@ -8052,7 +8070,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       tagsHtml +
       renderParas(parsed.paras, 'dwf-jiyi-body') +
       locHtml +
-      '<div class="dwf-task-actions"><button type="button" class="dwf-task-btn dwf-task-accept" data-dwf-task-accept="1" data-dwf-task-bucket="' +
+      '<div class="dwf-task-actions dwf-task-actions--solo"><button type="button" class="dwf-task-btn dwf-task-accept" data-dwf-task-accept="1" data-dwf-task-bucket="' +
       esc(row.bucket) +
       '" data-dwf-task-id="' +
       esc(key) +
@@ -8139,16 +8157,18 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
       '</span><h4 class="dwf-jiyi-name">' +
       slotMarkHtml +
       esc(task.id) +
-      '</h4></div><span class="dwf-task-state ' +
+      '</h4><span class="dwf-task-state ' +
       (failed ? 'is-failed' : completable ? 'is-ready' : '') +
       '">' +
       esc(failed ? '已失败' : completable ? '可完成' : '进行中') +
-      '</span></header>' +
+      '</span></div></header>' +
       renderJiyiTagRow(stat, task) +
       renderParas(parsed.paras, 'dwf-jiyi-body') +
       locHtml +
       renderTaskGoals(task) +
-      '<div class="dwf-task-actions">' +
+      '<div class="dwf-task-actions' +
+      (failed ? ' dwf-task-actions--solo' : '') +
+      '">' +
       (failed
         ? '<button type="button" class="dwf-task-btn danger" data-dwf-task-clear="1" data-dwf-task-current-id="' +
           esc(task.id) +
