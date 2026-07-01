@@ -15,8 +15,6 @@ if (fs.existsSync(statusDist)) {
 }
 
 const copies = [
-  ['src/dawei/ui/options/styles.css', 'dist/dawei/ui/options/styles.css'],
-  ['src/dawei/ui/options/controller.js', 'dist/dawei/ui/options/controller.js'],
   ['src/dawei/ui/status/index.html', 'dist/dawei/ui/status/index.html'],
   ['src/dawei/ui/status/dwf-stat-schema.js', 'dist/dawei/ui/status/dwf-stat-schema.js'],
   ['src/dawei/ui/status/preview.html', 'dist/dawei/ui/status/preview.html'],

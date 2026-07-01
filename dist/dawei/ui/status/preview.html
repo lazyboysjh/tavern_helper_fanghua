@@ -6,26 +6,48 @@
   <title>大魏芳华 · 状态栏预览</title>
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
-      background: #121214;
-      color: #ececed;
+    .preview-shell {
       display: flex;
       flex-direction: column;
+      min-height: 100vh;
+      max-height: 100vh;
+      overflow: hidden;
     }
     .preview-bar {
       flex-shrink: 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 14px 12px;
+      border-bottom: 1px solid rgba(255,255,255,.12);
+      background: rgba(18,18,22,.98);
+      box-shadow: 0 8px 24px rgba(0,0,0,.35);
+    }
+    .preview-bar-head {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
-      gap: 8px;
-      padding: 10px 14px;
-      border-bottom: 1px solid rgba(255,255,255,.08);
-      background: rgba(22,22,26,.95);
-      z-index: 10;
+      gap: 8px 12px;
     }
+    .preview-bar-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 8px;
+    }
+    .preview-bar-label {
+      flex: 0 0 auto;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      color: #b89465;
+      padding: 2px 0;
+      min-width: 2.8em;
+    }
+    .preview-bar-label.tab { color: #6a8caf; }
     .preview-bar h1 {
       margin: 0 12px 0 0;
       font-size: 14px;
@@ -61,36 +83,54 @@
       color: #0f1418;
     }
     #frame {
-      flex: 1;
+      flex: 1 1 auto;
       width: 100%;
       border: 0;
       min-height: 0;
       background: #0f0f11;
     }
+    body {
+      margin: 0;
+      font-family: "Microsoft YaHei", "PingFang SC", sans-serif;
+      background: #121214;
+      color: #ececed;
+    }
   </style>
 </head>
 <body>
-  <div class="preview-bar">
-    <h1>状态栏预览</h1>
-    <p>切换场景与 Tab。<b>标签样例</b>展示卡片标签；<b>任务样例</b>多任务；<b>家眷样例</b>名分与子嗣。</p>
-    <button type="button" class="scene on" data-scene="tags">标签样例</button>
-    <button type="button" class="scene" data-scene="tasks">任务样例</button>
-    <button type="button" class="scene" data-scene="jiajuan">家眷样例</button>
-    <button type="button" class="scene" data-scene="jiyiCard">机宜去重</button>
-    <button type="button" class="scene" data-scene="luoyang">洛阳·剑舞</button>
-    <button type="button" class="scene" data-scene="pingyuan">平原·守孝</button>
-    <button type="button" class="scene" data-scene="heavy">长局压测</button>
-    <button type="button" class="tab-btn" data-tab="tianji">天机</button>
-    <button type="button" class="tab-btn" data-tab="fengxin">机宜</button>
-    <button type="button" class="tab-btn" data-tab="fengwen">风闻</button>
-    <button type="button" class="tab-btn" data-tab="lishi">历事</button>
-    <button type="button" class="tab-btn on" data-tab="fangming">家眷</button>
-    <button type="button" class="tab-btn" data-tab="fende">粉黛</button>
+  <div class="preview-shell">
+  <header class="preview-bar">
+    <div class="preview-bar-head">
+      <h1>状态栏预览</h1>
+      <p>请用下方<b>场景</b>按钮切换测试数据（不是 iframe 里的 Tab）。地址须为 <code style="font-size:11px;color:#d4b896">preview.html</code></p>
+    </div>
+    <div class="preview-bar-group">
+      <span class="preview-bar-label">场景</span>
+      <button type="button" class="scene on" data-scene="sendopts">快捷语样例</button>
+      <button type="button" class="scene" data-scene="tags">标签样例</button>
+      <button type="button" class="scene" data-scene="tasks">任务样例</button>
+      <button type="button" class="scene" data-scene="jiajuan">家眷样例</button>
+      <button type="button" class="scene" data-scene="jiyiCard">机宜去重</button>
+      <button type="button" class="scene" data-scene="luoyang">洛阳·剑舞</button>
+      <button type="button" class="scene" data-scene="pingyuan">平原·守孝</button>
+      <button type="button" class="scene" data-scene="heavy">长局压测</button>
+    </div>
+    <div class="preview-bar-group">
+      <span class="preview-bar-label tab">Tab</span>
+      <button type="button" class="tab-btn" data-tab="tianji">天机</button>
+      <button type="button" class="tab-btn on" data-tab="fengxin">机宜</button>
+      <button type="button" class="tab-btn" data-tab="fengwen">风闻</button>
+      <button type="button" class="tab-btn" data-tab="lishi">历事</button>
+      <button type="button" class="tab-btn" data-tab="fangming">家眷</button>
+      <button type="button" class="tab-btn" data-tab="fende">粉黛</button>
+    </div>
+  </header>
+  <iframe id="frame" title="大魏芳华状态栏"></iframe>
   </div>
-  <iframe id="frame" title="大魏芳华状态栏" src="index.html?dwf_preview=1"></iframe>
   <script>
     var PREVIEW_KEY = '__dwf_preview_stat__';
     var TAB_KEY = '__dwf_preview_tab__';
+    var SCENE_KEY = '__dwf_preview_scene__';
 
     function jiyiItem(overrides) {
       return Object.assign({
@@ -120,6 +160,10 @@
         机宜: { 津渡: {}, 支汊: {} },
         邸报: { 预览: '邸报条目：朝局风动，边关军情频传。' },
         里巷: { 预览: '坊间传闻：驿城酒肆里有人议论清河旧案。' },
+        自由行动: {
+          日常: '我先整理眼下头绪，按面前之事逐项理清再定。',
+          探看: '我在附近转转，看能不能打听到什么消息。',
+        },
       },
       房名次: {},
       子嗣: {},
@@ -143,6 +187,76 @@
     };
 
     var SCENES = {
+      sendopts: {
+        世界与剧情: {
+          行程: 12,
+          当前地点: '清河郡·驿城',
+          已终局: false,
+          天时: { 显示: '景初三年六月下旬·昼' },
+        },
+        主角: { 当前位置: '清河郡·驿城', 当前状态: '兄长被困，嫂子在侧奔走' },
+        主角势力: { 官爵: '', 阵营: '无', 部曲: 0, 根基: '平原秦氏庄园' },
+        任务录: {
+          当前: {
+            兄困清河: {
+              id: '兄困清河',
+              类型: '津渡',
+              状态: '进行中',
+              开始行程: 6,
+              截止行程: 14,
+              因由: '津渡·兄困清河：兄长秦宽陷在清河驿城官司里，嫂张氏与卢氏在外奔走营救。',
+              火急: 4,
+              相关人物: '卢氏、张氏',
+              建议地点: '清河郡·驿城',
+              目标: {
+                目标1: {
+                  内容: '赶赴清河驿城',
+                  选项: '我这就赶往清河驿城，先打听兄长秦宽究竟陷在何处。',
+                  完成: true,
+                },
+                目标2: {
+                  内容: '查明秦宽被困缘由',
+                  选项: '我去驿城衙门与客栈逐一打听，务必查清兄长被困的缘由。',
+                  完成: false,
+                },
+                目标3: {
+                  内容: '救出秦宽或定下明确处置',
+                  选项: '我愿出资疏通关节，先把兄长捞出来，再论后续处置。',
+                  完成: false,
+                },
+              },
+              演完写入: { 命途标签: ['仕进'], 命途印记: { 清河: '救人' } },
+            },
+          },
+          已放弃: {},
+        },
+        风闻录: {
+          机宜: {
+            津渡: {},
+            支汊: {
+              麦田董氏: jiyiItem({
+                因由: '支汊·麦田董氏：庄邻董氏携礼登门，旧恩新怨一并提起。',
+                相关人物: '董氏',
+                建议地点: '平原郡·秦家庄',
+                开启行程: 1,
+                截止行程: 8,
+                目标: {
+                  目标1: '接触董氏',
+                  目标2: '听明报恩来意',
+                  目标3: '收下心意或礼送出门',
+                },
+                选项: {
+                  目标1: '我入麦田相助，先看清董氏一家处境。',
+                  目标2: '我与董氏把话说开，听明她家的难处。',
+                  目标3: '我收下她报恩的心意，或礼送出门，全看情理。',
+                },
+              }),
+            },
+          },
+          邸报: { 清河: '驿城有吏员拿人，秦氏子弟牵涉官司。' },
+          里巷: { 驿城: '酒肆中人议论，秦宽或因田地争讼被扣。' },
+        },
+      },
       tags: {
         世界与剧情: {
           行程: 20,
@@ -212,9 +326,9 @@
               相关人物: '卢氏、张氏',
               建议地点: '清河郡·驿城',
               目标: {
-                目标1: { 内容: '赶赴清河驿城', 完成: true },
-                目标2: { 内容: '查明缘由', 完成: false },
-                目标3: { 内容: '救出秦宽', 完成: false },
+                目标1: { 内容: '赶赴清河驿城', 选项: '我这就赶往清河驿城，先打听兄长秦宽究竟陷在何处。', 完成: true },
+                目标2: { 内容: '查明秦宽被困缘由', 选项: '我去驿城衙门与客栈逐一打听，务必查清兄长被困的缘由。', 完成: false },
+                目标3: { 内容: '救出秦宽或定下明确处置', 选项: '我愿出资疏通关节，先把兄长捞出来，再论后续处置。', 完成: false },
               },
               演完写入: { 命途标签: ['仕进'] },
             },
@@ -229,9 +343,9 @@
               相关人物: '朝云',
               建议地点: '洛阳·曹府',
               目标: {
-                目标1: { 内容: '观剑舞', 完成: true },
-                目标2: { 内容: '与朝云应答', 完成: true },
-                目标3: { 内容: '收束相识', 完成: true },
+                目标1: { 内容: '观剑舞', 选项: '我静观朝云舞剑，先看她身法路数。', 完成: true },
+                目标2: { 内容: '与朝云应答', 选项: '我上前与朝云应答，试探她心意。', 完成: true },
+                目标3: { 内容: '收束相识', 选项: '我择日再访，把相识之事收束妥当。', 完成: false },
               },
               演完写入: {},
             },
@@ -308,13 +422,11 @@
           机宜: { 津渡: {}, 支汊: {} },
           邸报: { 册封: '大将军府奏请册立正室，诏可。' },
           里巷: { 洛阳: '秦府内院张灯，传闻王氏嫡子将入学宫。' },
-          自由行动建议: '可往内院探视子嗣，或与正室议及嗣子启蒙之事。',
         },
         履历: {
           '128': { 时间: '景初五年春', 地点: '洛阳·秦府', 事迹: '册立王令君为正室，羊徽瑜为侧室。' },
           '130': { 时间: '景初五年夏', 地点: '洛阳·秦府', 事迹: '嫡子秦曜入家学，婉娘随母习女红。' },
         },
-      },
       },
       jiyiCard: {
         世界与剧情: {
@@ -508,9 +620,52 @@
       })(),
     };
 
-    var currentScene = 'tags';
-    var currentTab = 'fangming';
+    var currentScene = sessionStorage.getItem(SCENE_KEY) || 'sendopts';
+    var currentTab = sessionStorage.getItem(TAB_KEY) || 'fengxin';
     var frame = document.getElementById('frame');
+
+    function markPreviewBarActive() {
+      document.querySelectorAll('.scene').forEach(function (btn) {
+        btn.classList.toggle('on', btn.getAttribute('data-scene') === currentScene);
+      });
+      document.querySelectorAll('.tab-btn').forEach(function (btn) {
+        btn.classList.toggle('on', btn.getAttribute('data-tab') === currentTab);
+      });
+    }
+
+    function injectPreviewStat(reset) {
+      var stat = buildStat(currentScene);
+      var json = JSON.stringify(stat);
+      sessionStorage.setItem(PREVIEW_KEY, json);
+      sessionStorage.setItem(TAB_KEY, currentTab);
+      sessionStorage.setItem(SCENE_KEY, currentScene);
+      sessionStorage.setItem('__dwf_preview_user_name__', '仲明');
+      try {
+        var w = frame.contentWindow;
+        if (!w) return false;
+        if (reset) {
+          w.__DWF_PREVIEW_STAT__ = stat;
+          w.sessionStorage.setItem(PREVIEW_KEY, json);
+          w.sessionStorage.setItem(TAB_KEY, currentTab);
+          w.sessionStorage.setItem('__dwf_preview_user_name__', '仲明');
+        }
+        if (w.DwfMvu) {
+          if (reset && w.DwfMvu.invalidateMvuReadCaches) w.DwfMvu.invalidateMvuReadCaches();
+          if (w.DwfMvu.switchMainPanel) {
+            var live = w.DwfMvu.getStatData ? w.DwfMvu.getStatData() : stat;
+            w.DwfMvu.switchMainPanel(currentTab, reset ? stat : live);
+            return true;
+          }
+        }
+      } catch (e) {
+        console.error('[preview] 注入测试数据失败', e);
+      }
+      return false;
+    }
+
+    function tryBootPreviewUi() {
+      return injectPreviewStat(false);
+    }
 
     function buildStat(sceneKey) {
       var scene = SCENES[sceneKey] || SCENES.tags;
@@ -539,15 +694,36 @@
     }
 
     function persistAndReload() {
-      sessionStorage.setItem(PREVIEW_KEY, JSON.stringify(buildStat(currentScene)));
+      sessionStorage.setItem(SCENE_KEY, currentScene);
       sessionStorage.setItem(TAB_KEY, currentTab);
+      sessionStorage.setItem(PREVIEW_KEY, JSON.stringify(buildStat(currentScene)));
       sessionStorage.setItem('__dwf_preview_user_name__', '仲明');
-      frame.src = 'index.html?dwf_preview=1&_=' + Date.now();
+      markPreviewBarActive();
+      frame.src = 'index.html?dwf_preview=1&embed=1&_=' + Date.now();
     }
 
+    markPreviewBarActive();
+    sessionStorage.setItem(SCENE_KEY, currentScene);
     sessionStorage.setItem(PREVIEW_KEY, JSON.stringify(buildStat(currentScene)));
     sessionStorage.setItem(TAB_KEY, currentTab);
     sessionStorage.setItem('__dwf_preview_user_name__', '仲明');
+    frame.src = 'index.html?dwf_preview=1&embed=1&_=' + Date.now();
+
+    frame.addEventListener('load', function () {
+      injectPreviewStat(true);
+      var tries = 0;
+      var bootTimer = setInterval(function () {
+        if (tryBootPreviewUi() || ++tries >= 20) clearInterval(bootTimer);
+      }, 100);
+      try {
+        var w = frame.contentWindow;
+        if (!w || !w.DwfMvu) {
+          console.warn('[preview] iframe 未加载 DwfMvu，请运行：node scripts/compose_dwf_status.mjs');
+        }
+      } catch (e) {
+        console.error('[preview] iframe 访问失败', e);
+      }
+    });
 
     document.querySelectorAll('.scene').forEach(function (btn) {
       btn.addEventListener('click', function () {

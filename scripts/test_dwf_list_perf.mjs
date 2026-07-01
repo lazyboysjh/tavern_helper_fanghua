@@ -36,7 +36,10 @@ function buildHeavyStat() {
       机宜: { 津渡: {}, 支汊: {} },
       邸报: {},
       里巷: {},
-      自由行动建议: '性能测试场景：可自由行动。',
+      自由行动: {
+        日常: '我先整理眼下头绪，按面前之事逐项理清再定。',
+        探看: '我在附近转转，看能不能打听到什么消息。',
+      },
     },
     房名次: {},
     子嗣: {},
@@ -339,7 +342,7 @@ const BENCH_SOURCE = String(async function benchInPage(statJson) {
 });
 
 async function runBrowserBench(cdp, statJson) {
-  const targetUrl = `http://127.0.0.1:${port}/index.html?dwf_preview=1`;
+  const targetUrl = `http://127.0.0.1:${port}/index.html?dwf_preview=1&embed=1`;
   await cdp.send('Page.navigate', { url: targetUrl });
   await sleep(1500);
 

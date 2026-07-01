@@ -1,5 +1,9 @@
 # -*- coding: utf-8 -*-
-"""将 天可汗.json 的正则/first_mes 指向本仓库 dist/tiankehan/ui CDN。"""
+"""将 天可汗.json 的正则/first_mes 指向本仓库 dist/tiankehan/ui CDN。
+
+大魏芳华请使用仓库根目录 build_dawei_card.py；本脚本仅服务天可汗卡。
+行动选项栏相关正则（显示-行动选项栏美化 等）已废弃，勿再写入。
+"""
 import json
 import os
 import re
@@ -97,11 +101,13 @@ def main():
     data["first_mes"] = COVER_SHELL
     for r in data["extensions"]["regex_scripts"]:
         if r["scriptName"] == "显示-状态栏与选项栏排序":
-            r["replaceString"] = ORDER_REPLACE
+            r["scriptName"] = "显示-状态栏排序"
+            r["replaceString"] = "$1"
+            r["findRegex"] = "/(<StatusPlaceHolderImpl\\s*\\/>)/gim"
+        elif r["scriptName"] == "显示-状态栏排序":
+            r["replaceString"] = "$1"
         elif r["scriptName"] == "显示-状态栏美化":
             r["replaceString"] = STATUS_SHELL
-        elif r["scriptName"] == "显示-行动选项栏美化":
-            r["replaceString"] = OPTIONS_SHELL
         elif "replaceString" in r and "dist/tiankehan/ui/status" in r["replaceString"]:
             r["replaceString"] = STATUS_SHELL
         elif "replaceString" in r and "dist/tiankehan/ui/cover" in r["replaceString"]:

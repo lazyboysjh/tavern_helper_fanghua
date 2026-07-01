@@ -37,6 +37,7 @@
     相关人物: z.string().prefault(''),
     建议地点: z.string().prefault(''),
     目标: z.preprocess(v => (v === null || v === undefined ? {} : v), z.record(z.string(), z.string())).prefault({}),
+    选项: z.preprocess(v => (v === null || v === undefined ? {} : v), z.record(z.string(), z.string())).prefault({}),
     开启行程: z.coerce.number().transform(v => _.clamp(Math.floor(v), 1, 288)).optional(),
     截止行程: z.coerce.number().transform(v => _.clamp(Math.floor(v), 1, 288)),
     演完写入: z.preprocess(v => (v === null || v === undefined ? {} : v), z.record(z.string(), z.any())).prefault({}),
@@ -58,6 +59,7 @@
       v => (v === null || v === undefined ? {} : v),
       z.record(z.string(), z.object({
         内容: z.string().prefault(''),
+        选项: z.string().prefault(''),
         完成: z.boolean().prefault(false),
       }).prefault({})),
     ).prefault({}),
@@ -155,7 +157,11 @@
       }).prefault({})),
       邸报: recordOrEmpty(z.record(z.string(), z.string())),
       里巷: recordOrEmpty(z.record(z.string(), z.string())),
-      自由行动建议: z.string().describe('无任务时 AI 可提示的自由行动一句').prefault(''),
+      自由行动: objectOrEmpty(z.object({
+        日常: z.string().prefault(''),
+        探看: z.string().prefault(''),
+      }).prefault({})),
+      自由行动建议: z.string().describe('已废弃').prefault(''),
     }).prefault({})),
   
     任务录: objectOrEmpty(任务录Schema),

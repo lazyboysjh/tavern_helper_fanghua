@@ -92,11 +92,13 @@ export function taskAcceptBlockReason(stat, bucket, limits) {
   return '';
 }
 
-export function normalizeTaskGoals(rawGoals) {
+export function normalizeTaskGoals(rawGoals, rawOpts) {
   var goals = {};
+  var opts = safeObj(rawOpts);
   Object.keys(safeObj(rawGoals)).forEach(function (key) {
     goals[key] = {
       内容: String(rawGoals[key] == null ? '' : rawGoals[key]),
+      选项: String(opts[key] == null ? '' : opts[key]),
       完成: false,
     };
   });
