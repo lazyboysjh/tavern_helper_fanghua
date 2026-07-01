@@ -2011,7 +2011,7 @@
     if (taskWasAbandoned(stat, key)) blockReason = '已放弃，不可再接';
     var disabled = !!blockReason;
     return (
-      '<article class="dwf-jiyi-card ' +
+      '<article class="dwf-jiyi-card dwf-task-card dwf-task-card-inset ' +
       bucketCls +
       '" style="--jiyi-accent:' +
       accent +
@@ -2337,7 +2337,8 @@
     );
   }
 
-  function renderActionOptionsPanel(stat) {
+  function renderActionOptionsPanel(stat, opts) {
+    opts = opts || {};
     if (isEnded(stat)) return '';
     var tasks = getCurrentTasks(stat);
     var multi = tasks.length > 1;
@@ -2399,15 +2400,18 @@
         })
         .join('') +
       '</div></div>';
-    return (
-      '<div class="dwf-section dwf-action-options"><div class="dwf-section-hd dwf-action-options-hd"><span><i class="fa-solid fa-paper-plane"></i>行动选项</span>' +
+    var body =
+      '<div class="dwf-section-hd dwf-action-options-hd"><span><i class="fa-solid fa-paper-plane"></i>行动选项</span>' +
       renderSendModeBtn() +
       '</div>' +
       '<div class="dwf-action-options-body">' +
       (taskHtml || '<div class="dwf-action-hint">接下任务后，此处出现带序号的目标选项（最多同时 3 件）</div>') +
       freeHtml +
-      '</div></div>'
-    );
+      '</div>';
+    if (opts.nested) {
+      return '<div class="dwf-action-options dwf-action-options-inset">' + body + '</div>';
+    }
+    return '<div class="dwf-section dwf-action-options">' + body + '</div>';
   }
 
   function renderFengxinTaskLayout(stat) {
@@ -2417,17 +2421,19 @@
     if (items.length) setJiyiPickId(rail, pickItemId(rail, items[pickIdx]));
     var pickerHtml = renderJiyiTaskPicker(stat, rail, items, pickIdx);
     var stageHtml = rail === 'available' ? renderAvailableTaskAt(stat, pickIdx) : renderAcceptedTaskAt(stat, pickIdx);
+    var actionHtml = isEnded(stat) ? '' : renderActionOptionsPanel(stat, { nested: true });
     return (
       '<div class="dwf-fengxin-layout">' +
       '<div class="dwf-fengxin-top">' +
       renderJiyiRail(stat, rail) +
       '<div class="dwf-fengxin-main">' +
       pickerHtml +
+      '<div class="dwf-section dwf-fengxin-bundle">' +
       '<div class="dwf-fengxin-stage">' +
       stageHtml +
-      '</div></div></div>' +
-      renderActionOptionsPanel(stat) +
-      '</div>'
+      '</div>' +
+      actionHtml +
+      '</div></div></div></div>'
     );
   }
 
@@ -2670,7 +2676,7 @@
           var accent = RANK_COLORS[rank] || '#b89465';
           var mark = String(name).slice(0, 1);
           return (
-            '<div class="dwf-rank-card dwf-glass-card" style="--rank-accent:' +
+            '<div class="dwf-rank-card" style="--rank-accent:' +
             accent +
             '">' +
             '<div class="dwf-rank-seal">' +

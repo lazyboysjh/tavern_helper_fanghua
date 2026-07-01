@@ -247,6 +247,17 @@
   background:linear-gradient(135deg,rgba(184,148,101,.18),rgba(0,0,0,.2));
   border:1px solid color-mix(in srgb,var(--c) 30%,transparent);color:var(--txt);
 }
+.dwf-chip-tag,
+.dwf-jiyi-tag,
+.dwf-action-chip-tag,
+.dwf-task-goal-tag{
+  display:inline-flex;align-items:center;gap:3px;
+  padding:4px 9px;border-radius:10px;
+  font-size:.64rem;font-weight:700;letter-spacing:.04em;line-height:1.3;
+  background:linear-gradient(135deg,rgba(184,148,101,.18),rgba(0,0,0,.2));
+  border:1px solid color-mix(in srgb,var(--c) 30%,transparent);color:var(--txt);
+  max-width:100%;word-break:break-word;
+}
 
 /* 风信 */
 .dwf-urgent-card{
@@ -311,9 +322,7 @@
 .dwf-rank-card{
   display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
   padding:14px 16px;border-radius:16px;
-  background:linear-gradient(155deg,rgba(28,24,22,.9),rgba(12,10,14,.94));
-  border:1px solid rgba(255,255,255,.06);
-  box-shadow:0 10px 26px rgba(0,0,0,.22);
+  background:var(--block-bg);border:1px solid var(--block-border);box-shadow:var(--block-shadow);
 }
 .dwf-rank-seal{
   width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
@@ -483,12 +492,7 @@
 }
 .dwf-jiyi-tag{
   position:relative;
-  display:inline-flex;align-items:center;gap:3px;
-  padding:3px 9px;border-radius:999px;
-  font-size:.58rem;font-weight:800;letter-spacing:.06em;line-height:1.3;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.05);color:var(--txt2);
-  max-width:100%;word-break:break-word;
+  font-size:.64rem;
 }
 .dwf-jiyi-tag.is-hot{
   padding-right:12px;
@@ -631,7 +635,7 @@
 .dwf-send-chip.is-sent{border-color:rgba(201,162,39,.5);background:rgba(201,162,39,.15)}
 .dwf-send-chip-k{font-size:.66rem;color:var(--dim)}
 .dwf-send-chip-v{word-break:break-word}
-.dwf-task-goal-tag{display:inline-flex;align-items:center;padding:1px 6px;border-radius:6px;font-size:.58rem;font-weight:800;letter-spacing:.06em;color:#e8d7a8;background:rgba(201,162,39,.14);border:1px solid rgba(201,162,39,.28);flex-shrink:0;white-space:nowrap}
+.dwf-task-goal-tag{display:inline-flex;align-items:center;flex-shrink:0;white-space:nowrap}
 .dwf-fengxin-layout{display:flex;flex-direction:column;gap:10px}
 .dwf-fengxin-top{display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;align-items:start}
 .dwf-fengxin-main{display:flex;flex-direction:column;gap:8px;min-width:0}
@@ -699,6 +703,30 @@
 .dwf-jiyi-pick-title{font-size:.78rem;font-weight:800;letter-spacing:.04em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dwf-jiyi-pick-sub{font-size:.58rem;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dwf-fengxin-stage{min-width:0;overflow:visible}
+.dwf-fengxin-bundle{
+  display:flex;flex-direction:column;gap:0;
+  margin-bottom:0;padding:14px;
+}
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-jiyi-card,
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-empty{
+  margin:0;background:transparent;border:none;box-shadow:none;border-radius:0;
+}
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-jiyi-card .dwf-jiyi-glow{display:none}
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-task-card-inset{
+  background:transparent!important;border:none!important;box-shadow:none!important;
+}
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-jiyi-countdown,
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-task-card-inset .dwf-jiyi-countdown{
+  margin:0 -2px 10px;border-radius:12px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--jiyi-accent,#e85d6a) 10%,var(--block-bg)),var(--block-bg));
+  border:1px solid var(--block-border);border-bottom:1px solid var(--block-border);
+  box-shadow:var(--block-shadow);
+}
+.dwf-fengxin-bundle .dwf-action-options-inset{
+  margin:0;padding:12px 0 0;border-top:1px solid var(--block-border);
+}
+.dwf-fengxin-bundle .dwf-action-options-inset .dwf-section-hd{margin-bottom:8px}
+.dwf-fengxin-bundle .dwf-task-actions{margin-top:10px;padding-top:10px;border-top:1px dashed var(--block-border)}
 .dwf-fengxin-stage .dwf-jiyi-card,.dwf-fengxin-stage .dwf-empty{margin:0}
 .dwf-fengxin-stage .dwf-jiyi-more{margin-top:8px}
 .dwf-fengxin-cards{min-width:0;overflow:visible}
@@ -739,7 +767,7 @@
 .dwf-action-chip.is-free{border-color:rgba(106,140,175,.28);background:rgba(106,140,175,.08)}
 .dwf-action-chip:hover:not(:disabled):not(.is-locked){transform:translateY(-1px);border-color:rgba(201,162,39,.45)}
 .dwf-action-chip.is-locked{opacity:.5;cursor:not-allowed;border-style:dashed}
-.dwf-action-chip-tag{display:inline-flex;align-items:center;padding:2px 7px;border-radius:999px;font-size:.58rem;font-weight:800;letter-spacing:.06em;color:#e8d7a8;background:rgba(0,0,0,.22);border:1px solid rgba(201,162,39,.25);white-space:nowrap}
+.dwf-action-chip-tag{white-space:nowrap;flex-shrink:0}
 .dwf-action-chip.is-free .dwf-action-chip-tag{color:#c5d8ea;border-color:rgba(106,140,175,.35)}
 .dwf-action-chip-text{word-break:break-word}
 .dwf-action-chip-lock{color:var(--dim);font-size:.68rem;padding-top:2px}
@@ -747,6 +775,7 @@
 .dwf-task-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
 .dwf-task-actions--solo{grid-template-columns:1fr}
 .dwf-task-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:34px;padding:7px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));color:var(--txt2);font-size:.7rem;font-weight:800;letter-spacing:.06em;cursor:pointer;transition:transform .22s ease,border-color .22s ease,background .22s ease,opacity .22s ease}
+.dwf-task-btn span{word-break:break-word;text-align:center;line-height:1.35}
 .dwf-task-btn span{white-space:nowrap}
 .dwf-task-btn-label--short{display:none}
 .dwf-task-btn:hover:not(:disabled){transform:translateY(-1px);border-color:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 42%,rgba(255,255,255,.1));color:#fff}
@@ -935,7 +964,41 @@
   .dwf-task-btn-label--long{display:none}
   .dwf-task-btn-label--short{display:inline}
   .dwf-task-btn.dwf-task-accept{min-height:40px}
+  .dwf-fengxin-bundle{padding:12px}
+  .dwf-fengxin-bundle .dwf-jiyi-name{font-size:.86rem;line-height:1.3}
+  .dwf-fengxin-bundle .dwf-jiyi-body{font-size:.74rem}
+  .dwf-fengxin-bundle .dwf-action-chip-text{-webkit-line-clamp:4}
+  .dwf-fengxin-bundle .dwf-action-options-inset{padding-top:10px}
 }
+/* 粉黛 · 角色 tab / 人物卡凹陷与天机 dwf-section 对齐 */
+#dwf-panel-fende .scene-tab{
+  background:var(--block-bg);
+  border:1px solid var(--block-border);
+  box-shadow:var(--block-shadow);
+}
+#dwf-panel-fende .scene-tab.on{
+  color:#fff;
+  border-color:color-mix(in srgb,var(--tab-accent,var(--c)) 48%,var(--block-border));
+  box-shadow:var(--block-shadow),0 0 0 1px color-mix(in srgb,var(--tab-accent,var(--c)) 28%,transparent);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--tab-accent,var(--c)) 14%,var(--block-bg)),var(--block-bg));
+  transform:none;
+}
+#dwf-panel-fende .scene-stage .det-r{
+  background:var(--block-bg);
+  border:1px solid var(--block-border);
+  box-shadow:var(--block-shadow);
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+#dwf-panel-fende .scene-stage .det-r:hover{transform:none}
+#dwf-panel-fende .scene-stage .support-grid .blk{
+  background:color-mix(in srgb,var(--block-bg) 90%,rgba(0,0,0,.08));
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.22);
+}
+.dwf-fengxin-bundle .dwf-jiyi-name,
+.dwf-fengxin-bundle .dwf-jiyi-body,
+.dwf-fengxin-bundle .dwf-action-chip-text,
+.dwf-fengxin-bundle .dwf-jiyi-lead{overflow-wrap:anywhere;word-break:break-word}
 /* ===== tab uniform heights v2（六轨/粉黛/立绘按钮同高；scene 变量供角色 tab 复用） ===== */
 :root{
   --dwf-tab-h:52px;
@@ -1086,6 +1149,17 @@
 :root[data-theme="light"] .dwf-jiyi-pick-nav{
   background:linear-gradient(180deg,rgba(255,252,246,.98),rgba(248,244,236,.94));
   border-color:rgba(139,106,58,.16);color:#5c5348;
+}
+:root[data-theme="light"] #dwf-panel-fende .scene-tab{
+  background:var(--block-bg);border-color:var(--block-border);
+}
+:root[data-theme="light"] #dwf-panel-fende .scene-tab.on{
+  color:#2c2418;
+  border-color:color-mix(in srgb,var(--tab-accent,var(--c)) 42%,rgba(139,106,58,.16));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--tab-accent,var(--c)) 12%,var(--block-bg)),var(--block-bg));
+}
+:root[data-theme="light"] #dwf-panel-fende .scene-stage .det-r{
+  background:var(--block-bg);border-color:var(--block-border);
 }
 
 /* 机宜 Tab：任务可完成角标 */

@@ -4891,6 +4891,17 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   background:linear-gradient(135deg,rgba(184,148,101,.18),rgba(0,0,0,.2));
   border:1px solid color-mix(in srgb,var(--c) 30%,transparent);color:var(--txt);
 }
+.dwf-chip-tag,
+.dwf-jiyi-tag,
+.dwf-action-chip-tag,
+.dwf-task-goal-tag{
+  display:inline-flex;align-items:center;gap:3px;
+  padding:4px 9px;border-radius:10px;
+  font-size:.64rem;font-weight:700;letter-spacing:.04em;line-height:1.3;
+  background:linear-gradient(135deg,rgba(184,148,101,.18),rgba(0,0,0,.2));
+  border:1px solid color-mix(in srgb,var(--c) 30%,transparent);color:var(--txt);
+  max-width:100%;word-break:break-word;
+}
 
 /* 风信 */
 .dwf-urgent-card{
@@ -4955,9 +4966,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-rank-card{
   display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
   padding:14px 16px;border-radius:16px;
-  background:linear-gradient(155deg,rgba(28,24,22,.9),rgba(12,10,14,.94));
-  border:1px solid rgba(255,255,255,.06);
-  box-shadow:0 10px 26px rgba(0,0,0,.22);
+  background:var(--block-bg);border:1px solid var(--block-border);box-shadow:var(--block-shadow);
 }
 .dwf-rank-seal{
   width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
@@ -5127,12 +5136,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 }
 .dwf-jiyi-tag{
   position:relative;
-  display:inline-flex;align-items:center;gap:3px;
-  padding:3px 9px;border-radius:999px;
-  font-size:.58rem;font-weight:800;letter-spacing:.06em;line-height:1.3;
-  border:1px solid rgba(255,255,255,.1);
-  background:rgba(255,255,255,.05);color:var(--txt2);
-  max-width:100%;word-break:break-word;
+  font-size:.64rem;
 }
 .dwf-jiyi-tag.is-hot{
   padding-right:12px;
@@ -5275,7 +5279,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-send-chip.is-sent{border-color:rgba(201,162,39,.5);background:rgba(201,162,39,.15)}
 .dwf-send-chip-k{font-size:.66rem;color:var(--dim)}
 .dwf-send-chip-v{word-break:break-word}
-.dwf-task-goal-tag{display:inline-flex;align-items:center;padding:1px 6px;border-radius:6px;font-size:.58rem;font-weight:800;letter-spacing:.06em;color:#e8d7a8;background:rgba(201,162,39,.14);border:1px solid rgba(201,162,39,.28);flex-shrink:0;white-space:nowrap}
+.dwf-task-goal-tag{display:inline-flex;align-items:center;flex-shrink:0;white-space:nowrap}
 .dwf-fengxin-layout{display:flex;flex-direction:column;gap:10px}
 .dwf-fengxin-top{display:grid;grid-template-columns:72px minmax(0,1fr);gap:10px;align-items:start}
 .dwf-fengxin-main{display:flex;flex-direction:column;gap:8px;min-width:0}
@@ -5343,6 +5347,30 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-jiyi-pick-title{font-size:.78rem;font-weight:800;letter-spacing:.04em;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dwf-jiyi-pick-sub{font-size:.58rem;color:var(--dim);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .dwf-fengxin-stage{min-width:0;overflow:visible}
+.dwf-fengxin-bundle{
+  display:flex;flex-direction:column;gap:0;
+  margin-bottom:0;padding:14px;
+}
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-jiyi-card,
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-empty{
+  margin:0;background:transparent;border:none;box-shadow:none;border-radius:0;
+}
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-jiyi-card .dwf-jiyi-glow{display:none}
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-task-card-inset{
+  background:transparent!important;border:none!important;box-shadow:none!important;
+}
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-jiyi-countdown,
+.dwf-fengxin-bundle .dwf-fengxin-stage .dwf-task-card-inset .dwf-jiyi-countdown{
+  margin:0 -2px 10px;border-radius:12px;
+  background:linear-gradient(90deg,color-mix(in srgb,var(--jiyi-accent,#e85d6a) 10%,var(--block-bg)),var(--block-bg));
+  border:1px solid var(--block-border);border-bottom:1px solid var(--block-border);
+  box-shadow:var(--block-shadow);
+}
+.dwf-fengxin-bundle .dwf-action-options-inset{
+  margin:0;padding:12px 0 0;border-top:1px solid var(--block-border);
+}
+.dwf-fengxin-bundle .dwf-action-options-inset .dwf-section-hd{margin-bottom:8px}
+.dwf-fengxin-bundle .dwf-task-actions{margin-top:10px;padding-top:10px;border-top:1px dashed var(--block-border)}
 .dwf-fengxin-stage .dwf-jiyi-card,.dwf-fengxin-stage .dwf-empty{margin:0}
 .dwf-fengxin-stage .dwf-jiyi-more{margin-top:8px}
 .dwf-fengxin-cards{min-width:0;overflow:visible}
@@ -5383,7 +5411,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-action-chip.is-free{border-color:rgba(106,140,175,.28);background:rgba(106,140,175,.08)}
 .dwf-action-chip:hover:not(:disabled):not(.is-locked){transform:translateY(-1px);border-color:rgba(201,162,39,.45)}
 .dwf-action-chip.is-locked{opacity:.5;cursor:not-allowed;border-style:dashed}
-.dwf-action-chip-tag{display:inline-flex;align-items:center;padding:2px 7px;border-radius:999px;font-size:.58rem;font-weight:800;letter-spacing:.06em;color:#e8d7a8;background:rgba(0,0,0,.22);border:1px solid rgba(201,162,39,.25);white-space:nowrap}
+.dwf-action-chip-tag{white-space:nowrap;flex-shrink:0}
 .dwf-action-chip.is-free .dwf-action-chip-tag{color:#c5d8ea;border-color:rgba(106,140,175,.35)}
 .dwf-action-chip-text{word-break:break-word}
 .dwf-action-chip-lock{color:var(--dim);font-size:.68rem;padding-top:2px}
@@ -5391,6 +5419,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 .dwf-task-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:10px}
 .dwf-task-actions--solo{grid-template-columns:1fr}
 .dwf-task-btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;width:100%;min-height:34px;padding:7px 10px;border-radius:10px;border:1px solid rgba(255,255,255,.09);background:linear-gradient(180deg,rgba(255,255,255,.08),rgba(255,255,255,.035));color:var(--txt2);font-size:.7rem;font-weight:800;letter-spacing:.06em;cursor:pointer;transition:transform .22s ease,border-color .22s ease,background .22s ease,opacity .22s ease}
+.dwf-task-btn span{word-break:break-word;text-align:center;line-height:1.35}
 .dwf-task-btn span{white-space:nowrap}
 .dwf-task-btn-label--short{display:none}
 .dwf-task-btn:hover:not(:disabled){transform:translateY(-1px);border-color:color-mix(in srgb,var(--jiyi-accent,#e85d6a) 42%,rgba(255,255,255,.1));color:#fff}
@@ -5579,7 +5608,41 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
   .dwf-task-btn-label--long{display:none}
   .dwf-task-btn-label--short{display:inline}
   .dwf-task-btn.dwf-task-accept{min-height:40px}
+  .dwf-fengxin-bundle{padding:12px}
+  .dwf-fengxin-bundle .dwf-jiyi-name{font-size:.86rem;line-height:1.3}
+  .dwf-fengxin-bundle .dwf-jiyi-body{font-size:.74rem}
+  .dwf-fengxin-bundle .dwf-action-chip-text{-webkit-line-clamp:4}
+  .dwf-fengxin-bundle .dwf-action-options-inset{padding-top:10px}
 }
+/* 粉黛 · 角色 tab / 人物卡凹陷与天机 dwf-section 对齐 */
+#dwf-panel-fende .scene-tab{
+  background:var(--block-bg);
+  border:1px solid var(--block-border);
+  box-shadow:var(--block-shadow);
+}
+#dwf-panel-fende .scene-tab.on{
+  color:#fff;
+  border-color:color-mix(in srgb,var(--tab-accent,var(--c)) 48%,var(--block-border));
+  box-shadow:var(--block-shadow),0 0 0 1px color-mix(in srgb,var(--tab-accent,var(--c)) 28%,transparent);
+  background:linear-gradient(180deg,color-mix(in srgb,var(--tab-accent,var(--c)) 14%,var(--block-bg)),var(--block-bg));
+  transform:none;
+}
+#dwf-panel-fende .scene-stage .det-r{
+  background:var(--block-bg);
+  border:1px solid var(--block-border);
+  box-shadow:var(--block-shadow);
+  backdrop-filter:none!important;
+  -webkit-backdrop-filter:none!important;
+}
+#dwf-panel-fende .scene-stage .det-r:hover{transform:none}
+#dwf-panel-fende .scene-stage .support-grid .blk{
+  background:color-mix(in srgb,var(--block-bg) 90%,rgba(0,0,0,.08));
+  box-shadow:inset 0 2px 6px rgba(0,0,0,.22);
+}
+.dwf-fengxin-bundle .dwf-jiyi-name,
+.dwf-fengxin-bundle .dwf-jiyi-body,
+.dwf-fengxin-bundle .dwf-action-chip-text,
+.dwf-fengxin-bundle .dwf-jiyi-lead{overflow-wrap:anywhere;word-break:break-word}
 /* ===== tab uniform heights v2（六轨/粉黛/立绘按钮同高；scene 变量供角色 tab 复用） ===== */
 :root{
   --dwf-tab-h:52px;
@@ -5730,6 +5793,17 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
 :root[data-theme="light"] .dwf-jiyi-pick-nav{
   background:linear-gradient(180deg,rgba(255,252,246,.98),rgba(248,244,236,.94));
   border-color:rgba(139,106,58,.16);color:#5c5348;
+}
+:root[data-theme="light"] #dwf-panel-fende .scene-tab{
+  background:var(--block-bg);border-color:var(--block-border);
+}
+:root[data-theme="light"] #dwf-panel-fende .scene-tab.on{
+  color:#2c2418;
+  border-color:color-mix(in srgb,var(--tab-accent,var(--c)) 42%,rgba(139,106,58,.16));
+  background:linear-gradient(180deg,color-mix(in srgb,var(--tab-accent,var(--c)) 12%,var(--block-bg)),var(--block-bg));
+}
+:root[data-theme="light"] #dwf-panel-fende .scene-stage .det-r{
+  background:var(--block-bg);border-color:var(--block-border);
 }
 
 /* 机宜 Tab：任务可完成角标 */
@@ -8090,7 +8164,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     if (taskWasAbandoned(stat, key)) blockReason = '已放弃，不可再接';
     var disabled = !!blockReason;
     return (
-      '<article class="dwf-jiyi-card ' +
+      '<article class="dwf-jiyi-card dwf-task-card dwf-task-card-inset ' +
       bucketCls +
       '" style="--jiyi-accent:' +
       accent +
@@ -8416,7 +8490,8 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     );
   }
 
-  function renderActionOptionsPanel(stat) {
+  function renderActionOptionsPanel(stat, opts) {
+    opts = opts || {};
     if (isEnded(stat)) return '';
     var tasks = getCurrentTasks(stat);
     var multi = tasks.length > 1;
@@ -8478,15 +8553,18 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         })
         .join('') +
       '</div></div>';
-    return (
-      '<div class="dwf-section dwf-action-options"><div class="dwf-section-hd dwf-action-options-hd"><span><i class="fa-solid fa-paper-plane"></i>行动选项</span>' +
+    var body =
+      '<div class="dwf-section-hd dwf-action-options-hd"><span><i class="fa-solid fa-paper-plane"></i>行动选项</span>' +
       renderSendModeBtn() +
       '</div>' +
       '<div class="dwf-action-options-body">' +
       (taskHtml || '<div class="dwf-action-hint">接下任务后，此处出现带序号的目标选项（最多同时 3 件）</div>') +
       freeHtml +
-      '</div></div>'
-    );
+      '</div>';
+    if (opts.nested) {
+      return '<div class="dwf-action-options dwf-action-options-inset">' + body + '</div>';
+    }
+    return '<div class="dwf-section dwf-action-options">' + body + '</div>';
   }
 
   function renderFengxinTaskLayout(stat) {
@@ -8496,17 +8574,19 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
     if (items.length) setJiyiPickId(rail, pickItemId(rail, items[pickIdx]));
     var pickerHtml = renderJiyiTaskPicker(stat, rail, items, pickIdx);
     var stageHtml = rail === 'available' ? renderAvailableTaskAt(stat, pickIdx) : renderAcceptedTaskAt(stat, pickIdx);
+    var actionHtml = isEnded(stat) ? '' : renderActionOptionsPanel(stat, { nested: true });
     return (
       '<div class="dwf-fengxin-layout">' +
       '<div class="dwf-fengxin-top">' +
       renderJiyiRail(stat, rail) +
       '<div class="dwf-fengxin-main">' +
       pickerHtml +
+      '<div class="dwf-section dwf-fengxin-bundle">' +
       '<div class="dwf-fengxin-stage">' +
       stageHtml +
-      '</div></div></div>' +
-      renderActionOptionsPanel(stat) +
-      '</div>'
+      '</div>' +
+      actionHtml +
+      '</div></div></div></div>'
     );
   }
 
@@ -8749,7 +8829,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
           var accent = RANK_COLORS[rank] || '#b89465';
           var mark = String(name).slice(0, 1);
           return (
-            '<div class="dwf-rank-card dwf-glass-card" style="--rank-accent:' +
+            '<div class="dwf-rank-card" style="--rank-accent:' +
             accent +
             '">' +
             '<div class="dwf-rank-seal">' +
@@ -9364,7 +9444,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         var CUSTOM_COLOR_KEY = 'dwfCustomColorsV1'; // 新增：自定义颜色存储键
         var UNLOCK_STAGE_KEY = 'dwfUnlockStageV1';
 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        /* __DWF_CHAR_ROSTER_START__ */
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        /* __DWF_CHAR_ROSTER_START__ */
         var CHAR_ORDER = ["王令君", "王玄姬", "郭太后", "羊徽瑜", "潘淑", "卢氏", "朝云", "甄氏", "宪英", "费氏", "白氏", "吴心", "薛夫人", "董氏", "张氏", "柏氏", "吴氏", "诸葛氏", "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏", "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏", "夏侯氏", "辛氏", "郭女王"];
         var CHAR_IDENTITY = {
             "王令君": "陌路 · 淮南",
@@ -11427,7 +11507,7 @@ html.mnx-archive #gallery-hint-wrap{display:none!important;}
         async function ensureMvuShellReady() {
             if (window.__DWF_PREVIEW_BOOT__) return true;
             if (__dwfMvuShellReady) return true;
-            await waitGlobalInitialized('Mvu');
+                await waitGlobalInitialized('Mvu');
             var schemaReady = window.DwfMvu && DwfMvu.ensureStatSchema ? await DwfMvu.ensureStatSchema() : false;
             var statReady = window.DwfMvu && DwfMvu.waitForMessageStatData ? await DwfMvu.waitForMessageStatData() : false;
             if (!schemaReady || !statReady) {
