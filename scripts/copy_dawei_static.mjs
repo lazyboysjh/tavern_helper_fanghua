@@ -20,6 +20,7 @@ const copies = [
   ['src/dawei/ui/status/preview.html', 'dist/dawei/ui/status/preview.html'],
   ['src/dawei/ui/status/vendor/jquery.min.js', 'dist/dawei/ui/status/vendor/jquery.min.js'],
   ['src/dawei/ui/status/vendor/lodash.min.js', 'dist/dawei/ui/status/vendor/lodash.min.js'],
+  ['src/dawei/ui/cover/index.html', 'dist/dawei/ui/cover/index.html'],
 ];
 
 for (const [fromRel, toRel] of copies) {
