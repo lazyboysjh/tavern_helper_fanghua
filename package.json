@@ -8,6 +8,9 @@
         "lint:fix": "eslint --fix",
         "dump": "node dump_schema.ts",
         "sync": "node tavern_sync.mjs",
+        "test:task": "node scripts/test_dwf_task_state.mjs",
+        "verify:status": "node scripts/compose_dwf_status.mjs && node scripts/test_dwf_task_state.mjs",
+        "preview:status": "node scripts/copy_dawei_static.mjs && node scripts/serve_dwf_status_preview.mjs",
         "prebuild": "node scripts/compose_dwf_status.mjs"
     },
     "browserslist": [

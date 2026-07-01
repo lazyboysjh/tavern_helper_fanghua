@@ -36,7 +36,7 @@
       margin: 0;
       font-size: 12px;
       color: #a1a1aa;
-      flex: 1 1 220px;
+      flex: 1 1 280px;
     }
     .preview-bar button {
       border: 1px solid rgba(184,148,101,.35);
@@ -72,19 +72,36 @@
 <body>
   <div class="preview-bar">
     <h1>状态栏预览</h1>
-    <p>下方状态栏内 <b>粉黛/天机/风闻/历事</b> 可点。默认打开风闻看机宜。</p>
-    <button type="button" class="scene on" data-scene="luoyang">洛阳·剑舞 24</button>
-    <button type="button" class="scene" data-scene="huainan">淮南·施水 40</button>
-    <button type="button" class="scene" data-scene="pingyuan">平原·守孝 1</button>
+    <p>切换场景与 Tab。<b>标签样例</b>展示卡片标签；<b>任务样例</b>多任务；<b>家眷样例</b>名分与子嗣。</p>
+    <button type="button" class="scene on" data-scene="tags">标签样例</button>
+    <button type="button" class="scene" data-scene="tasks">任务样例</button>
+    <button type="button" class="scene" data-scene="jiajuan">家眷样例</button>
+    <button type="button" class="scene" data-scene="luoyang">洛阳·剑舞</button>
+    <button type="button" class="scene" data-scene="pingyuan">平原·守孝</button>
     <button type="button" class="tab-btn" data-tab="tianji">天机</button>
-    <button type="button" class="tab-btn on" data-tab="fengxin">风闻</button>
+    <button type="button" class="tab-btn" data-tab="fengxin">机宜</button>
+    <button type="button" class="tab-btn" data-tab="fengwen">风闻</button>
     <button type="button" class="tab-btn" data-tab="lishi">历事</button>
+    <button type="button" class="tab-btn on" data-tab="fangming">家眷</button>
     <button type="button" class="tab-btn" data-tab="fende">粉黛</button>
   </div>
   <iframe id="frame" title="大魏芳华状态栏" src="index.html?dwf_preview=1"></iframe>
   <script>
     var PREVIEW_KEY = '__dwf_preview_stat__';
     var TAB_KEY = '__dwf_preview_tab__';
+
+    function jiyiItem(overrides) {
+      return Object.assign({
+        因由: '预览事件',
+        火急: 3,
+        相关人物: '',
+        建议地点: '预览地点',
+        开启行程: 1,
+        截止行程: 40,
+        目标: { 目标1: '完成预览目标' },
+        演完写入: {},
+      }, overrides || {});
+    }
 
     var BASE = {
       朝局: {
@@ -93,34 +110,209 @@
         权柄: '曹爽',
         纪年: { 年号: '景初', 年数: '三', 干支: '戊午' },
       },
-      命途: { 标签: ['仕进'], 已锁: [], 主导: null },
-      命途印记: { 清河: '救人' },
-      鼎革纪: {
-        洛阳权柄: '司马懿控朝',
-        大将军: '曹爽',
-        曹芳: '在位',
-        郭太后: '永宁宫',
-        蜀汉: '未亡',
-        孙吴: '尚存',
-        禅代: '未发生',
-        伐吴: '未举',
-        东兴: '未战',
-      },
+      命途: { 标签: ['仕进'], 已锁: [], 主导: '潜龙' },
+      命途印记: {},
+      鼎革纪: { 洛阳权柄: '司马懿控朝', 禅代: '未发生' },
+      任务录: { 当前: {}, 已放弃: {} },
       风闻录: {
         机宜: { 津渡: {}, 支汊: {} },
-          邸报: {
-            大将军府: '曹爽开府置僚，洛阳士子多往投幕。',
-            淮南: '王凌镇扬州，江淮间军情日紧。',
-        },
-        里巷: {
-          平康坊: '坊间传闻，有剑舞名伎今夜毛遂自荐，为某新入府掾属献舞。',
-        },
+        邸报: { 预览: '邸报条目：朝局风动，边关军情频传。' },
+        里巷: { 预览: '坊间传闻：驿城酒肆里有人议论清河旧案。' },
       },
       房名次: {},
       子嗣: {},
+      履历: {},
+      群芳录: {
+        朝云: {
+          是否登场: true,
+          当前位置: '洛阳',
+          好感度: 10,
+          好感度上限: 100,
+          服饰: '',
+          外貌: '',
+          当前状态: '候场',
+          心里想法: '',
+          心情: '平静',
+          与user关系: '相识',
+          有孕: false,
+          子嗣数: 0,
+        },
+      },
     };
 
     var SCENES = {
+      tags: {
+        世界与剧情: {
+          行程: 20,
+          当前地点: '预览·机宜标签',
+          已终局: false,
+          路线预判: { 倾向: '一统天下', 主导: '潜龙', 匹配度: 72, id: 'preview' },
+          天时: { 显示: '景初三年·预览' },
+        },
+        主角: { 当前位置: '预览场景', 当前状态: '检视全部卡片标签样式' },
+        主角势力: { 官爵: '掾属', 阵营: '曹爽', 部曲: 0, 根基: '洛阳寓所' },
+        风闻录: {
+          机宜: {
+            津渡: {
+              '预览·路线': jiyiItem({
+                因由: '津渡·预览路线：山林线专属路线标签',
+                卡片标签: [{ kind: 'route', label: '山林' }],
+              }),
+              '预览·大势': jiyiItem({
+                因由: '津渡·预览大势：里程碑标签',
+                卡片标签: [{ kind: 'milestone', label: '大势' }],
+              }),
+            },
+            支汊: {
+              '预览·收束': jiyiItem({
+                因由: '支汊·预览收束：结局收束标签（应与路线预判高亮）',
+                卡片标签: [{ kind: 'ending', label: '收束·一统天下' }],
+              }),
+              '预览·阻局': jiyiItem({
+                因由: '支汊·预览阻局：阻断型标签',
+                卡片标签: [{ kind: 'block', label: '阻·勤王失利' }],
+              }),
+              '预览·命途': jiyiItem({
+                因由: '支汊·预览命途：命途方向标签',
+                卡片标签: [{ kind: 'fate', label: '仕进' }],
+              }),
+              '预览·择一': jiyiItem({
+                因由: '支汊·预览择一：互斥组标签',
+                卡片标签: [{ kind: 'mutex', label: '择一' }],
+              }),
+              '预览·新逢': jiyiItem({
+                因由: '支汊·预览新逢：相关人物未登场时自动生成 meet 标签',
+                相关人物: '卢氏',
+                卡片标签: [],
+              }),
+            },
+          },
+        },
+      },
+      tasks: {
+        世界与剧情: {
+          行程: 22,
+          当前地点: '预览·多任务',
+          已终局: false,
+          天时: { 显示: '景初三年·任务预览' },
+        },
+        主角: { 当前位置: '预览场景', 当前状态: '检视接取/完成/放弃/逾期' },
+        任务录: {
+          当前: {
+            兄困清河: {
+              id: '兄困清河',
+              类型: '津渡',
+              状态: '进行中',
+              开始行程: 6,
+              截止行程: 30,
+              因由: '津渡·兄困清河：兄长陷囹圄于清河驿城',
+              火急: 4,
+              相关人物: '卢氏、张氏',
+              建议地点: '清河郡·驿城',
+              目标: {
+                目标1: { 内容: '赶赴清河驿城', 完成: true },
+                目标2: { 内容: '查明缘由', 完成: false },
+                目标3: { 内容: '救出秦宽', 完成: false },
+              },
+              演完写入: { 命途标签: ['仕进'] },
+            },
+            朝云舞剑: {
+              id: '朝云舞剑',
+              类型: '支汊',
+              状态: '进行中',
+              开始行程: 20,
+              截止行程: 28,
+              因由: '支汊·朝云舞剑：名伶与秦府缘分初起',
+              火急: 3,
+              相关人物: '朝云',
+              建议地点: '洛阳·曹府',
+              目标: {
+                目标1: { 内容: '观剑舞', 完成: true },
+                目标2: { 内容: '与朝云应答', 完成: true },
+                目标3: { 内容: '收束相识', 完成: true },
+              },
+              演完写入: {},
+            },
+            逾期待删: {
+              id: '逾期待删',
+              类型: '支汊',
+              状态: '进行中',
+              开始行程: 10,
+              截止行程: 18,
+              因由: '支汊·逾期待删：行程已超过截止，应自动标为已失败',
+              火急: 2,
+              建议地点: '预览',
+              目标: { 目标1: { 内容: '示例目标', 完成: false } },
+              演完写入: {},
+            },
+          },
+          已放弃: {
+            嫂子劝仕: { 行程: 8, 因由: '支汊·嫂子劝仕：已放弃不可再接' },
+          },
+        },
+        风闻录: {
+          机宜: {
+            津渡: {},
+            支汊: {
+              嫂子劝仕: jiyiItem({
+                因由: '支汊·嫂子劝仕：应显示「已放弃，不可再接」',
+                相关人物: '张氏',
+                开启行程: 3,
+                截止行程: 10,
+              }),
+              麦田董氏: jiyiItem({
+                因由: '支汊·麦田董氏：可再接的支线示例',
+                相关人物: '董氏',
+                开启行程: 1,
+                截止行程: 12,
+                卡片标签: [{ kind: 'fate', label: '早隐' }],
+              }),
+            },
+          },
+        },
+      },
+      jiajuan: {
+        世界与剧情: {
+          行程: 132,
+          当前地点: '洛阳·秦府内院',
+          已终局: false,
+          天时: { 显示: '景初五年·家眷预览' },
+        },
+        主角: {
+          当前位置: '洛阳·秦府',
+          当前状态: '内闱名分已定，子嗣渐长',
+        },
+        主角势力: {
+          官爵: '大将军掾',
+          阵营: '勤王系',
+          部曲: 1200,
+          根基: '洛阳秦府',
+        },
+        房名次: {
+          王令君: { 位分: '正室' },
+          羊徽瑜: { 位分: '侧室' },
+          朝云: { 位分: '近侍' },
+          费氏: { 位分: '妾室' },
+          卢氏: { 位分: '外室' },
+          隐慈: { 位分: '婢妾' },
+        },
+        子嗣: {
+          秦曜: { 男女: '男', 春秋: 9, 生母: '王令君', 孺慕: 78 },
+          秦婉: { 男女: '女', 春秋: 6, 生母: '羊徽瑜', 孺慕: 92 },
+          秦初: { 男女: '男', 春秋: 3, 生母: '费氏', 孺慕: 54 },
+          秦宁: { 男女: '女', 春秋: 1, 生母: '王令君', 孺慕: 41 },
+        },
+        风闻录: {
+          机宜: { 津渡: {}, 支汊: {} },
+          邸报: { 册封: '大将军府奏请册立正室，诏可。' },
+          里巷: { 洛阳: '秦府内院张灯，传闻王氏嫡子将入学宫。' },
+          自由行动建议: '可往内院探视子嗣，或与正室议及嗣子启蒙之事。',
+        },
+        履历: {
+          '128': { 时间: '景初五年春', 地点: '洛阳·秦府', 事迹: '册立王令君为正室，羊徽瑜为侧室。' },
+          '130': { 时间: '景初五年夏', 地点: '洛阳·秦府', 事迹: '嫡子秦曜入家学，婉娘随母习女红。' },
+        },
+      },
       luoyang: {
         世界与剧情: {
           行程: 24,
@@ -177,9 +369,8 @@
                   目标2: '与朝云推进此事',
                   目标3: '收束朝云舞剑惊艳',
                 },
-                演完写入: {
-                  命途印记: { 朝云: '相识' },
-                },
+                演完写入: { 命途印记: { 朝云: '相识' } },
+                卡片标签: [{ kind: 'meet', label: '新逢·朝云' }],
               },
             },
           },
@@ -191,31 +382,6 @@
             平康坊: '坊间传闻，有剑舞名伎今夜毛遂自荐，为某新入府掾属献舞。',
           },
         },
-      },
-      huainan: {
-        世界与剧情: {
-          行程: 40,
-          当前地点: '淮南·施水废城',
-          当前互动角色: '孙礼',
-          当前场景角色: '孙礼、随行将佐',
-          已终局: false,
-          天时: { 月: '正', 旬: '上旬', 时辰: '昼', 显示: '正始元年正月上旬·昼' },
-        },
-        主角: {
-          当前位置: '施水畔·合肥旧城丘台',
-          当前状态: '先行南下探察江淮，候扬州刺史孙礼至',
-        },
-        主角势力: {
-          官爵: '讨虏将军司马',
-          阵营: '王凌',
-          部曲: 80,
-          根基: '淮南军寨',
-        },
-        履历: {
-          '001': '景初三年·平原郡·应召入仕',
-          '002': '景初三年·洛阳·入大将军府',
-        },
-        群芳录: {},
       },
       pingyuan: {
         世界与剧情: {
@@ -274,15 +440,28 @@
       },
     };
 
-    var currentScene = 'luoyang';
-    var currentTab = 'fengxin';
+    var currentScene = 'tags';
+    var currentTab = 'fangming';
     var frame = document.getElementById('frame');
 
     function buildStat(sceneKey) {
-      var scene = SCENES[sceneKey] || SCENES.luoyang;
+      var scene = SCENES[sceneKey] || SCENES.tags;
       var stat = JSON.parse(JSON.stringify(BASE));
       Object.keys(scene).forEach(function (k) {
         if (k === '风闻录' && scene[k]) {
+          stat[k] = Object.assign({}, stat[k] || {}, scene[k]);
+          if (scene[k].机宜) {
+            stat[k].机宜 = Object.assign({}, stat[k].机宜 || {}, scene[k].机宜);
+            stat[k].机宜.津渡 = Object.assign({}, (stat[k].机宜 || {}).津渡, (scene[k].机宜 || {}).津渡 || {});
+            stat[k].机宜.支汊 = Object.assign({}, (stat[k].机宜 || {}).支汊, (scene[k].机宜 || {}).支汊 || {});
+          }
+        } else if (k === '任务录' && scene[k]) {
+          stat[k] = Object.assign({}, stat[k] || {}, scene[k]);
+        } else if (k === '房名次' && scene[k]) {
+          stat[k] = Object.assign({}, stat[k] || {}, scene[k]);
+        } else if (k === '子嗣' && scene[k]) {
+          stat[k] = Object.assign({}, stat[k] || {}, scene[k]);
+        } else if (k === '履历' && scene[k]) {
           stat[k] = Object.assign({}, stat[k] || {}, scene[k]);
         } else {
           stat[k] = scene[k];
