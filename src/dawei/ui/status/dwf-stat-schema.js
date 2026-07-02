@@ -19,6 +19,8 @@
       心里想法: z.string().describe('角色此刻未说出口的第一人称口语独白').prefault(''),
       心情: z.string().describe('两到四字概括当前情绪').prefault(''),
       与user关系: z.string().describe('与{{user}}关系定位').prefault(''),
+      本名: z.string().describe('档案本名；问名按此作答').prefault(''),
+      通称: z.string().describe('世人常用称呼，逗号或顿号分隔').prefault(''),
       有孕: z.boolean().prefault(false),
       子嗣数: z.coerce.number().transform(v => Math.max(0, Math.floor(v))).prefault(0),
     })
@@ -159,7 +161,7 @@
       里巷: recordOrEmpty(z.record(z.string(), z.string())),
       自由行动: objectOrEmpty(z.object({
         日常: z.string().prefault(''),
-        探看: z.string().prefault(''),
+        桃色: z.string().prefault(''),
       }).prefault({})),
       自由行动建议: z.string().describe('已废弃').prefault(''),
     }).prefault({})),

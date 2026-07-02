@@ -874,7 +874,23 @@
   background:color-mix(in srgb,var(--chip-slot-accent,#c9a227) 14%,rgba(0,0,0,.22));
 }
 .dwf-action-chip.is-free{border-color:rgba(106,140,175,.28);background:rgba(106,140,175,.08)}
-.dwf-action-chip:hover:not(:disabled):not(.is-locked){transform:translateY(-1px);border-color:rgba(201,162,39,.45)}
+.dwf-action-chip.is-flirt{
+  border-color:rgba(232,121,149,.38);
+  background:linear-gradient(135deg,rgba(232,121,149,.14),rgba(255,182,193,.08));
+}
+.dwf-action-chip.is-flirt:hover:not(:disabled):not(.is-locked){
+  border-color:rgba(255,143,171,.55);
+  background:linear-gradient(135deg,rgba(232,121,149,.22),rgba(255,182,193,.12));
+}
+.dwf-action-group-桃色 .dwf-action-group-hd{color:#f0a8bc}
+.dwf-action-group-桃色 .dwf-action-group-hd::after{
+  background:linear-gradient(90deg,transparent 0%,rgba(232,121,149,.22) 16%,rgba(255,182,193,.12) 50%,rgba(232,121,149,.22) 84%,transparent 100%);
+}
+.dwf-action-group-桃色 .dwf-action-group-hd i{color:#ff8fab}
+.dwf-action-chip.is-flirt .dwf-action-chip-tag{color:#ffc9d8;border-color:rgba(232,121,149,.4)}
+.dwf-action-chip:hover:not(:disabled):not(.is-locked){transform:translateY(-1px)}
+.dwf-action-chip.is-free:hover:not(:disabled):not(.is-locked){border-color:rgba(106,140,175,.45)}
+.dwf-action-chip.is-task:hover:not(:disabled):not(.is-locked){border-color:rgba(201,162,39,.45)}
 .dwf-action-chip.is-locked{opacity:.5;cursor:not-allowed;border-style:dashed}
 .dwf-action-chip-tag{white-space:nowrap;flex-shrink:0}
 .dwf-action-chip.is-free .dwf-action-chip-tag{color:#c5d8ea;border-color:rgba(106,140,175,.35)}
@@ -1272,6 +1288,12 @@
 :root[data-theme="light"] .dwf-action-chip.is-free{
   background:rgba(106,140,175,.08);border-color:rgba(106,140,175,.22);
 }
+:root[data-theme="light"] .dwf-action-chip.is-flirt{
+  background:linear-gradient(135deg,rgba(232,121,149,.12),rgba(255,240,245,.9));
+  border-color:rgba(219,112,147,.28);
+}
+:root[data-theme="light"] .dwf-action-group-桃色 .dwf-action-group-hd{color:#c75b7a}
+:root[data-theme="light"] .dwf-action-chip.is-flirt .dwf-action-chip-tag{color:#b84d6f}
 :root[data-theme="light"] .dwf-jiyi-rail-btn.is-on{
   background:linear-gradient(180deg,rgba(201,162,39,.16),rgba(255,252,246,.95));
   border-color:rgba(139,106,58,.28);

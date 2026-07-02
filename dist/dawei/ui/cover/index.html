@@ -3811,12 +3811,96 @@
     // 角色数据，新增 images 数组用于双图展示
 
     const PERSONAS = [
-  { mark: "张", name: "张氏", role: "嫂嫂 · 秦家庄持家", copy: "脸饱满圆润，素衣白布巾；兄困清河时护小叔、劝仕心切。", images: [] },
-  { mark: "董", name: "董氏", role: "庄邻 · 王康之妻", copy: "旧布粗衣，脖颈白净；麦田里添了几分鲜活气息。", images: [] },
-  { mark: "令", name: "王令君", role: "淮南王氏 · 婚约有议", copy: "瓜子脸明艳如玉，礼法一丝不苟；扇子遮面时也难掩仪态。", images: [] },
-  { mark: "玄", name: "王玄姬", role: "王家幼女", copy: "王家二姐，性情与令君迥异；淮南风声里常闻其名。", images: [] },
-  { mark: "卢", name: "卢氏", role: "太学故人 · 驿城", copy: "声清脆语气好，清河案中或为兄长一线生机。", images: [] },
-  { mark: "朝", name: "朝云", role: "平康坊 · 剑舞", copy: "婀娜柔韧似柳，剑舞时鼓急人目不敢离。", images: [] }
+  {
+    "mark": "张",
+    "name": "张氏",
+    "role": "嫂嫂 · 秦家庄持家",
+    "copy": "脸饱满圆润，素衣白布巾；兄困清河时护小叔、劝仕心切。",
+    "images": [
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/zhangshi_sfw_fengmian.png",
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/zhangshi_nsfw_1.png"
+    ]
+  },
+  {
+    "mark": "董",
+    "name": "董氏",
+    "role": "庄邻 · 王康之妻",
+    "copy": "旧布粗衣，脖颈白净；麦田里添了几分鲜活气息。",
+    "images": [
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/dongshi_sfw_fengmian.png",
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/dongshi_nsfw_1.png"
+    ]
+  },
+  {
+    "mark": "令",
+    "name": "王令君",
+    "role": "淮南王氏 · 婚约有议",
+    "copy": "瓜子脸明艳如玉，礼法一丝不苟；扇子遮面时也难掩仪态。",
+    "images": [
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/wanglingjun_sfw_fengmian.png",
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/wanglingjun_nsfw_1.png"
+    ]
+  },
+  {
+    "mark": "玄",
+    "name": "王玄姬",
+    "role": "王家幼女",
+    "copy": "王家二姐，性情与令君迥异；淮南风声里常闻其名。",
+    "images": [
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/wangxuanji_sfw_fengmian.png",
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/wangxuanji_nsfw_1.png"
+    ]
+  },
+  {
+    "mark": "卢",
+    "name": "卢氏",
+    "role": "太学故人 · 驿城",
+    "copy": "声清脆语气好，清河案中或为兄长一线生机。",
+    "images": [
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/lushi_sfw_fengmian.png",
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/lushi_nsfw_1.png"
+    ]
+  },
+  {
+    "mark": "朝",
+    "name": "朝云",
+    "role": "平康坊 · 剑舞",
+    "copy": "婀娜柔韧似柳，剑舞时鼓急人目不敢离。",
+    "images": [
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/chaoyun_sfw_fengmian.png",
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/chaoyun_nsfw_1.png"
+    ]
+  },
+  {
+    "mark": "郭",
+    "name": "郭太后",
+    "role": "永宁宫 · 皇太后",
+    "copy": "才三十余岁，素雅清冷；宫门深闭，却仍牵动皇室法统。",
+    "images": [
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/guotaihou_sfw_fengmian.png",
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/guotaihou_nsfw_1.png"
+    ]
+  },
+  {
+    "mark": "羊",
+    "name": "羊徽瑜",
+    "role": "泰山羊氏 · 士族女",
+    "copy": "门第清贵，仪态端严；局势渐急时，常在礼法与自保之间取舍。",
+    "images": [
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/yanghuiyu_sfw_fengmian.png",
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/yanghuiyu_nsfw_1.png"
+    ]
+  },
+  {
+    "mark": "潘",
+    "name": "潘淑",
+    "role": "江东后宫 · 神女之姿",
+    "copy": "江东传闻里的明艳女子，后宫线由此铺开，柔媚中自有盘算。",
+    "images": [
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/panshu_sfw_fengmian.png",
+      "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/panshu_nsfw_1.png"
+    ]
+  }
 ];
 
 const OPENINGS = [
