@@ -29,6 +29,10 @@ def main():
         "dwf-main-nav",
         "dwf-panel-tianji",
         "dwf-panel-fangming",
+        "dwf-rank-card--compact",
+        "dwf-lvli-card--compact",
+        "dwf-lvli-line",
+        "@media(max-width:520px)",
         "dwfMvu",
         "dwf-tab-h",
         "getPinkBook",
@@ -43,6 +47,10 @@ def main():
     for token in forbidden:
         if token in status:
             fail(f"status still contains legacy token: {token}")
+    if '"白氏": []' in status or '"王令君": []' in status:
+        fail("status gallery IMG_DATA was emptied; run generate_dawei_gallery_assets.py")
+    if "baishi_sfw_fengmian.png" not in status or "wanglingjun_sfw_fengmian.png" not in status:
+        fail("status gallery image data missing expected role assets")
 
     if not CARD.is_file():
         fail(f"missing card {CARD}")

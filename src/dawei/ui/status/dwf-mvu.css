@@ -402,22 +402,22 @@
 /* 粉黛增强 — 背面顶部标签已移除，关系/心情见属性行 */
 
 /* 房名次 */
-.dwf-rank-grid{display:grid;gap:10px}
+.dwf-rank-grid{display:grid;gap:8px}
 .dwf-rank-card{
   display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;
-  padding:14px 16px;border-radius:16px;
+  padding:11px 13px;border-radius:12px;
   background:var(--block-bg);border:1px solid var(--block-border);box-shadow:var(--block-shadow);
 }
 .dwf-rank-seal{
-  width:42px;height:42px;border-radius:12px;display:grid;place-items:center;
-  font-size:1.1rem;font-weight:800;color:#fff;
+  width:36px;height:36px;border-radius:10px;display:grid;place-items:center;
+  font-size:1rem;font-weight:800;color:#fff;
   background:linear-gradient(145deg,color-mix(in srgb,var(--rank-accent,#b89465) 70%,#fff 10%),color-mix(in srgb,var(--rank-accent,#b89465) 40%,#000 20%));
   box-shadow:0 8px 20px color-mix(in srgb,var(--rank-accent,#b89465) 28%,transparent);
 }
-.dwf-rank-name{font-size:.92rem;font-weight:800;color:#fff;letter-spacing:.06em}
-.dwf-rank-sub{font-size:.7rem;color:var(--dim);margin-top:3px}
+.dwf-rank-name{font-size:.9rem;font-weight:800;color:#fff;letter-spacing:.04em}
+.dwf-rank-sub{font-size:.66rem;color:var(--dim);margin-top:2px}
 .dwf-rank-badge{
-  padding:5px 11px;border-radius:999px;font-size:.68rem;font-weight:800;letter-spacing:.1em;
+  padding:4px 10px;border-radius:999px;font-size:.66rem;font-weight:800;letter-spacing:.08em;
   color:#fff;border:1px solid color-mix(in srgb,var(--rank-accent,#b89465) 45%,transparent);
   background:color-mix(in srgb,var(--rank-accent,#b89465) 22%,rgba(0,0,0,.2));
 }
@@ -970,14 +970,15 @@
 .dwf-tianji-tripnote{flex:1;min-width:0;font-size:.76rem;color:var(--txt2);line-height:1.55}
 .dwf-tianji-tripnote b{color:var(--c);font-size:.95rem;font-weight:800;margin:0 3px;font-variant-numeric:tabular-nums}
 .dwf-tianji-tripnote .dwf-trip-total{display:block;margin-top:6px;opacity:.62;font-size:.64rem;font-weight:500;letter-spacing:.03em;line-height:1.45}
-.dwf-lvli-timeline{display:flex;flex-direction:column;gap:10px}
-.dwf-lvli-card{display:grid;grid-template-columns:42px minmax(0,1fr);gap:12px;padding:12px 14px}
+.dwf-lvli-timeline{display:flex;flex-direction:column;gap:8px}
+.dwf-lvli-card{display:grid;grid-template-columns:38px minmax(0,1fr);gap:10px;padding:10px 12px;border-radius:12px}
 .dwf-lvli-rail{display:flex;justify-content:center}
-.dwf-lvli-seq{display:inline-flex;align-items:center;justify-content:center;min-width:34px;height:34px;border-radius:10px;font-size:.62rem;font-weight:800;color:var(--c);letter-spacing:.04em;background:rgba(184,148,101,.12);border:1px solid rgba(184,148,101,.22)}
-.dwf-lvli-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:6px}
+.dwf-lvli-seq{display:inline-flex;align-items:center;justify-content:center;min-width:32px;height:32px;border-radius:9px;font-size:.6rem;font-weight:800;color:var(--c);letter-spacing:.04em;background:rgba(184,148,101,.12);border:1px solid rgba(184,148,101,.22)}
+.dwf-lvli-line{display:grid;gap:5px;min-width:0}
+.dwf-lvli-meta{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:0}
 .dwf-lvli-when,.dwf-lvli-where{display:inline-flex;align-items:center;gap:4px;padding:2px 8px;border-radius:999px;font-size:.62rem;font-weight:700;color:var(--txt2);background:rgba(255,255,255,.04);border:1px solid var(--border)}
 .dwf-lvli-where i{font-size:.58rem;opacity:.75}
-.dwf-lvli-deed{font-size:.84rem;font-weight:600;line-height:1.58;color:var(--txt);letter-spacing:.02em}
+.dwf-lvli-deed{font-size:.82rem;font-weight:650;line-height:1.5;color:var(--txt);letter-spacing:0}
 .dwf-list-expand-foot{display:flex;justify-content:center;padding:8px 0 4px}
 .dwf-list-expand-btn{
   appearance:none;border:1px solid rgba(184,148,101,.28);background:rgba(184,148,101,.08);
@@ -1035,8 +1036,26 @@
   .dwf-faction-metrics{grid-template-columns:1fr}
   .dwf-faction-head{align-items:flex-start}
   .dwf-event-tags{max-height:160px;overflow-y:auto}
-  .dwf-rank-card{grid-template-columns:auto 1fr;grid-template-rows:auto auto}
-  .dwf-rank-badge{grid-column:1/-1;justify-self:start}
+  .dwf-section-lishi .dwf-section-hd{margin-bottom:8px}
+  .dwf-lvli-timeline{gap:6px}
+  .dwf-lvli-card--compact{
+    grid-template-columns:34px minmax(0,1fr);gap:8px;
+    padding:8px 9px;border-radius:10px;
+  }
+  .dwf-lvli-seq{min-width:30px;height:30px;border-radius:8px;font-size:.56rem}
+  .dwf-lvli-line{gap:4px}
+  .dwf-lvli-meta{gap:4px}
+  .dwf-lvli-when,.dwf-lvli-where{padding:1px 6px;font-size:.56rem;line-height:1.55}
+  .dwf-lvli-deed{font-size:.76rem;line-height:1.45}
+  .dwf-rank-grid{gap:6px}
+  .dwf-rank-card--compact{
+    grid-template-columns:32px minmax(0,1fr) auto;grid-template-rows:auto;
+    gap:8px;padding:8px 9px;border-radius:10px;
+  }
+  .dwf-rank-seal{width:32px;height:32px;border-radius:9px;font-size:.92rem}
+  .dwf-rank-name{font-size:.82rem;letter-spacing:0}
+  .dwf-rank-sub{font-size:.58rem;margin-top:1px}
+  .dwf-rank-badge{grid-column:auto;justify-self:end;padding:3px 7px;font-size:.58rem;letter-spacing:.04em;white-space:nowrap}
   .dwf-jiyi-urgency{width:100%;text-align:left}
   .dwf-ending-title{font-size:1.15rem}
   .dwf-jiyi-card{border-radius:16px}

@@ -22,7 +22,7 @@
     fende: '粉黛',
     fangming: '家眷',
   };
-  var RANK_ORDER = { 正室: 6, 侧室: 5, 妾室: 4, 近侍: 3, 婢妾: 2, 外室: 1 };
+  var RANK_ORDER = { 正室: 8, 侧室: 7, 妾室: 6, 近侍: 5, 婢妾: 4, 外室: 3, 情妇: 2, 偷情: 1 };
   var RANK_COLORS = {
     正室: '#daa520',
     侧室: '#c9a227',
@@ -30,6 +30,8 @@
     近侍: '#e85d6a',
     婢妾: '#8b9aab',
     外室: '#6a8caf',
+    情妇: '#b86b8b',
+    偷情: '#8d6aa8',
   };
   var CAMP_COLORS = {
     无: '#8b9aab',
@@ -1676,15 +1678,16 @@
     if (parsed.when) meta.push('<span class="dwf-lvli-when">' + esc(parsed.when) + '</span>');
     if (parsed.where) meta.push('<span class="dwf-lvli-where"><i class="fa-solid fa-location-dot"></i>' + esc(parsed.where) + '</span>');
     return (
-      '<article class="dwf-lvli-card dwf-glass-card">' +
+      '<article class="dwf-lvli-card dwf-lvli-card--compact dwf-glass-card">' +
       '<div class="dwf-lvli-rail"><span class="dwf-lvli-seq">' +
       esc(String(seq)) +
       '</span></div>' +
       '<div class="dwf-lvli-body">' +
+      '<div class="dwf-lvli-line">' +
       (meta.length ? '<div class="dwf-lvli-meta">' + meta.join('') + '</div>' : '') +
       '<div class="dwf-lvli-deed">' +
       esc(deedText) +
-      '</div>' +
+      '</div></div>' +
       '</div></article>'
     );
   }
@@ -2735,7 +2738,7 @@
           var accent = RANK_COLORS[rank] || '#b89465';
           var mark = String(name).slice(0, 1);
           return (
-            '<div class="dwf-rank-card" style="--rank-accent:' +
+            '<div class="dwf-rank-card dwf-rank-card--compact" style="--rank-accent:' +
             accent +
             '">' +
             '<div class="dwf-rank-seal">' +
