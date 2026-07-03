@@ -10,8 +10,8 @@
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      max-height: 100vh;
-      overflow: hidden;
+      overflow-x: hidden;
+      overflow-y: auto;
     }
     .preview-bar {
       flex-shrink: 0;
@@ -133,7 +133,8 @@
     .preview-stage[data-viewport="mobile"] .preview-frame-wrap {
       width: min(390px, 100%);
       max-width: 390px;
-      min-height: min(844px, calc(100vh - 200px));
+      height: 844px;
+      min-height: 844px;
     }
     #frame {
       flex: 1 1 auto;
@@ -164,6 +165,7 @@
       <button type="button" class="scene" data-scene="tasks">任务样例</button>
       <button type="button" class="scene" data-scene="jiajuan">家眷样例</button>
       <button type="button" class="scene" data-scene="jiyiCard">机宜去重</button>
+      <button type="button" class="scene" data-scene="newEvents">新增事件</button>
       <button type="button" class="scene" data-scene="luoyang">洛阳·剑舞</button>
       <button type="button" class="scene" data-scene="pingyuan">平原·守孝</button>
       <button type="button" class="scene" data-scene="heavy">长局压测</button>
@@ -202,7 +204,12 @@
       mobile: { label: '手机 · 390px', width: 390 },
     };
 
-    var currentViewport = sessionStorage.getItem(VIEWPORT_KEY) || 'desktop';
+    var query = new URLSearchParams(location.search || '');
+    var queryScene = query.get('scene');
+    var queryTab = query.get('tab');
+    var queryViewport = query.get('viewport');
+
+    var currentViewport = queryViewport || sessionStorage.getItem(VIEWPORT_KEY) || 'desktop';
     if (!VIEWPORTS[currentViewport]) currentViewport = 'desktop';
     var previewStage = document.getElementById('preview-stage');
     var viewportHint = document.getElementById('viewport-hint');
@@ -378,6 +385,130 @@
                 卡片标签: [],
               }),
             },
+          },
+        },
+      },
+      newEvents: {
+        世界与剧情: {
+          行程: 146,
+          当前地点: '寿春·夜市',
+          当前互动角色: '白氏',
+          当前场景角色: '白氏、王玄姬',
+          已终局: false,
+          路线预判: { 倾向: '潜龙入洛', 主导: '潜龙', 匹配度: 68, id: 'preview-new-events' },
+          天时: { 显示: '嘉平元年七月中旬·夜' },
+        },
+        主角: { 当前位置: '寿春·夜市', 当前状态: '检视新增支汊事件卡片' },
+        主角势力: { 官爵: '大将军府掾属', 阵营: '曹爽', 部曲: 80, 根基: '淮南寿春' },
+        风闻录: {
+          机宜: {
+            津渡: {},
+            支汊: {
+              王府误笺: jiyiItem({
+                因由: '支汊·王府误笺：王府误递一封女眷私笺，王玄姬疑你窥私，白氏却认出商路暗记。',
+                火急: 2,
+                相关人物: '王玄姬、白氏、王令君',
+                建议地点: '淮南·王府',
+                开启行程: 42,
+                截止行程: 58,
+                目标: {
+                  目标1: '当面还笺，先向王玄姬说明误递原委',
+                  目标2: '请白氏辨认笺角暗记，分清私情还是军情',
+                  目标3: '决定焚笺保名声，或留线追查寿春内外勾连',
+                },
+                选项: {
+                  目标1: '亲往王府还笺，先把误递的来龙去脉讲清。',
+                  目标2: '请白氏看一眼笺角暗记，分辨这是私情还是军情。',
+                  目标3: '在王玄姬面前定夺，是焚笺保名声，还是留线追查。',
+                },
+              }),
+              白氏夜市: jiyiItem({
+                因由: '支汊·白氏夜市：寿春夜市商队歇灯，白氏以玩笑探底，王玄姬暗看你如何处置私情。',
+                火急: 1,
+                相关人物: '白氏、王玄姬',
+                建议地点: '寿春·夜市',
+                开启行程: 146,
+                截止行程: 164,
+                目标: {
+                  目标1: '夜访白氏商队，确认她为何故意邀你避开正厅',
+                  目标2: '在玩笑与试探里听出商路、私情和王氏耳目的边界',
+                  目标3: '决定只谈公事，还是留下可延续的外室暗线',
+                },
+                选项: {
+                  目标1: '夜去寿春市口见白氏，问她为何故意避开正厅。',
+                  目标2: '听她玩笑里的试探，也看王玄姬是否已察觉。',
+                  目标3: '把关系压回公事，或留下一个能延续的外室暗线。',
+                },
+              }),
+              江东试香: jiyiItem({
+                因由: '支汊·江东试香：江东旧香送入东宫，潘淑借香试你心意，孙鲁班旁观不肯放过破绽。',
+                火急: 2,
+                相关人物: '潘淑、孙鲁班',
+                建议地点: '建业·东宫',
+                开启行程: 252,
+                截止行程: 266,
+                目标: {
+                  目标1: '入东宫辨香，先弄清潘淑为何借旧香相邀',
+                  目标2: '应对孙鲁班旁观盘问，分清情意、权术和江东旧怨',
+                  目标3: '决定公开抬举、私下安抚，或暂缓纳入后宫',
+                },
+                选项: {
+                  目标1: '入东宫辨那一缕江东旧香，问清潘淑为何相邀。',
+                  目标2: '当着孙鲁班的面应答，别让情意和权术混成把柄。',
+                  目标3: '定下对潘淑的处置：公开抬举、私下安抚，或暂缓名分。',
+                },
+              }),
+              后苑争席: jiyiItem({
+                因由: '支汊·后苑争席：后苑席位引出名分争执，袁夫人与王夫人都借潘淑试探新主家法。',
+                火急: 2,
+                相关人物: '袁夫人、王夫人、潘淑',
+                建议地点: '建业·后苑',
+                开启行程: 254,
+                截止行程: 270,
+                目标: {
+                  目标1: '赶到后苑，先分清争的是席位、宠爱还是旧吴名分',
+                  目标2: '分别听袁夫人、王夫人与潘淑陈情，压住后宫流言',
+                  目标3: '定下家法和安置次序，避免私情变成宫闱明争',
+                },
+                选项: {
+                  目标1: '去后苑看这场争席，先分清她们争的到底是什么。',
+                  目标2: '分别听袁夫人、王夫人与潘淑陈情，先压住流言。',
+                  目标3: '定下家法和安置次序，别让私情变成宫闱明争。',
+                },
+              }),
+            },
+          },
+          邸报: { 寿春: '寿春夜市商队往来，王府女眷与商路消息偶有交错。' },
+          里巷: { 私语: '坊间有人议论，府中名分、人情与暗线最难分清。' },
+        },
+        群芳录: {
+          白氏: {
+            是否登场: true,
+            当前位置: '寿春·夜市',
+            好感度: 42,
+            好感度上限: 100,
+            服饰: '夜市素裙，外披商队薄斗篷',
+            外貌: '',
+            当前状态: '借玩笑试探分寸',
+            心里想法: '他若只谈公事，倒也未必无趣。',
+            心情: '含笑',
+            与user关系: '相识',
+            有孕: false,
+            子嗣数: 0,
+          },
+          王玄姬: {
+            是否登场: true,
+            当前位置: '寿春·夜市',
+            好感度: 18,
+            好感度上限: 100,
+            服饰: '便服遮面',
+            外貌: '',
+            当前状态: '暗中观察你如何处置私情',
+            心里想法: '这人若轻浮，姐姐不可不防。',
+            心情: '审视',
+            与user关系: '王氏姻亲',
+            有孕: false,
+            子嗣数: 0,
           },
         },
       },
@@ -696,11 +827,14 @@
       })(),
     };
 
-    var currentScene = sessionStorage.getItem(SCENE_KEY) || 'sendopts';
-    var currentTab = sessionStorage.getItem(TAB_KEY) || 'fengxin';
+    var currentScene = queryScene || sessionStorage.getItem(SCENE_KEY) || 'sendopts';
+    if (!SCENES[currentScene]) currentScene = 'sendopts';
+    var currentTab = queryTab || sessionStorage.getItem(TAB_KEY) || 'fengxin';
+    if (!['tianji', 'fengxin', 'fengwen', 'lishi', 'fangming', 'fende'].includes(currentTab)) currentTab = 'fengxin';
     var frame = document.getElementById('frame');
 
     function markPreviewBarActive() {
+      if (previewStage) previewStage.setAttribute('data-tab', currentTab);
       document.querySelectorAll('.scene').forEach(function (btn) {
         btn.classList.toggle('on', btn.getAttribute('data-scene') === currentScene);
       });
@@ -720,6 +854,7 @@
       var height = Math.round(rect.height);
       viewportHint.textContent = preset.label + ' · 实际 ' + width + '×' + height;
     }
+
 
     function applyViewport(save) {
       if (!VIEWPORTS[currentViewport]) currentViewport = 'desktop';
@@ -811,7 +946,9 @@
       requestAnimationFrame(updateViewportHint);
       var tries = 0;
       var bootTimer = setInterval(function () {
-        if (tryBootPreviewUi() || ++tries >= 20) clearInterval(bootTimer);
+        var booted = tryBootPreviewUi();
+        updateViewportHint();
+        if (booted || ++tries >= 20) clearInterval(bootTimer);
       }, 100);
       try {
         var w = frame.contentWindow;
