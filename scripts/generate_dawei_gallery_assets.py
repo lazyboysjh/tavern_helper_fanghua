@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import json
 import re
+import sys
 from pathlib import Path
 
 
@@ -9,13 +10,12 @@ PROJECT = ROOT.parents[1]
 IMAGE_ROOT = PROJECT / "人设图"
 CDN_BASE = "https://testingcf.jsdelivr.net/gh/lazyboysjh/image@main/"
 
-STATUS_ROLES = [
-    "白氏", "董氏", "张氏", "卢氏", "王令君", "薛夫人", "朝云", "王玄姬", "郭太后",
-    "羊徽瑜", "甄氏", "宪英", "费氏", "吴心", "潘淑", "柏氏", "吴氏", "诸葛氏",
-    "夏侯徽", "金乡公主", "王元姬", "袁夫人", "蔡贞姬", "陆氏", "荀氏", "徐氏",
-    "杨氏", "王夫人", "杜夫人", "朱夫人", "孙鲁班", "张春华", "阮氏", "令狐氏",
-    "夏侯氏", "辛氏",
-]
+if str(PROJECT) not in sys.path:
+    sys.path.insert(0, str(PROJECT))
+
+from plot.qunfang_roster import roster_keys
+
+STATUS_ROLES = roster_keys(variable_only=True)
 
 COVER_ROLES = ["郭太后", "羊徽瑜", "王令君", "王玄姬", "潘淑", "卢氏", "朝云", "张氏", "董氏"]
 
