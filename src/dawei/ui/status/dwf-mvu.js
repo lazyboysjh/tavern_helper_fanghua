@@ -3,14 +3,14 @@
   var DWF_MAIN_PANEL_KEY = 'dwf-main-panel-v2';
   var DWF_SEND_MODE_KEY = 'dawei-goal-mode-v1';
   var DWF_SEND_MODES = ['send', 'setinput', 'append'];
-  var DWF_SEND_MODE_LABELS = { send: '发送', setinput: '填入', append: '追加' };
-  var DEFAULT_FREE_ACTION = {
-    日常: '整理眼下头绪，理清面前之事再定。',
-    桃色: '向身旁的女眷靠近些，试探她一句体己话。',
+  var DWF_SEND_MODE_LABELS = { send: '发送', setinput: '填入', append: '追加到输入框' };
+  var DEFAULT_PRESET_OPTIONS = {
+    日常句: '整理眼下头绪，理清面前之事再定。',
+    桃色句: '向身旁的女眷靠近些，试探她一句体己话。',
   };
-  var FREE_ACTION_SLOTS = [
-    { key: '日常', icon: 'fa-feather', label: '日常' },
-    { key: '桃色', icon: 'fa-heart', label: '桃色' },
+  var PRESET_OPTION_SLOTS = [
+    { key: '日常句', cssGroup: '日常', icon: 'fa-feather', label: '日常', kind: 'free' },
+    { key: '桃色句', cssGroup: '桃色', icon: 'fa-heart', label: '桃色', kind: 'flirt' },
   ];
   var DWF_JIYI_RAIL_KEY = 'dwf-jiyi-rail-v1';
   var DWF_JIYI_PICK_KEY = 'dwf-jiyi-pick-v1';
@@ -1012,16 +1012,13 @@
     return '';
   }
 
-  function getFreeActionMap(stat) {
+  function getPresetOptionMap(stat) {
     var fx = safeObj(stat && stat['风闻录']);
-    var fa = safeObj(fx['自由行动']);
+    var po = safeObj(fx['预制选项']);
     var out = {};
-    Object.keys(DEFAULT_FREE_ACTION).forEach(function (k) {
-      out[k] = String(fa[k] || DEFAULT_FREE_ACTION[k]).trim();
+    Object.keys(DEFAULT_PRESET_OPTIONS).forEach(function (k) {
+      out[k] = String(po[k] || DEFAULT_PRESET_OPTIONS[k]).trim();
     });
-    if (!fa['桃色'] && fa['探看']) {
-      out['桃色'] = String(fa['探看']).trim();
-    }
     return out;
   }
 
@@ -2394,7 +2391,7 @@
     if (isEnded(stat)) return '';
     var tasks = getCurrentTasks(stat);
     var multi = tasks.length > 1;
-    var freeMap = getFreeActionMap(stat);
+    var presetMap = getPresetOptionMap(stat);
     var taskHtml = '';
     if (tasks.length) {
       taskHtml = tasks
@@ -2441,12 +2438,12 @@
         .filter(Boolean)
         .join('');
     }
-    var freeHtml = FREE_ACTION_SLOTS.map(function (slot) {
-      var text = freeMap[slot.key];
+    var freeHtml = PRESET_OPTION_SLOTS.map(function (slot) {
+      var text = presetMap[slot.key];
       if (!text) return '';
       return (
         '<div class="dwf-action-group dwf-action-group-free dwf-action-group-' +
-        esc(slot.key) +
+        esc(slot.cssGroup) +
         '">' +
         '<div class="dwf-action-group-hd"><i class="fa-solid ' +
         slot.icon +
@@ -2454,7 +2451,7 @@
         esc(slot.label) +
         '</div>' +
         '<div class="dwf-action-chip-grid">' +
-        renderActionOptionChip(slot.key, text, { free: slot.key === '日常', flirt: slot.key === '桃色' }) +
+        renderActionOptionChip(slot.label, text, { free: slot.kind === 'free', flirt: slot.kind === 'flirt' }) +
         '</div></div>'
       );
     })
@@ -2642,7 +2639,7 @@
   function renderSendModeBtn() {
     var mode = getSendMode();
     return (
-      '<button type="button" class="dwf-send-mode-btn" data-dwf-send-mode="1" title="点击切换：发送 / 填入 / 追加">' +
+      '<button type="button" class="dwf-send-mode-btn" data-dwf-send-mode="1" title="点击切换：发送（直接发）/ 填入（覆盖输入框）/ 追加到输入框（不会自动发送，勿与手打混用）">' +
       esc(DWF_SEND_MODE_LABELS[mode] || '发送') +
       '</button>'
     );

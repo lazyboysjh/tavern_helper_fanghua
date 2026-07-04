@@ -97,30 +97,32 @@
     z.preprocess(v => (v === null || v === undefined ? [] : v), inner);
   const objectOrEmpty = (inner) =>
     z.preprocess(v => (v === null || v === undefined ? {} : v), inner);
-
+  
   function syncPresenceFields(data) {
-    var book = data.群芳录 || {};
-    var world = data.世界与剧情 || {};
-    function isOn(name) {
-      var ent = book[name];
+    const book = data.群芳录 || {};
+    const world = data.世界与剧情 || {};
+    const isOn = name => {
+      const ent = book[name];
       return !!(ent && typeof ent === 'object' && ent.是否登场 === true);
-    }
-    var sceneRaw = String(world.当前场景角色 || '');
-    var sceneParts = sceneRaw.split(/[、,，\s]+/).map(function (s) { return s.trim(); }).filter(Boolean);
-    var cleaned = [];
-    for (var i = 0; i < sceneParts.length; i++) {
-      var name = sceneParts[i];
-      if (isOn(name) && cleaned.indexOf(name) < 0) cleaned.push(name);
+    };
+    const sceneRaw = String(world.当前场景角色 || '');
+    const sceneParts = sceneRaw
+      .split(/[、,，\s]+/)
+      .map(s => s.trim())
+      .filter(Boolean);
+    const cleaned = [];
+    for (const name of sceneParts) {
+      if (isOn(name) && !cleaned.includes(name)) cleaned.push(name);
     }
     world.当前场景角色 = cleaned.join('、');
-    var cur = String(world.当前互动角色 || '').trim();
+    const cur = String(world.当前互动角色 || '').trim();
     if (cur && !isOn(cur)) {
       world.当前互动角色 = cleaned[0] || '';
     }
     data.世界与剧情 = world;
     return data;
   }
-
+  
   var Schema = z.object({
     世界与剧情: z.object({
       行程: z.coerce.number().transform(v => _.clamp(Math.floor(v), 1, 288)).prefault(1),
@@ -182,11 +184,10 @@
       }).prefault({})),
       邸报: recordOrEmpty(z.record(z.string(), z.string())),
       里巷: recordOrEmpty(z.record(z.string(), z.string())),
-      自由行动: objectOrEmpty(z.object({
-        日常: z.string().prefault(''),
-        桃色: z.string().prefault(''),
-      }).prefault({})),
-      自由行动建议: z.string().describe('已废弃').prefault(''),
+      预制选项: objectOrEmpty(z.object({
+        日常句: z.string().describe('日常类预制发送句').prefault(''),
+        桃色句: z.string().describe('桃色类预制发送句').prefault(''),
+      }).describe('状态栏风闻Tab常驻行动芯片文案').prefault({})),
     }).prefault({})),
   
     任务录: objectOrEmpty(任务录Schema),
