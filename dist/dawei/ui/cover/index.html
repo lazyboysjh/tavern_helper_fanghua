@@ -1080,6 +1080,96 @@
 
     }
 
+    .mnx-opening-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .mnx-opening-tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 3px 9px;
+      border-radius: 999px;
+      font-size: 10px;
+      letter-spacing: 0.06em;
+      border: 1px solid transparent;
+      line-height: 1.35;
+    }
+
+    .mnx-opening-tag--wife {
+      color: #ffd8dc;
+      background: rgba(176, 58, 72, 0.28);
+      border-color: rgba(220, 110, 120, 0.45);
+    }
+
+    .mnx-opening-tag--build {
+      color: #ffe9c4;
+      background: rgba(146, 98, 32, 0.28);
+      border-color: rgba(196, 142, 58, 0.42);
+    }
+
+    .mnx-opening-tag--prologue {
+      color: #e8f0d8;
+      background: rgba(72, 96, 52, 0.32);
+      border-color: rgba(120, 148, 82, 0.42);
+    }
+
+    .mnx-opening-tag--court {
+      color: #d8e8ff;
+      background: rgba(52, 78, 120, 0.32);
+      border-color: rgba(98, 132, 180, 0.42);
+    }
+
+    .mnx-opening-tag--wedding {
+      color: #ffe0f0;
+      background: rgba(128, 52, 88, 0.28);
+      border-color: rgba(180, 88, 120, 0.4);
+    }
+
+    .mnx-opening-tag--war {
+      color: #dce8ef;
+      background: rgba(56, 72, 84, 0.38);
+      border-color: rgba(108, 128, 144, 0.45);
+    }
+
+    .mnx-opening-tag--social {
+      color: #f3e6ff;
+      background: rgba(92, 68, 128, 0.3);
+      border-color: rgba(140, 108, 176, 0.42);
+    }
+
+    .mnx-opening-tag--emperor {
+      color: #fff0c8;
+      background: rgba(128, 96, 24, 0.36);
+      border-color: rgba(212, 164, 64, 0.52);
+      box-shadow: 0 0 12px rgba(212, 164, 64, 0.16);
+    }
+
+    .mnx-opening-tag--reunion {
+      color: #e6f4ff;
+      background: rgba(48, 88, 108, 0.32);
+      border-color: rgba(88, 140, 168, 0.42);
+    }
+
+    .mnx-opening-tag--main {
+      color: #ffecc8;
+      background: rgba(108, 76, 28, 0.3);
+      border-color: rgba(168, 124, 48, 0.42);
+    }
+
+    .mnx-opening-tag--jiangdong {
+      color: #d8f5ef;
+      background: rgba(36, 96, 88, 0.32);
+      border-color: rgba(72, 156, 140, 0.42);
+    }
+
+    .mnx-opening-tag--default {
+      color: var(--text-soft);
+      background: var(--panel);
+      border-color: var(--border);
+    }
+
 
 
     .mnx-opening-summary {
@@ -3913,95 +4003,282 @@ const OPENINGS = [
       "秦家庄",
       "张氏"
     ],
-    "summary": "景初三年五月，秦亮守父丧居秦庄。何晏青衣使者在庄外窥候，嫂张氏借晚膳追问出仕去留。"
+    "summary": "景初，{{user}}在秦庄为父守孝。何晏派使者征辟入仕，嫂张氏盼小叔出仕以壮秦氏门户，兄长秦胜也帮着劝说；{{user}}担心洛阳权臣争权，迟迟不肯应命。",
+    "tags": [
+      "开篇序章",
+      "经营发展"
+    ]
   },
   {
     "no": "02",
     "swipe": 2,
+    "title": "平原郡 · 雷雨报恩",
+    "meta": [
+      "昼",
+      "董氏家",
+      "董氏"
+    ],
+    "summary": "董氏是邻庄王康之妻，家境贫寒。早前其买药于驿道被纨绔所夺，{{user}}鞭退恶少并按方送药，董家感激。今日突发暴雨，{{user}}入董家后屋避雨；董氏婆婆、丈夫曾示意以身为报，董氏心中忐忑。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "03",
+    "swipe": 3,
     "title": "平原郡 · 嫂归书房",
     "meta": [
       "昼",
       "秦家庄",
       "张氏"
     ],
-    "summary": "兄秦胜因清河郡界与私盐案入狱，张氏赴驿城求卢氏转圜；归来仍劝秦亮亲见何骏。"
+    "summary": "兄长秦宽陷在清河驿城官司，嫂子张氏与卢氏（太学旧识，后嫁何骏）四处营救。卢氏传话：何骏不肯仅凭妇人之言放人，须{{user}}亲去面谈，才谈得上救兄与平原、清河郡界。",
+    "tags": [
+      "经营发展",
+      "主线津渡"
+    ]
   },
   {
-    "no": "03",
-    "swipe": 3,
+    "no": "04",
+    "swipe": 4,
     "title": "洛阳 · 平康坊剑舞",
     "meta": [
       "夜",
       "平康坊",
       "朝云"
     ],
-    "summary": "秦亮受曹爽徵辟入洛，任大将军府掾。孙谦设宴平康坊，何骏在座，朝云剑舞求题。"
+    "summary": "{{user}}应召到洛阳任大将军府掾。太学同窗何骏作东，约孙谦在平康坊宴饮；何府伎女朝云当席舞剑，舞罢要{{user}}赐句。{{user}}与朝云素不相识，只是随何骏赴宴。",
+    "tags": [
+      "仕进风流"
+    ]
   },
   {
-    "no": "04",
-    "swipe": 4,
+    "no": "05",
+    "swipe": 5,
     "title": "淮南 · 施水废城",
     "meta": [
       "昼",
       "施水废城",
       "孙礼"
     ],
-    "summary": "秦亮入大将军府后奉调淮南，归王凌幕府。先至施水旧合肥城，等孙礼同勘江淮形势。"
+    "summary": "{{user}}应王凌之召入淮南幕府，奉命先到施水合肥旧城踏查江淮形势，在此等候刺史孙礼南下会合，好当面商议军屯与前线部署。",
+    "tags": [
+      "军旅征戍",
+      "经营发展"
+    ]
   },
   {
-    "no": "05",
-    "swipe": 5,
+    "no": "06",
+    "swipe": 6,
     "title": "洛阳 · 乐津里昏礼",
     "meta": [
       "夜",
       "乐津里",
       "王令君"
     ],
-    "summary": "淮南议亲已定，秦亮迎娶王令君入乐津里。合卺礼成后，新妇独在洞房求暂缓圆房。"
+    "summary": "在淮南时，征东将军王广有意把女儿王令君许配{{user}}，{{user}}托大将军府陈安说媒；两人只在寿春见过一面。议亲既成，{{user}}自王家亲迎回洛阳乐津里，行合卺礼；新妇全程执扇遮面，尚未露脸。",
+    "tags": [
+      "婚娶正室"
+    ]
   },
   {
-    "no": "06",
-    "swipe": 6,
+    "no": "07",
+    "swipe": 7,
     "title": "洛阳 · 东堂谒太后",
     "meta": [
       "昼",
       "东堂",
       "郭太后"
     ],
-    "summary": "秦亮离淮南返洛任校事令。十月朔大朝后，张欢传郭太后旨意，召他复入东堂问对。"
+    "summary": "{{user}}自淮南回洛阳，拜校事令，并曾于东堂帘后初次谒见郭太后。十月朔大朝既散，内侍张欢传口谕，请{{user}}再到帘前答对；郭太后有意细听其对朝局的看法。",
+    "tags": [
+      "权谋朝堂"
+    ]
   },
   {
-    "no": "07",
-    "swipe": 7,
+    "no": "08",
+    "swipe": 8,
+    "title": "洛阳 · 甄氏寓所",
+    "meta": [
+      "昼",
+      "甄氏寓所",
+      "甄氏"
+    ],
+    "summary": "{{user}}任校事令时，曾帮吴氏赶走尹模骚扰；吴氏在郭府设宴致谢，甄氏亦来作陪。甄氏是郭太后闺中伴，东堂初谒时便对{{user}}心动；席间吴氏醉去，两人私下说定，散宴后{{user}}在坊外候着，只待跟甄氏的车往其别院。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "09",
+    "swipe": 9,
+    "title": "洛阳 · 吴府解围",
+    "meta": [
+      "昼",
+      "吴府",
+      "吴氏"
+    ],
+    "summary": "此前{{user}}曾带兵到吴府，帮吴氏挡开尹模骚扰；今隐慈再报尹模借搜犯之名上门捣乱。{{user}}为校事令，与尹模素来不合，便再率人至吴府查勘。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "10",
+    "swipe": 10,
+    "title": "长安 · 外姑接风",
+    "meta": [
+      "暮",
+      "刺史府",
+      "王氏"
+    ],
+    "summary": "正始四年伐蜀出师，{{user}}任前锋参军抵长安。外舅郭淮在内宅设宴接风，其妻王氏是王凌之妹、令君姻亲，{{user}}称外姑婆；她先在庭中迎客、引{{user}}入厅叙话，四十余岁仍风韵从容。二人初见，{{user}}留意其神态，郭淮尚未归来。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "11",
+    "swipe": 11,
+    "title": "洛阳 · 回廊送别",
+    "meta": [
+      "昼",
+      "吴府回廊",
+      "吴氏"
+    ],
+    "summary": "关中归来后，{{user}}经吴氏之约与司马师在吴府内宅饮茶；司马师当面告庐江郡守与封乐安亭侯，席间曾暂离。{{user}}与吴氏核对旧谊（曾帮其挡尹模），气氛渐近；席终司马师先走，吴氏送{{user}}出内宅至回廊。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "12",
+    "swipe": 12,
+    "title": "洛阳 · 王家厢房",
+    "meta": [
+      "昼",
+      "王家府邸",
+      "卢氏"
+    ],
+    "summary": "何骏获罪入狱，何家走投无路，请金乡公主出面说项。金乡命儿媳卢氏去见{{user}}——卢氏太学时曾与{{user}}相好，后改嫁何骏；{{user}}与何骏还有同窗旧怨，何骏曾不肯援手{{user}}兄长。卢氏持「太学故人」名帖，在{{user}}暂居的王府外等候。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "13",
+    "swipe": 13,
+    "title": "洛阳 · 何府别院",
+    "meta": [
+      "昼",
+      "何府别院",
+      "金乡公主"
+    ],
+    "summary": "在王家厢房，{{user}}没有答应卢氏替何家求情，反而提出要见金乡公主——曹氏宗室，与{{user}}有族亲。{{user}}意在敲打何骏一脉；卢氏传话后，金乡公主写私笺相邀，请{{user}}到何府别院当面一叙。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "14",
+    "swipe": 14,
+    "title": "洛阳 · 乐津里旧宅",
+    "meta": [
+      "暮",
+      "乐津里",
+      "诸葛氏"
+    ],
+    "summary": "司马懿事起后，{{user}}从司马府中救出诸葛诞长女诸葛氏——她原是司马伷之妻——送回乡里安置。诸葛氏感念救命之恩，依约携薄礼来到{{user}}在乐津里的旧宅，正式登门拜谢。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "15",
+    "swipe": 15,
+    "title": "洛阳 · 灶房滤浆",
+    "meta": [
+      "昼",
+      "王家灶房",
+      "柏氏"
+    ],
+    "summary": "郭淮病故，{{user}}随王广在王家府中吊唁。{{user}}暂离前厅进灶房找令君，只见王凌妾柏氏在滤豆浆——二人曾在太傅府侧见过。柏氏怨{{user}}称姨婆太老，留他在厨房等候；拍滤豆汁时脸红，偶尔羞涩回看，令君并不在场。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "16",
+    "swipe": 16,
+    "title": "洛阳 · 卫府署房",
+    "meta": [
+      "昼",
+      "卫将军府",
+      "羊徽瑜"
+    ],
+    "summary": "勤王入洛后{{user}}拜卫将军。羊徽瑜（许允妻）与{{user}}洛阳旧识，夫家母家近来失势，心境低落；她赴夏侯玄宴后顺道来府赏雪，想与{{user}}单独说几句体己话。{{user}}今日沐假，府中无人。",
+    "tags": [
+      "人妻攻略"
+    ]
+  },
+  {
+    "no": "17",
+    "swipe": 17,
     "title": "洛阳 · 王府重见",
     "meta": [
       "昼",
       "王府",
       "王玄姬"
     ],
-    "summary": "勤王入洛后，秦亮随王广至王府。王玄姬、白氏皆有旧事，只能当众依礼装作初见。"
+    "summary": "{{user}}随丈人王广到王府议事。王玄姬与白氏是王广女眷，{{user}}在寿春时曾与她们暗有私情；如今在洛阳王府当众相见，礼法上只能装作素不相识、依礼鞠躬。",
+    "tags": [
+      "权谋朝堂",
+      "旧识重逢"
+    ]
   },
   {
-    "no": "08",
-    "swipe": 8,
+    "no": "18",
+    "swipe": 18,
     "title": "洛阳 · 卫府议东关",
     "meta": [
       "昼",
       "卫将军府",
       "王令君"
     ],
-    "summary": "勤王局面初定，秦亮为卫将军。东关江陵军议前，雨后陪王广庭中散步，令君已有身孕。"
+    "summary": "{{user}}勤王入洛后任卫将军，正室王令君已有身孕。雨后天气闷湿，丈人王广来访，说要在庭院里陪{{user}}散步——江陵、东关用兵之事即将提起，{{user}}尚未得前锋之任，心中自有计较。",
+    "tags": [
+      "权谋朝堂",
+      "军旅征戍"
+    ]
   },
   {
-    "no": "09",
-    "swipe": 9,
+    "no": "19",
+    "swipe": 19,
+    "title": "洛阳 · 吴后初遇",
+    "meta": [
+      "昼",
+      "大将军府",
+      "潘淑"
+    ],
+    "summary": "江陵一战魏军取胜，部将马茂从东吴押解吴王后潘淑到洛阳。{{user}}已晋大将军，依礼在府中设筵接待；潘淑惧怕魏将凌辱，心事重重。{{user}}与她素未谋面，这是两人首次正式相见。",
+    "tags": [
+      "人妻攻略",
+      "江东线"
+    ]
+  },
+  {
+    "no": "20",
+    "swipe": 20,
     "title": "洛阳 · 阅门花茶",
     "meta": [
       "昼",
       "阅门",
       "羊徽瑜"
     ],
-    "summary": "受禅后秦亮仍常在阅门理政。羊徽瑜入宫照应茶汤起居，裴秀等平吴策议即将开场。"
+    "summary": "{{user}}受禅登基，日常在阅门处理政务。羊徽瑜已入宫为妃，与{{user}}旧情绵延，如今可以光明正大在侧奉茶照应；时值平吴之议将起，朝中风声日紧。",
+    "tags": [
+      "受禅称帝"
+    ]
   }
 ];
 
@@ -4091,6 +4368,23 @@ const OPENINGS = [
     function renderOpenings() {
       const list = document.getElementById("openingScroll");
       if (!list) return;
+      const tagClassMap = {
+        "人妻攻略": "wife",
+        "经营发展": "build",
+        "开篇序章": "prologue",
+        "权谋朝堂": "court",
+        "婚娶正室": "wedding",
+        "军旅征戍": "war",
+        "仕进风流": "social",
+        "受禅称帝": "emperor",
+        "旧识重逢": "reunion",
+        "主线津渡": "main",
+        "江东线": "jiangdong",
+      };
+      function tagClass(label) {
+        const kind = tagClassMap[label] || "default";
+        return "mnx-opening-tag mnx-opening-tag--" + kind;
+      }
       list.innerHTML = "";
       OPENINGS.forEach((item, i) => {
         const card = document.createElement("article");
@@ -4099,12 +4393,14 @@ const OPENINGS = [
         card.setAttribute("role", "button");
         card.setAttribute("tabindex", "0");
         card.setAttribute("aria-label", "进入开场：" + item.title);
+        const tags = Array.isArray(item.tags) ? item.tags : [];
         card.innerHTML = `
             <div class="mnx-opening-top">
               <span>第 ${item.no} 卷</span>
               <span class="mnx-click-hint">步入 ›</span>
             </div>
             <div class="mnx-opening-title">${item.title}</div>
+            ${tags.length ? `<div class="mnx-opening-tags">${tags.map(tag => `<span class="${tagClass(tag)}">${tag}</span>`).join("")}</div>` : ""}
             <div class="mnx-opening-meta">
               ${item.meta.map(meta => `<span class="mnx-opening-pill">${meta}</span>`).join("")}
             </div>
