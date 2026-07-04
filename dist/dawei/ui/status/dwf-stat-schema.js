@@ -97,7 +97,30 @@
     z.preprocess(v => (v === null || v === undefined ? [] : v), inner);
   const objectOrEmpty = (inner) =>
     z.preprocess(v => (v === null || v === undefined ? {} : v), inner);
-  
+
+  function syncPresenceFields(data) {
+    var book = data.群芳录 || {};
+    var world = data.世界与剧情 || {};
+    function isOn(name) {
+      var ent = book[name];
+      return !!(ent && typeof ent === 'object' && ent.是否登场 === true);
+    }
+    var sceneRaw = String(world.当前场景角色 || '');
+    var sceneParts = sceneRaw.split(/[、,，\s]+/).map(function (s) { return s.trim(); }).filter(Boolean);
+    var cleaned = [];
+    for (var i = 0; i < sceneParts.length; i++) {
+      var name = sceneParts[i];
+      if (isOn(name) && cleaned.indexOf(name) < 0) cleaned.push(name);
+    }
+    world.当前场景角色 = cleaned.join('、');
+    var cur = String(world.当前互动角色 || '').trim();
+    if (cur && !isOn(cur)) {
+      world.当前互动角色 = cleaned[0] || '';
+    }
+    data.世界与剧情 = world;
+    return data;
+  }
+
   var Schema = z.object({
     世界与剧情: z.object({
       行程: z.coerce.number().transform(v => _.clamp(Math.floor(v), 1, 288)).prefault(1),
@@ -204,7 +227,7 @@
     ),
   
     _潮汛已触发: arrayOrEmpty(z.array(z.string())).describe('EJS 潮汛结算只读追踪'),
-  }).prefault({});
+  }).prefault({}).transform(syncPresenceFields);
   
   global.__DWF_STAT_SCHEMA__ = Schema;
 })(typeof window !== 'undefined' ? window : globalThis);
